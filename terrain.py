@@ -1,6 +1,6 @@
 import tour as t
 import case as c
-import typecase.typecase as tc
+import typecase as tc
 
 class Terrain(object):
 
@@ -28,10 +28,13 @@ class Terrain(object):
 def initcases():
     cases=[]
 
-    for i in range(1,512):
+    for i in range(1,514):
         case=c.Case()
-        if i%32==0 or i%32 == 1 or i >448:
-            case.setType(tc.TERRE)
+        if i >416:
+            if cases[i-33].getType()==tc.typecase.VIDE:
+                case.setType(tc.typecase.HERBE)
+            else:
+                case.setType(tc.typecase.TERRE)
         cases.append(case)
 
     return cases
