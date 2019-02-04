@@ -28,9 +28,9 @@ class Terrain(object):
 def initcases():
     cases=[]
 
-    for i in range(1,514):
+    for i in range(1,578):
         case=c.Case()
-        if i >416:
+        if i >480:
             if cases[i-33].getType()==tc.typecase.VIDE:
                 case.setType(tc.typecase.HERBE)
             else:
