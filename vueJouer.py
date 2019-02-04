@@ -6,6 +6,9 @@ class Vue(object):
     def __init__(self):
         self.fenetre = pygame.display.set_mode((1600, 800))
         pygame.display.set_caption("Bucheron Vie")
+        self.walkRight = [pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.image.load('R3.png'), pygame.image.load('R4.png'), pygame.image.load('R5.png')]
+        self.walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png'), pygame.image.load('L5.png')]
+
 
     def getFenetre(self):
         return self.fenetre
