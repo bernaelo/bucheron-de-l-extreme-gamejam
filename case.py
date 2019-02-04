@@ -1,10 +1,10 @@
-import typecase as t
+import typecase.typecase as t
 
 
 class Case(object):
 
     def __init__(self):
-        self.type = t.typecase.VIDE
+        self.type = t.VIDE
 
     def getType(self):
         return self.type
