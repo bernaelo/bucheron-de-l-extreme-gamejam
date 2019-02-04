@@ -27,15 +27,23 @@ class Vue(object):
             elif terrain.getCases()[i].getType()==tc.typecase.HERBE:
                 self.fenetre.blit(herbe,(i%terrain.getlargeur()*50,i//terrain.getlargeur()*50))
 
-        if bu.getwalkCount() >= 18:
+        if bu.getwalkCount() >= 12:
             bu.reswalkCount()
 
         if bu.getleft():
-            self.fenetre.blit(self.walkLeft[bu.getwalkCount() // 3], (bu.getx(), bu.gety()))
-            bu.incrwalkCount()
+            if bu.getisJump():
+                self.fenetre.blit(self.walkLeft[5], (bu.getx(), bu.gety()))
+                bu.reswalkCount()
+            else:
+                self.fenetre.blit(self.walkLeft[bu.getwalkCount() // 2], (bu.getx(), bu.gety()))
+                bu.incrwalkCount()
         elif bu.getright():
-            self.fenetre.blit(self.walkRight[bu.getwalkCount() // 3], (bu.getx(), bu.gety()))
-            bu.incrwalkCount()
+            if bu.getisJump():
+                self.fenetre.blit(self.walkRight[5], (bu.getx(), bu.gety()))
+                bu.reswalkCount()
+            else:
+                self.fenetre.blit(self.walkRight[bu.getwalkCount() // 2], (bu.getx(), bu.gety()))
+                bu.incrwalkCount()
         else:
             self.fenetre.blit(self.immobile[self.stopCount//4], (bu.getx(), bu.gety()))
             bu.setright(False)

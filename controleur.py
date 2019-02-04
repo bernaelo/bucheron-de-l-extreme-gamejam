@@ -3,6 +3,7 @@ import terrain as t
 import vueJouer as vj
 import bucheron as b
 from pygame.locals import *
+
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -17,7 +18,7 @@ jumpCount=10
 # mainloop
 run = True
 while run:
-    clock.tick(18)
+    clock.tick(27)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -48,10 +49,5 @@ while run:
             jumpCount = 10
 
     vue.Update(terrain, fdp)
-
-
-
-
-
 
 pygame.quit()
