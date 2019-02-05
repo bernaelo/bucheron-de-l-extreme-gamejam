@@ -3,25 +3,25 @@ import terrain as t
 import vueJouer as vj
 import bucheron as b
 from pygame.locals import *
+
 pygame.init()
 
 clock = pygame.time.Clock()
 
-terrain=t.Terrain()
+terrain = t.Terrain()
 vue = vj.Vue()
 fdp = b.Bucheron()
 
-vue.Update(terrain,fdp)
+vue.Update(terrain, fdp)
 
-jumpCount=10
+jumpCount = 10
 # mainloop
 run = True
 while run:
     clock.tick(18)
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
+    for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
+        if event.type == KEYDOWN and event.key == K_ESCAPE:
+            pygame.quit()
 
     keys = pygame.key.get_pressed()
 
@@ -41,17 +41,12 @@ while run:
     else:
         if jumpCount >= -10:
 
-            fdp.sety(fdp.gety()-(jumpCount * abs(jumpCount)) * 0.5)
+            fdp.sety(fdp.gety() - (jumpCount * abs(jumpCount)) * 0.5)
             jumpCount -= 1
         else:
             fdp.setisJump(False)
             jumpCount = 10
 
     vue.Update(terrain, fdp)
-
-
-
-
-
 
 pygame.quit()
