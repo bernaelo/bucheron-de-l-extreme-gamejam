@@ -18,9 +18,9 @@ class Vue(object):
     def Update(self,terrain,bu,fenetre):
         terre = pygame.image.load('terre.png')
         herbe = pygame.image.load('herbe.png')
-        nuagefD = pygame.image.load('NUAGE FIN D.png')
-        nuagefG = pygame.image.load('NUAGE FIN G.png')
-        nuage = pygame.image.load('nuage.png')
+        self.nuagefD = [pygame.image.load('NUAGE FIN D.png'),pygame.image.load('NUAGE FIN D2.png')]
+        self.nuagefG = [pygame.image.load('NUAGE FIN G.png'),pygame.image.load('NUAGE FIN G2.png')]
+        self.nuage = [pygame.image.load('nuage.png'), pygame.image.load('NUAGE mouv2.png')]
         fenetre.blit(pygame.image.load('background.png'),(0,0))
 
         for i in range(0,len(terrain.getCases())-1):
@@ -30,11 +30,14 @@ class Vue(object):
                 elif terrain.getCases()[i][j].getType()==tc.typecase.HERBE:
                     fenetre.blit(herbe,(j*50,i*50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.NUAGE:
-                    fenetre.blit(nuage,(j*50,i*50))
+                    #fenetre.blit(nuage,(j*50,i*50))
+                    fenetre.blit(self.nuage[self.stopCount // 4], (j*50, i*50))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGED:
-                    fenetre.blit(nuagefD, (j * 50, i * 50))
+                    #fenetre.blit(nuagefD, (j * 50, i * 50))
+                    fenetre.blit(self.nuagefD[self.stopCount // 4], (j * 50, i * 50))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGEG:
-                    fenetre.blit(nuagefG,(j*50,i*50))
+                    #fenetre.blit(nuagefG,(j*50,i*50))
+                    fenetre.blit(self.nuagefG[self.stopCount // 4], (j * 50, i * 50))
 
 
         if self.walkCount >= 12:
