@@ -16,6 +16,8 @@ collide=terrain.initcases()
 vue = vj.Vue()
 bucheron = b.Bucheron()
 #mechant = m.Mechant()
+son = pygame.mixer.Sound("son.wav")
+
 
 vue.Update(terrain, bucheron, fenetre)
 jumpCount = 10
@@ -23,7 +25,7 @@ jumpCount = 10
 run = True
 while run:
     clock.tick(18)
-
+    son.play()
     for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
         if event.type == KEYDOWN and event.key == K_ESCAPE or event.type==pygame.QUIT:
             run=False
