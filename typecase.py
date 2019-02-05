@@ -23,7 +23,6 @@ typecase= type(
             6: "NUAGED",
             7: "NUAGEG",
             8: "RESSORT",
-        }
             7: "NUAGEG",
             8: "TOUR"}
     })
