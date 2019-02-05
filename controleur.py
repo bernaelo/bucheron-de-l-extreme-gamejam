@@ -17,6 +17,7 @@ vue = vj.Vue()
 bucheron = b.Bucheron()
 #mechant = m.Mechant()
 son = pygame.mixer.Sound("son.wav")
+saut = pygame.mixer.Sound("saut.wav")
 
 
 vue.Update(terrain, bucheron, fenetre)
@@ -25,7 +26,7 @@ jumpCount = 10
 run = True
 while run:
     clock.tick(18)
-    son.play()
+
     for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
         if event.type == KEYDOWN and event.key == K_ESCAPE or event.type==pygame.QUIT:
             run=False
@@ -41,7 +42,9 @@ while run:
 
     if not (bucheron.getisJump()):
         if keys[pygame.K_SPACE]:
+            saut.play()
             bucheron.setisJump(True)
+
 
     else:
         bucheron.sauter(collide)
