@@ -4,7 +4,7 @@ import typecase as tc
 class Vue(object):
 
     def __init__(self):
-        self.fenetre = pygame.display.set_mode((1600, 900))
+        self.fenetre = pygame.display.set_mode((1000, 700))
         pygame.display.set_caption("Bucheron Vie")
         self.walkLeft = [pygame.image.load('Bucheron-Run-Left0.png'), pygame.image.load('Bucheron-Run-Left1.png'), pygame.image.load('Bucheron-Run-Left2.png'), pygame.image.load('Bucheron-Run-Left3.png'), pygame.image.load('Bucheron-Run-Left4.png'),pygame.image.load('Bucheron-Run-Left5.png')]
         self.walkRight = [pygame.image.load('Bucheron-Run-Right0.png'), pygame.image.load('Bucheron-Run-Right1.png'), pygame.image.load('Bucheron-Run-Right2.png'), pygame.image.load('Bucheron-Run-Right3.png'), pygame.image.load('Bucheron-Run-Right4.png'),pygame.image.load('Bucheron-Run-Right5.png')]
@@ -17,6 +17,7 @@ class Vue(object):
     def Update(self,terrain,bu):
         terre = pygame.image.load('terre.png')
         herbe = pygame.image.load('herbe.png')
+        nuage = pygame.image.load('nuage.png')
         bg = pygame.image.load('bg.jpg')
 
         self.fenetre.blit(bg,(0,0))
@@ -27,6 +28,9 @@ class Vue(object):
                     self.fenetre.blit(terre,(j*50,i*50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.HERBE:
                     self.fenetre.blit(herbe,(j*50,i*50))
+
+                elif terrain.getCases()[i][j].getType()==tc.typecase.NUAGE:
+                    self.fenetre.blit(nuage,(j*50,i*50))
 
         if bu.getwalkCount() >= 12:
             bu.reswalkCount()
@@ -53,6 +57,8 @@ class Vue(object):
             self.stopCount += 1
             if self.stopCount>7:
                 self.stopCount=0
+
+        pygame.draw.rect(self.fenetre,(255,0,0),bu.gethitbox(),2)
 
         pygame.display.flip()
 

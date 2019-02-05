@@ -11,7 +11,6 @@ terrain=t.Terrain()
 vue = vj.Vue()
 fdp = b.Bucheron()
 vue.Update(terrain,fdp)
-jumpCount=10
 
 # mainloop
 run = True
@@ -37,13 +36,7 @@ while run:
             left = False
             walkCount = 0
     else:
-        if jumpCount >= -10:
-
-            fdp.sety(fdp.gety()-(jumpCount * abs(jumpCount)) * 0.5)
-            jumpCount -= 1
-        else:
-            fdp.setisJump(False)
-            jumpCount = 10
+        fdp.sauter()
 
     vue.Update(terrain, fdp)
 
