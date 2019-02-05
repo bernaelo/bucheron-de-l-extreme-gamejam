@@ -20,7 +20,7 @@ class Vue(object):
         herbe = pygame.image.load('herbe.png')
         nuagefD = pygame.image.load('NUAGE FIN D.png')
         nuagefG = pygame.image.load('NUAGE FIN G.png')
-        nuage = pygame.image.load('nuage.png')
+        nuage = [pygame.image.load('nuage.png'), pygame.image.load('NUAGE mouv2.png')]
         fenetre.blit(pygame.image.load('background.png'),(0,0))
 
         for i in range(0,len(terrain.getCases())-1):
