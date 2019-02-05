@@ -2,11 +2,10 @@ class Bucheron(object):
 
     def __init__(self):
         self.x=500
-        self.y=400
+        self.y=445
         self.right=False
         self.left=False
         self.speed=13
-        self.walkCount = 0
         self.isJump=False
         self.hitbox=(self.x + 40,self.y+40,80,114)
         self.jumpCount = 10
@@ -41,15 +40,6 @@ class Bucheron(object):
 
     def setspeed(self, sp):
         self.speed = sp
-
-    def getwalkCount(self):
-        return self.walkCount
-
-    def incrwalkCount(self):
-        self.walkCount += 1
-
-    def reswalkCount(self):
-        self.walkCount = 0
 
     def getisJump(self):
         return self.isJump

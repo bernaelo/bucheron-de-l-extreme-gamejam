@@ -7,7 +7,7 @@ from pygame.locals import *
 
 pygame.init()
 
-fenetre = pygame.display.set_mode((1600, 900), pygame.FULLSCREEN)
+fenetre = pygame.display.set_mode((1000, 700))
 
 clock = pygame.time.Clock()
 
@@ -22,9 +22,10 @@ jumpCount = 10
 run = True
 while run:
     clock.tick(18)
+
     for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
-        if event.type == KEYDOWN and event.key == K_ESCAPE:
-            pygame.quit()
+        if event.type == KEYDOWN and event.key == K_ESCAPE or event.type==pygame.QUIT:
+            run=False
 
     keys = pygame.key.get_pressed()
 
@@ -38,18 +39,10 @@ while run:
     if not (bucheron.getisJump()):
         if keys[pygame.K_SPACE]:
             bucheron.setisJump(True)
-            right = False
-            left = False
-            walkCount = 0
-    else:
-        if jumpCount >= -10:
 
-            bucheron.sety(bucheron.gety() - (jumpCount * abs(jumpCount)) * 0.5)
-            jumpCount -= 1
-        else:
-            bucheron.setisJump(False)
-            jumpCount = 10
+    else:
+        bucheron.sauter()
 
     vue.Update(terrain, bucheron,fenetre)
     mechant.Creer(100, 300, fenetre)
-pygame.quit()s
+pygame.quit()

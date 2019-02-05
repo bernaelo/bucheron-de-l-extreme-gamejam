@@ -9,45 +9,53 @@ class Vue(object):
         self.walkRight = [pygame.image.load('Bucheron-Run-Right0.png'), pygame.image.load('Bucheron-Run-Right1.png'), pygame.image.load('Bucheron-Run-Right2.png'), pygame.image.load('Bucheron-Run-Right3.png'), pygame.image.load('Bucheron-Run-Right4.png'),pygame.image.load('Bucheron-Run-Right5.png')]
         self.immobile = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.load('Bucheron-Stop-Right1.png')]
         self.stopCount =0
+        self.walkCount = 0
 
-    def Update(self, terrain, bu, fenetre):
+
+    def Update(self,terrain,bu,fenetre):
         terre = pygame.image.load('terre.png')
         herbe = pygame.image.load('herbe.png')
-        bg = pygame.image.load('background.jpg')
+        nuage = pygame.image.load('nuage.png')
+        bg = pygame.image.load('bg.jpg')
 
-        fenetre.blit(bg, (0, 0))
+        fenetre.blit(bg,(0,0))
 
         for i in range(0,len(terrain.getCases())-1):
-            if terrain.getCases()[i].getType()==tc.typecase.TERRE:
-                fenetre.blit(terre,(i%terrain.getlargeur()*50,i//terrain.getlargeur()*50))
-            elif terrain.getCases()[i].getType()==tc.typecase.HERBE:
-                fenetre.blit(herbe,(i%terrain.getlargeur()*50,i//terrain.getlargeur()*50))
+            for j in range(0,len(terrain.getCases()[i])-1):
+                if terrain.getCases()[i][j].getType()==tc.typecase.TERRE:
+                    fenetre.blit(terre,(j*50,i*50))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.HERBE:
+                    fenetre.blit(herbe,(j*50,i*50))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.NUAGE:
+                    fenetre.blit(nuage,(j*50,i*50))
 
-        if bu.getwalkCount() >= 12:
-            bu.reswalkCount()
+        if self.walkCount >= 12:
+            self.walkCount=0
 
         if bu.getleft():
             if bu.getisJump():
                 fenetre.blit(self.walkLeft[5], (bu.getx(), bu.gety()))
-                bu.reswalkCount()
+                self.walkCount=0
             else:
-                fenetre.blit(self.walkLeft[bu.getwalkCount() // 2], (bu.getx(), bu.gety()))
-                bu.incrwalkCount()
+                fenetre.blit(self.walkLeft[self.walkCount // 2], (bu.getx(), bu.gety()))
+                self.walkCount+=1
         elif bu.getright():
             if bu.getisJump():
                 fenetre.blit(self.walkRight[5], (bu.getx(), bu.gety()))
-                bu.reswalkCount()
+                self.walkCount=0
             else:
-                fenetre.blit(self.walkRight[bu.getwalkCount() // 2], (bu.getx(), bu.gety()))
-                bu.incrwalkCount()
+                fenetre.blit(self.walkRight[self.walkCount // 2], (bu.getx(), bu.gety()))
+                self.walkCount+=1
         else:
             fenetre.blit(self.immobile[self.stopCount//4], (bu.getx(), bu.gety()))
             bu.setright(False)
             bu.setleft(False)
-            bu.reswalkCount()
+            self.walkCount=0
             self.stopCount += 1
             if self.stopCount>7:
                 self.stopCount=0
+
+        pygame.draw.rect(fenetre,(255,0,0),bu.gethitbox(),2)
 
         pygame.display.flip()
 

@@ -30,9 +30,9 @@ class Terrain(object):
             ligne=[]
             for j in range(0,21):
                 case=c.Case()
-                if i==8 and j in range(13,18):
+                if i==9 and j in range(10,15):
                     case.setType(tc.typecase.NUAGE)
-                if i >10:
+                if i >11:
                     if i>0 and listecases[i-1][j].getType()==tc.typecase.VIDE:
                         case.setType(tc.typecase.HERBE)
                     else:
