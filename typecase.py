@@ -1,4 +1,4 @@
-typecase: type = type(
+typecase= type(
     "TypeCase",
     (),
     {

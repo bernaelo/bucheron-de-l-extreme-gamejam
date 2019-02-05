@@ -7,7 +7,8 @@ class Vue(object):
         pygame.display.set_caption("Bucheron Vie")
         self.walkLeft = [pygame.image.load('Bucheron-Run-Left0.png'), pygame.image.load('Bucheron-Run-Left1.png'), pygame.image.load('Bucheron-Run-Left2.png'), pygame.image.load('Bucheron-Run-Left3.png'), pygame.image.load('Bucheron-Run-Left4.png'),pygame.image.load('Bucheron-Run-Left5.png')]
         self.walkRight = [pygame.image.load('Bucheron-Run-Right0.png'), pygame.image.load('Bucheron-Run-Right1.png'), pygame.image.load('Bucheron-Run-Right2.png'), pygame.image.load('Bucheron-Run-Right3.png'), pygame.image.load('Bucheron-Run-Right4.png'),pygame.image.load('Bucheron-Run-Right5.png')]
-        self.immobile = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.load('Bucheron-Stop-Right1.png')]
+        self.immobileDroite = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.load('Bucheron-Stop-Right1.png')]
+        self.immobileGauche = [pygame.image.load('Bucheron-Stop-Left0.png'), pygame.image.load('Bucheron-Stop-Left1.png')]
         self.stopCount =0
         self.walkCount = 0
 
@@ -16,9 +17,7 @@ class Vue(object):
         terre = pygame.image.load('terre.png')
         herbe = pygame.image.load('herbe.png')
         nuage = pygame.image.load('nuage.png')
-        bg = pygame.image.load('bg.jpg')
-
-        fenetre.blit(bg,(0,0))
+        fenetre.fill((255,255,255))
 
         for i in range(0,len(terrain.getCases())-1):
             for j in range(0,len(terrain.getCases()[i])-1):
@@ -47,7 +46,10 @@ class Vue(object):
                 fenetre.blit(self.walkRight[self.walkCount // 2], (bu.getx(), bu.gety()))
                 self.walkCount+=1
         else:
-            fenetre.blit(self.immobile[self.stopCount//4], (bu.getx(), bu.gety()))
+            if bu.getoldleft():
+                fenetre.blit(self.immobileGauche[self.stopCount//4], (bu.getx(), bu.gety()))
+            else:
+                fenetre.blit(self.immobileDroite[self.stopCount // 4], (bu.getx(), bu.gety()))
             bu.setright(False)
             bu.setleft(False)
             self.walkCount=0
