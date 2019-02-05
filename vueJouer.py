@@ -18,9 +18,13 @@ class Vue(object):
         self.herbe = pygame.image.load('herbe.png')
         self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png'), pygame.image.load('NUAGE mouv2.png')]
         self.stopCount = 0
+        self.arbre = pygame.image.load('Arbre.png')
+        self.stopCount =0
         self.walkCount = 0
         self.nuageCount = 0
         self.ressortCount = 0
+        self.nuageCount=0
+        self.attCount=0
 
 
     def Update(self,terrain,bu,fenetre):
@@ -43,12 +47,15 @@ class Vue(object):
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGEG:
                     #fenetre.blit(nuagefG,(j*50,i*50))
                     fenetre.blit(self.nuagefG[self.nuageCount // 10], (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRE:
+                    fenetre.blit(self.arbre,(j*50,i*50))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
                     fenetre.blit(self.ressort[self.ressortCount // 10], (j * 50, i * 50))
 
         self.nuageCount +=1
         if self.nuageCount>19:
             self.nuageCount=0
+
 
         self.ressortCount += 1
         if self.ressortCount > 15:
@@ -57,13 +64,26 @@ class Vue(object):
         if self.walkCount >= 12:
             self.walkCount=0
 
-        if bu.getleft():
+        if bu.isAttacking():
+            if bu.getoldleft():
+                fenetre.blit(self.attaqueGauche[self.attCount ], (bu.getx(), bu.gety()))
+            else:
+                fenetre.blit(self.attaqueDroite[self.attCount ], (bu.getx(), bu.gety()))
+
+            self.attCount+=1
+            if self.attCount>4:
+                self.attCount=0
+                bu.setAttack(False)
+
+        elif bu.getleft():
             if bu.getisJump():
                 fenetre.blit(self.walkLeft[5], (bu.getx(), bu.gety()))
                 self.walkCount=0
             else:
                 fenetre.blit(self.walkLeft[self.walkCount // 2], (bu.getx(), bu.gety()))
                 self.walkCount+=1
+                if self.walkCount > 11:
+                    self.walkCount = 0
         elif bu.getright():
             if bu.getisJump():
                 fenetre.blit(self.walkRight[5], (bu.getx(), bu.gety()))
@@ -71,6 +91,8 @@ class Vue(object):
             else:
                 fenetre.blit(self.walkRight[self.walkCount // 2], (bu.getx(), bu.gety()))
                 self.walkCount+=1
+                if self.walkCount > 11:
+                    self.walkCount = 0
         else:
             if bu.getoldleft():
                 fenetre.blit(self.immobileGauche[self.stopCount//4], (bu.getx(), bu.gety()))
@@ -84,6 +106,8 @@ class Vue(object):
                 self.stopCount=0
 
         pygame.draw.rect(fenetre,(255,0,0),bu.gethitbox(),2)
+        pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
+        pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
 
         pygame.display.flip()
 
