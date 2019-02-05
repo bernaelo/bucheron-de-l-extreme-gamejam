@@ -20,7 +20,7 @@ class Mechant(object):
                 if event.type == KEYDOWN:  # Si un de ces événements est de type QUIT
                     self.quitter = True  # On arrête la boucle
             if self.mouvement == 1:
-                fond = pygame.image.load("background.jpg").convert()
+                fond = pygame.image.load("background.png").convert()
                 fenetre.blit(fond, (0, 0))
                 ninja = pygame.image.load("Ninja_Mouvement1.png").convert_alpha()
                 fenetre.blit(ninja, (x, y))
@@ -29,7 +29,7 @@ class Mechant(object):
                 self.mouvement = 0
                 # sprite2
             elif self.mouvement == 0:
-                fond = pygame.image.load("background.jpg").convert()
+                fond = pygame.image.load("background.png").convert()
                 fenetre.blit(fond, (0, 0))
                 ninja = pygame.image.load("Ninja_Mouvement0.png").convert_alpha()
                 fenetre.blit(ninja, (x, y))
@@ -42,7 +42,7 @@ class Mechant(object):
             print(x)
             if x >= 350:
                 # sprite 1
-                fond = pygame.image.load("background.jpg").convert()
+                fond = pygame.image.load("background.png").convert()
                 fenetre.blit(fond, (0, 0))
                 ninja = pygame.image.load("Ninja MOUV attaque0.png").convert_alpha()
                 fenetre.blit(ninja, (x, y))
@@ -51,7 +51,7 @@ class Mechant(object):
                 pygame.time.delay(100)
 
                 # sprite 2
-                fond = pygame.image.load("background.jpg").convert()
+                fond = pygame.image.load("background.png").convert()
                 fenetre.blit(fond, (0, 0))
                 ninja = pygame.image.load("Ninja MOUV attaque1.png").convert_alpha()
                 fenetre.blit(ninja, (x, y))
@@ -60,7 +60,7 @@ class Mechant(object):
                 pygame.time.delay(250)
 
                 # sprite 3
-                fond = pygame.image.load("background.jpg").convert()
+                fond = pygame.image.load("background.png").convert()
                 fenetre.blit(fond, (0, 0))
                 ninja = pygame.image.load("Ninja MOUV attaque0.png").convert_alpha()
                 fenetre.blit(ninja, (x, y))

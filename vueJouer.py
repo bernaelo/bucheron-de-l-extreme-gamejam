@@ -21,7 +21,7 @@ class Vue(object):
         nuagefD = pygame.image.load('NUAGE FIN D.png')
         nuagefG = pygame.image.load('NUAGE FIN G.png')
         nuage = pygame.image.load('nuage.png')
-        fenetre.fill((255,255,255))
+        fenetre.blit(pygame.image.load('background.png'),(0,0))
 
         for i in range(0,len(terrain.getCases())-1):
             for j in range(0,len(terrain.getCases()[i])-1):
