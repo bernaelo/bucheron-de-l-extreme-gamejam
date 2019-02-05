@@ -2,6 +2,7 @@ import pygame
 import terrain as t
 import vueJouer as vj
 import bucheron as b
+import tour as tour
 import mechants as m
 from pygame.locals import *
 
@@ -21,6 +22,7 @@ son = pygame.mixer.Sound("Theme.wav")
 saut = pygame.mixer.Sound("saut.wav")
 attB = pygame.mixer.Sound("attaque_hache.wav")
 
+
 son.set_volume(0.5)
 son.play()
 vue.Update(terrain, bucheron, fenetre)
@@ -35,6 +37,8 @@ while run:
             run=False
 
     keys = pygame.key.get_pressed()
+
+
 
     if not (bucheron.getisJump()):
         if keys[pygame.K_SPACE]:
