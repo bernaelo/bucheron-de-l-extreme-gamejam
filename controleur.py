@@ -11,7 +11,6 @@ terrain=t.Terrain()
 vue = vj.Vue()
 fdp = b.Bucheron()
 vue.Update(terrain,fdp)
-terrain.printcases()
 jumpCount=10
 
 # mainloop

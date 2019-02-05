@@ -21,12 +21,6 @@ class Terrain(object):
     def getlargeur(self):
         return self.largeur
 
-    def printcases(self):
-        for i in range(0,len(self.cases)-1):
-            for j in range(0,len(self.cases[i])-1):
-                if self.cases[i][j].getType()==tc.typecase.TERRE:
-                    print("ta grosse mere")
-
 
 
 def initcases():
