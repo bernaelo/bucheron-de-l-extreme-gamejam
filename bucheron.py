@@ -9,6 +9,7 @@ class Bucheron(object):
         self.isJump=False
         self.hitbox=(self.x + 40,self.y+40,80,114)
         self.jumpCount = 10
+        self.standing=True
 
 
     def getx(self):
@@ -60,21 +61,25 @@ class Bucheron(object):
         self.x += self.speed
         self.right = True
         self.left = False
+        self.standing = False
         self.updhitbox()
 
     def bougergauche(self):
         self.x -= self.speed
         self.left = True
         self.right = False
+        self.standing = False
         self.updhitbox()
 
     def pasbouger(self):
         self.walkCount = 0
-        self.left = False
-        self.right = False
+        self.standing = True
 
     def gethitbox(self):
         return self.hitbox
 
     def updhitbox(self):
         self.hitbox=(self.x + 40,self.y+40,80,114)
+
+    def isstanding(self):
+        return self.standing
