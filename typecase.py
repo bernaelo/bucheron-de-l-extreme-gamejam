@@ -11,6 +11,7 @@ typecase= type(
         "NUAGED":6,
         "NUAGEG":7,
         "RESSORT":8,
+        "TOUR":8,
 
         "dictReverse": {
             0: "VIDE",
@@ -23,4 +24,6 @@ typecase= type(
             7: "NUAGEG",
             8: "RESSORT",
         }
+            7: "NUAGEG",
+            8: "TOUR"}
     })

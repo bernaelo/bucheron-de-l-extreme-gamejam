@@ -22,8 +22,8 @@ son = pygame.mixer.Sound("Theme.wav")
 saut = pygame.mixer.Sound("saut.wav")
 attB = pygame.mixer.Sound("attaque_hache.wav")
 
-son.play()
 son.set_volume(0.5)
+son.play()
 vue.Update(terrain, bucheron, fenetre)
 jumpCount = 10
 # mainloop
@@ -39,6 +39,7 @@ while run:
 
     if not (bucheron.getisJump()):
         if keys[pygame.K_SPACE]:
+            saut.set_volume(0.2)
             saut.play()
             bucheron.setisJump(True)
     else:
@@ -46,6 +47,7 @@ while run:
         #bucheron.sauter(ressorts)
 
     if keys[pygame.K_d]:
+        attB.set_volume(0.2)
         attB.play()
         bucheron.attack()
     elif keys[pygame.K_LEFT]:
