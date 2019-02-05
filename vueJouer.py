@@ -19,6 +19,7 @@ class Vue(object):
         self.stopCount =0
         self.walkCount = 0
         self.nuageCount=0
+        self.attCount=0
 
 
     def Update(self,terrain,bu,fenetre):
@@ -49,7 +50,19 @@ class Vue(object):
         if self.walkCount >= 12:
             self.walkCount=0
 
-        if bu.getleft():
+        if bu.isAttacking():
+            if bu.getoldleft():
+                fenetre.blit(self.attaqueGauche[self.attCount ], (bu.getx(), bu.gety()))
+            else:
+                fenetre.blit(self.attaqueDroite[self.attCount ], (bu.getx(), bu.gety()))
+
+            self.attCount+=1
+            if self.attCount>4:
+                self.attCount=0
+                bu.setAttack(False)
+                print("faux")
+
+        elif bu.getleft():
             if bu.getisJump():
                 fenetre.blit(self.walkLeft[5], (bu.getx(), bu.gety()))
                 self.walkCount=0
