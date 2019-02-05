@@ -30,7 +30,6 @@ class Vue(object):
         self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png'), pygame.image.load('NUAGE mouv2.png')]
         self.stopCount = 0
         self.arbre = pygame.image.load('Arbre.png')
-        self.tour = pygame.image.load('tour23.png')
         self.stopCount = 0
         self.walkCount = 0
         self.ressortCount = 0
@@ -61,7 +60,7 @@ class Vue(object):
                 elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
                     fenetre.blit(self.ressort[self.ressortCount // 10], (j * 50, i * 50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.TOUR:
-                    fenetre.blit(self.tour,(j*50,i*50))
+                    fenetre.blit(pygame.image.load('tour23.png'),(j*50,i*50))
 
         self.nuageCount += 1
         if self.nuageCount > 19:
