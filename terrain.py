@@ -58,6 +58,9 @@ class Terrain(object):
                     else:
                         case.setType(tc.typecase.TERRE)
                         collision.append(pygame.Rect(j * 50, i * 50,50,50))
+                if i == 11 and j == 16:
+                    case.setType(tc.typecase.RESSORT)
+                    collision.append(pygame.Rect(j * 50, i * 50,50,50))
                 ligne.append(case)
             listecases.append(ligne)
         self.cases=listecases

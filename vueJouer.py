@@ -16,9 +16,11 @@ class Vue(object):
         self.nuage = [pygame.image.load('nuage.png'), pygame.image.load('NUAGE mouv2.png')]
         self.terre = pygame.image.load('terre.png')
         self.herbe = pygame.image.load('herbe.png')
-        self.stopCount =0
+        self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png'), pygame.image.load('NUAGE mouv2.png')]
+        self.stopCount = 0
         self.walkCount = 0
-        self.nuageCount=0
+        self.nuageCount = 0
+        self.ressortCount = 0
 
 
     def Update(self,terrain,bu,fenetre):
@@ -41,10 +43,16 @@ class Vue(object):
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGEG:
                     #fenetre.blit(nuagefG,(j*50,i*50))
                     fenetre.blit(self.nuagefG[self.nuageCount // 10], (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
+                    fenetre.blit(self.ressort[self.ressortCount // 10], (j * 50, i * 50))
 
         self.nuageCount +=1
         if self.nuageCount>19:
             self.nuageCount=0
+
+        self.ressortCount += 1
+        if self.ressortCount > 15:
+            self.ressortCount = 0
 
         if self.walkCount >= 12:
             self.walkCount=0

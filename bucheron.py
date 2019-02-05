@@ -138,3 +138,8 @@ class Bucheron(object):
         self.jumpCount=-1
         self.isJump=True
         self.sauter(collide)
+
+    def jumpspring(self, collide):
+        self.jumpCount = 12
+        self.isJump = True
+        self.sauter(collide)
