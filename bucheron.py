@@ -9,8 +9,8 @@ class Bucheron(object):
         self.left=False
         self.speed=13
         self.isJump=False
-        self.hitbox=(self.x + 40,self.y+40,80,114)
-        self.jumpCount = 10
+        self.hitbox=(self.x + 60,self.y+40,40,114)
+        self.jumpCount = 9.5
         self.oldleft=False
 
 
@@ -78,12 +78,12 @@ class Bucheron(object):
             self.jumpCount -= 1
 
             if test:
-                self.jumpCount = 10
+                self.jumpCount = 9.5
                 self.isJump = False
 
         else:
             self.isJump=False
-            self.jumpCount = 10
+            self.jumpCount = 9.5
         self.updhitbox()
 
     def bougerdroite(self,collide):
@@ -98,7 +98,8 @@ class Bucheron(object):
         self.left = False
         self.oldleft = False
         #descendre
-        #self.descendre(collide)
+        if not self.isJump:
+            self.descendre(collide)
         self.updhitbox()
 
     def bougergauche(self,collide):
@@ -114,7 +115,8 @@ class Bucheron(object):
         self.oldleft = True
 
         #descendre
-        #self.descendre(collide)
+        if not self.isJump:
+            self.descendre(collide)
         self.updhitbox()
 
     def pasbouger(self):
@@ -126,7 +128,7 @@ class Bucheron(object):
         return self.hitbox
 
     def updhitbox(self):
-        self.hitbox=(self.x + 40,self.y+40,80,114)
+        self.hitbox=(self.x + 60,self.y+40,40,114)
 
     def getoldleft(self):
         return self.oldleft
@@ -134,4 +136,5 @@ class Bucheron(object):
 
     def descendre(self,collide):
         self.jumpCount=-1
+        self.isJump=True
         self.sauter(collide)
