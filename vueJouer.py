@@ -118,8 +118,9 @@ class Vue(object):
         pygame.draw.rect(fenetre, (255, 0, 0), bu.gethitbox(), 2)
         pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
         pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
-
-        if bu.getx() == mechant.getx() and bu.gety() == mechant.gety():
+        print(bu.gety())
+        print(mechant.gety())
+        if bu.getx() <= mechant.getx() <= bu.getx() + 40:
             mechant.attaqueBucheronDroite(fenetre)
 
         elif mechant.getx() == 500:  # emplacement de la tour
