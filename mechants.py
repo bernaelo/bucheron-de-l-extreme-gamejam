@@ -11,9 +11,9 @@ quitter = False
 mouvement = 0
 
 # Ouverture de la fenêtre Pygame
-fenetre = pygame.display.set_mode((640, 480))
+fenetre = pygame.display.set_mode((700, 700), FULLSCREEN)
 
-while x != 350 and quitter == False:
+while x <= 350 and quitter == False:
     # si part de la gauche
     # sprite 1
     for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
@@ -39,9 +39,8 @@ while x != 350 and quitter == False:
 
     x += 3
 
-    # si part de la droite
     print(x)
-    if x == 350:
+    if x >= 350:
         # sprite 1
         fond = pygame.image.load("background.jpg").convert()
         fenetre.blit(fond, (0, 0))
@@ -69,6 +68,7 @@ while x != 350 and quitter == False:
         pygame.display.update()
         pygame.time.delay(300)
 
+    # si part de la droite
     if y == 100:
         # x = taille de la map (512)
         x = 512
@@ -86,10 +86,7 @@ while x != 350 and quitter == False:
 
 pygame.display.flip()
 
-continuer = 1
-
-# Boucle infinie
-while continuer:
+while 1:
     for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
-        if event.type == QUIT:  # Si un de ces événements est de type QUIT
-            continuer = 0  # On arrête la boucle
+        if event.type == KEYDOWN and event.key == K_ESCAPE:
+            pygame.quit()
