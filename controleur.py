@@ -17,6 +17,7 @@ vue = vj.Vue()
 bucheron = b.Bucheron()
 #mechant = m.Mechant()
 son = pygame.mixer.Sound("son.wav")
+saut = pygame.mixer.Sound("saut.wav")
 
 son.play()
 
@@ -35,7 +36,9 @@ while run:
 
     if not (bucheron.getisJump()):
         if keys[pygame.K_SPACE]:
+            saut.play()
             bucheron.setisJump(True)
+
 
     else:
         bucheron.sauter(collide)
