@@ -130,6 +130,7 @@ class Bucheron(object):
         self.isAttack=True
 
     def pasbouger(self):
+        self.walkCount = 0
         self.left = False
         self.right = False
 
@@ -150,6 +151,7 @@ class Bucheron(object):
     def getoldleft(self):
         return self.oldleft
 
+
     def descendre(self,collide):
         self.jumpCount=-1
         self.isJump=True
@@ -160,3 +162,6 @@ class Bucheron(object):
 
     def setAttack(self,b):
         self.isAttack = b
+
+    def jumpspring(self, collide):
+        self.sauter(collide)
