@@ -8,7 +8,6 @@ class Terrain(object):
         self.tour=t.Tour()
         self.cases=initcases()
         self.posTour=(850,650)
-        self.largeur=32
 
     def getTour(self):
         return self.tour
@@ -24,17 +23,18 @@ class Terrain(object):
 
 
 
-
 def initcases():
     cases=[]
 
-    for i in range(1,578):
-        case=c.Case()
-        if i >480:
-            if cases[i-33].getType()==tc.typecase.VIDE:
-                case.setType(tc.typecase.HERBE)
-            else:
-                case.setType(tc.typecase.TERRE)
-        cases.append(case)
-
+    for i in range(0,19):
+        ligne=[]
+        for j in range(0,33):
+            case=c.Case()
+            if i >14:
+                if cases[i-1][j].getType()==tc.typecase.VIDE:
+                    case.setType(tc.typecase.HERBE)
+                else:
+                    case.setType(tc.typecase.TERRE)
+            ligne.append(case)
+        cases.append(ligne)
     return cases
