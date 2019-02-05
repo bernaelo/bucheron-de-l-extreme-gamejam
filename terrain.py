@@ -11,6 +11,7 @@ class Terrain(object):
         self.posTour=(850,650)
         self.collide=[]
         self.arbres=[]
+        self.posArbres=[]
 
 
     def getTour(self):
@@ -31,6 +32,7 @@ class Terrain(object):
         listecases=[]
         collision=[]
         suede=[]
+        posiArbres=[]
         for i in range(0,15):
             ligne=[]
             for j in range(0,21):
@@ -38,11 +40,11 @@ class Terrain(object):
                 if i==6 and j==5:
                     case.setType(tc.typecase.ARBRE)
                     suede.append(pygame.Rect(j * 50, i * 50, 50, 50))
-
+                    posiArbres.append((j,i))
                 if i==11 and j==7:
                     case.setType(tc.typecase.ARBRE)
                     suede.append(pygame.Rect(j * 50, i * 50, 50, 50))
-
+                    posiArbres.append((j,i))
                 if i==7 and j in range(3,7):
                     if j==3:
                         case.setType(tc.typecase.NUAGEG)
@@ -73,8 +75,16 @@ class Terrain(object):
             listecases.append(ligne)
         self.cases=listecases
         self.collide=collision
+        self.arbres=suede
+        self.posArbres=posiArbres
 
     def getCollide(self):
         return self.collide
+
+    def getArbres(self):
+        return self.arbres
+
+    def getPosArbres(self):
+        return self.posArbres
 
 

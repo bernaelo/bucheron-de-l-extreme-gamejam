@@ -16,6 +16,8 @@ class Bucheron(object):
         self.oldleft=False
         self.isAttack=False
         self.traitrise=False
+        self.coupHache=False
+        self.bucheportee=0
 
 
     def getx(self):
@@ -167,3 +169,15 @@ class Bucheron(object):
 
     def getTraitrise(self):
         return self.traitrise
+
+    def getCoupHache(self):
+        return self.coupHache
+
+    def setCoupHache(self,b):
+        self.coupHache = b
+
+    def ajoutbuche(self):
+        self.bucheportee += 1
+
+    def getbucheportee(self):
+        return self.bucheportee

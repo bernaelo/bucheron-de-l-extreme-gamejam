@@ -17,13 +17,14 @@ class Vue(object):
         self.terre = pygame.image.load('terre.png')
         self.herbe = pygame.image.load('herbe.png')
         self.arbre = pygame.image.load('Arbre2.png')
+        self.arbrecoupe = pygame.image.load('Arbre_coupe2.png')
         self.stopCount =0
         self.walkCount = 0
         self.nuageCount=0
         self.attCount=0
 
 
-    def Update(self,terrain,bu,fenetre):
+    def Update(self,terrain,bu,fenetre,arbres):
 
 
         fenetre.blit(pygame.image.load('background.png'),(0,0))
@@ -45,6 +46,8 @@ class Vue(object):
                     fenetre.blit(self.nuagefG[self.nuageCount // 10], (j * 50, i * 50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRE:
                     fenetre.blit(self.arbre,(j*50 -10,i*50 -28))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRECOUPE:
+                    fenetre.blit(self.arbrecoupe,(j*50 -10,i*50 -28))
 
         self.nuageCount +=1
         if self.nuageCount>19:
@@ -59,6 +62,10 @@ class Vue(object):
                 fenetre.blit(self.attaqueDroite[self.attCount ], (bu.getx(), bu.gety()))
 
             self.attCount+=1
+            if self.attCount==3:
+                bu.setCoupHache(True)
+            elif self.attCount == 4:
+                bu.setCoupHache(False)
             if self.attCount>4:
                 self.attCount=0
                 bu.setAttack(False)
@@ -67,14 +74,14 @@ class Vue(object):
             if bu.getisJump() and not bu.getTraitrise():
                 fenetre.blit(self.walkLeft[5], (bu.getx(), bu.gety()))
                 self.walkCount=0
-                print("bite")
+                #print("bite")
             else:
-                print("sale pute")
+                #print("sale pute")
                 fenetre.blit(self.walkLeft[self.walkCount // 2], (bu.getx(), bu.gety()))
                 self.walkCount += 1
                 if self.walkCount >= 12:
                     self.walkCount = 0
-                    print("reset")
+                    #print("reset")
         elif bu.getright():
             if bu.getisJump() and not bu.getTraitrise():
                 fenetre.blit(self.walkRight[5], (bu.getx(), bu.gety()))
@@ -95,9 +102,16 @@ class Vue(object):
             if self.stopCount>7:
                 self.stopCount=0
 
-        #pygame.draw.rect(fenetre,(255,0,0),bu.gethitbox(),2)
-        #pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
-        #pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
+        pygame.draw.rect(fenetre,(255,0,0),bu.gethitbox(),2)
+        pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
+        pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
+
+        if len(arbres)>1:
+            for i in(0,len(arbres)-1):
+                pygame.draw.rect(fenetre, (255, 0, 0), arbres[i], 2)
+        elif len(arbres)==1:
+            pygame.draw.rect(fenetre, (255, 0, 0), arbres[0], 2)
+
 
         pygame.display.flip()
 

@@ -2,6 +2,7 @@ import pygame
 import terrain as t
 import vueJouer as vj
 import bucheron as b
+import typecase as tc
 import mechants as m
 from pygame.locals import *
 
@@ -14,16 +15,22 @@ clock = pygame.time.Clock()
 terrain = t.Terrain()
 terrain.initcases()
 collide=terrain.getCollide()
+arbres=terrain.getArbres()
+posArbres=terrain.getPosArbres()
+
 vue = vj.Vue()
+
 bucheron = b.Bucheron()
+
 #mechant = m.Mechant()
+
 son = pygame.mixer.Sound("Theme.wav")
 saut = pygame.mixer.Sound("saut.wav")
 attB = pygame.mixer.Sound("attaque_hache.wav")
 
 son.play()
 son.set_volume(0.5)
-vue.Update(terrain, bucheron, fenetre)
+vue.Update(terrain, bucheron, fenetre,arbres)
 jumpCount = 10
 # mainloop
 run = True
@@ -53,7 +60,24 @@ while run:
     else:
         bucheron.pasbouger()
 
+    if bucheron.getCoupHache():
+        i=0
+        if bucheron.getoldleft():
+            if not pygame.Rect(bucheron.gethitboxAttG()).collidelist(arbres) == -1:
+                while pygame.Rect(bucheron.gethitboxAttG()).colliderect(arbres[i]) == -1:
+                    i+=1
+                print(arbres[i][1] /50)
+                print("arbre tapé")
+                terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
+                del arbres[i]
+                del posArbres[i]
+                bucheron.ajoutbuche()
+                print("buche : ")
+                print(bucheron.getbucheportee())
 
-    vue.Update(terrain, bucheron,fenetre)
+
+
+
+    vue.Update(terrain, bucheron,fenetre,arbres)
 #    mechant.Creer(100, 300, fenetre)
 pygame.quit()
