@@ -32,11 +32,25 @@ class Terrain(object):
             for j in range(0,21):
                 case=c.Case()
                 if i==7 and j in range(3,7):
-                    case.setType(tc.typecase.NUAGE)
-                    collision.append(pygame.Rect(j * 50, i * 50,50,50))
+                    if j==3:
+                        case.setType(tc.typecase.NUAGEG)
+                        collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
+                    elif j==6:
+                        case.setType(tc.typecase.NUAGED)
+                        collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
+                    else:
+                        case.setType(tc.typecase.NUAGE)
+                        collision.append(pygame.Rect(j * 50, i * 50,50,50))
                 if i==9 and j in range(10,15):
-                    case.setType(tc.typecase.NUAGE)
-                    collision.append(pygame.Rect(j * 50, i * 50,50,50))
+                    if j == 10:
+                        case.setType(tc.typecase.NUAGEG)
+                        collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
+                    elif j == 14:
+                        case.setType(tc.typecase.NUAGED)
+                        collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
+                    else:
+                        case.setType(tc.typecase.NUAGE)
+                        collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
                 if i >11:
                     if i>0 and listecases[i-1][j].getType()==tc.typecase.VIDE:
                         case.setType(tc.typecase.HERBE)
