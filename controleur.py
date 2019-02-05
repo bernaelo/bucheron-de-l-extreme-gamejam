@@ -12,7 +12,8 @@ fenetre = pygame.display.set_mode((1000, 700))
 clock = pygame.time.Clock()
 
 terrain = t.Terrain()
-collide=terrain.initcases()
+terrain.initcases()
+collide=terrain.getCollide()
 vue = vj.Vue()
 bucheron = b.Bucheron()
 #mechant = m.Mechant()
@@ -38,8 +39,6 @@ while run:
         if keys[pygame.K_SPACE]:
             saut.play()
             bucheron.setisJump(True)
-
-
     else:
         bucheron.sauter(collide)
 

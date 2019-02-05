@@ -10,6 +10,8 @@ class Bucheron(object):
         self.speed=13
         self.isJump=False
         self.hitbox=(self.x + 60,self.y+40,40,114)
+        self.hitboxAttG = (self.x , self.y + 40, 60, 114)
+        self.hitboxAttD = (self.x + 100, self.y + 40, 60, 114)
         self.jumpCount = 9.5
         self.oldleft=False
         self.isAttack=False
@@ -90,6 +92,7 @@ class Bucheron(object):
 
     def bougerdroite(self,collide):
         if self.isAttack == False:
+
             self.x += self.speed
             self.updhitbox()
             if not pygame.Rect(self.hitbox).collidelist(collide) == -1:
@@ -135,10 +138,17 @@ class Bucheron(object):
 
     def updhitbox(self):
         self.hitbox=(self.x + 60,self.y+40,40,114)
+        self.hitboxAttG = (self.x , self.y + 40, 60, 114)
+        self.hitboxAttD = (self.x + 100, self.y + 40, 60, 114)
+
+    def gethitboxAttG(self):
+        return self.hitboxAttG
+
+    def gethitboxAttD(self):
+        return self.hitboxAttD
 
     def getoldleft(self):
         return self.oldleft
-
 
     def descendre(self,collide):
         self.jumpCount=-1
