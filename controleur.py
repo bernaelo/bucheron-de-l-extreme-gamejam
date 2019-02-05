@@ -17,11 +17,12 @@ collide=terrain.getCollide()
 vue = vj.Vue()
 bucheron = b.Bucheron()
 #mechant = m.Mechant()
-son = pygame.mixer.Sound("son.wav")
+son = pygame.mixer.Sound("Theme.wav")
 saut = pygame.mixer.Sound("saut.wav")
+attB = pygame.mixer.Sound("attaque_hache.wav")
 
 son.play()
-
+son.set_volume(0.5)
 vue.Update(terrain, bucheron, fenetre)
 jumpCount = 10
 # mainloop
@@ -43,6 +44,7 @@ while run:
         bucheron.sauter(collide)
 
     if keys[pygame.K_d]:
+        attB.play()
         bucheron.attack()
     elif keys[pygame.K_LEFT]:
         bucheron.bougergauche(collide)
