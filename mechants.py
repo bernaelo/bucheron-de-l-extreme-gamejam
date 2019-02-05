@@ -1,92 +1,87 @@
 import pygame
 from pygame.locals import *
 
-pygame.init()
 
-hp = 1
-degat = 0
-y = 430
-x = 0
-quitter = False
-mouvement = 0
+class Mechant(object):
 
-# Ouverture de la fenêtre Pygame
-fenetre = pygame.display.set_mode((700, 700), FULLSCREEN)
+    def __init__(self):
+        pygame.display.set_caption("Bucheron Vie")
+        self.hp = 1
+        self.degat = 0
+        self.quitter = False
+        self.mouvement = 0
 
-while x <= 350 and quitter == False:
-    # si part de la gauche
-    # sprite 1
-    for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
-        if event.type == KEYDOWN:  # Si un de ces événements est de type QUIT
-            quitter = True  # On arrête la boucle
-    if mouvement == 1:
-        fond = pygame.image.load("background.jpg").convert()
-        fenetre.blit(fond, (0, 0))
-        ninja = pygame.image.load("Ninja_Mouvement1.png").convert_alpha()
-        fenetre.blit(ninja, (x, y))
-        pygame.display.update()
-        pygame.time.delay(100)
-        mouvement = 0
-    # sprite2
-    elif mouvement == 0:
-        fond = pygame.image.load("background.jpg").convert()
-        fenetre.blit(fond, (0, 0))
-        ninja = pygame.image.load("Ninja_Mouvement0.png").convert_alpha()
-        fenetre.blit(ninja, (x, y))
-        pygame.display.update()
-        pygame.time.delay(100)
-        mouvement = 1
+    def Creer(self, x, y, fenetre):
 
-    x += 3
+        while x <= 350 and self.quitter == False:
+            # si part de la gauche
+            # sprite 1
+            for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
+                if event.type == KEYDOWN:  # Si un de ces événements est de type QUIT
+                    self.quitter = True  # On arrête la boucle
+            if self.mouvement == 1:
+                fond = pygame.image.load("background.jpg").convert()
+                fenetre.blit(fond, (0, 0))
+                ninja = pygame.image.load("Ninja_Mouvement1.png").convert_alpha()
+                fenetre.blit(ninja, (x, y))
+                pygame.display.update()
+                pygame.time.delay(100)
+                self.mouvement = 0
+                # sprite2
+            elif self.mouvement == 0:
+                fond = pygame.image.load("background.jpg").convert()
+                fenetre.blit(fond, (0, 0))
+                ninja = pygame.image.load("Ninja_Mouvement0.png").convert_alpha()
+                fenetre.blit(ninja, (x, y))
+                pygame.display.update()
+                pygame.time.delay(100)
+                self.mouvement = 1
 
-    print(x)
-    if x >= 350:
-        # sprite 1
-        fond = pygame.image.load("background.jpg").convert()
-        fenetre.blit(fond, (0, 0))
-        ninja = pygame.image.load("Ninja MOUV attaque0.png").convert_alpha()
-        fenetre.blit(ninja, (x, y))
+            x += 3
 
-        pygame.display.update()
-        pygame.time.delay(100)
+            print(x)
+            if x >= 350:
+                # sprite 1
+                fond = pygame.image.load("background.jpg").convert()
+                fenetre.blit(fond, (0, 0))
+                ninja = pygame.image.load("Ninja MOUV attaque0.png").convert_alpha()
+                fenetre.blit(ninja, (x, y))
 
-        # sprite 2
-        fond = pygame.image.load("background.jpg").convert()
-        fenetre.blit(fond, (0, 0))
-        ninja = pygame.image.load("Ninja MOUV attaque1.png").convert_alpha()
-        fenetre.blit(ninja, (x, y))
+                pygame.display.update()
+                pygame.time.delay(100)
 
-        pygame.display.update()
-        pygame.time.delay(250)
+                # sprite 2
+                fond = pygame.image.load("background.jpg").convert()
+                fenetre.blit(fond, (0, 0))
+                ninja = pygame.image.load("Ninja MOUV attaque1.png").convert_alpha()
+                fenetre.blit(ninja, (x, y))
 
-        # sprite 3
-        fond = pygame.image.load("background.jpg").convert()
-        fenetre.blit(fond, (0, 0))
-        ninja = pygame.image.load("Ninja MOUV attaque0.png").convert_alpha()
-        fenetre.blit(ninja, (x, y))
+                pygame.display.update()
+                pygame.time.delay(250)
 
-        pygame.display.update()
-        pygame.time.delay(300)
+                # sprite 3
+                fond = pygame.image.load("background.jpg").convert()
+                fenetre.blit(fond, (0, 0))
+                ninja = pygame.image.load("Ninja MOUV attaque0.png").convert_alpha()
+                fenetre.blit(ninja, (x, y))
 
-    # si part de la droite
-    if y == 100:
-        # x = taille de la map (512)
-        x = 512
-        x = x - 1
-        # sprite 1
+                pygame.display.update()
+                pygame.time.delay(300)
 
-        #
-        pygame.display.update()
-        pygame.time.delay(100)
-        # sprite2
+            # si part de la droite
+            if y == 100:
+                # x = taille de la map (512)
+                x = 512
+                x = x - 1
+                # sprite 1
 
-        #
-        pygame.display.update()
-        pygame.time.delay(100)
+                #
+                pygame.display.update()
+                pygame.time.delay(100)
+                # sprite2
 
-pygame.display.flip()
+                #
+                pygame.display.update()
+                pygame.time.delay(100)
 
-while 1:
-    for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
-        if event.type == KEYDOWN and event.key == K_ESCAPE:
-            pygame.quit()
+        pygame.display.flip()

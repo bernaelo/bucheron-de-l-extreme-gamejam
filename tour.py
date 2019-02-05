@@ -1,10 +1,9 @@
 class Tour(object):
 
     def __init__(self):
-        self.nbetage=0
-        self.nbbuche=0
-        self.hauteuretage=100
-
+        self.nbetage = 0
+        self.nbbuche = 0
+        self.hauteuretage = 100
 
     def gethauteuretage(self):
         return self.hauteuretage
@@ -15,8 +14,8 @@ class Tour(object):
     def getnbbuche(self):
         return self.nbbuche
 
-    def setnbetage(self,e):
-        self.nbetage=e
+    def setnbetage(self, e):
+        self.nbetage = e
 
-    def setnbbuche(self,b):
-        self.nbbuche=b
+    def setnbbuche(self, b):
+        self.nbbuche = b

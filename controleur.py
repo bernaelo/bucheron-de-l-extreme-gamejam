@@ -2,18 +2,21 @@ import pygame
 import terrain as t
 import vueJouer as vj
 import bucheron as b
+import mechants as m
 from pygame.locals import *
 
 pygame.init()
+
+fenetre = pygame.display.set_mode((1600, 900), pygame.FULLSCREEN)
 
 clock = pygame.time.Clock()
 
 terrain = t.Terrain()
 vue = vj.Vue()
-fdp = b.Bucheron()
+bucheron = b.Bucheron()
+mechant = m.Mechant()
 
-vue.Update(terrain, fdp)
-
+vue.Update(terrain, bucheron, fenetre)
 jumpCount = 10
 # mainloop
 run = True
@@ -26,27 +29,27 @@ while run:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_LEFT]:
-        fdp.bougergauche()
+        bucheron.bougergauche()
     elif keys[pygame.K_RIGHT]:
-        fdp.bougerdroite()
+        bucheron.bougerdroite()
     else:
-        fdp.pasbouger()
+        bucheron.pasbouger()
 
-    if not (fdp.getisJump()):
+    if not (bucheron.getisJump()):
         if keys[pygame.K_SPACE]:
-            fdp.setisJump(True)
+            bucheron.setisJump(True)
             right = False
             left = False
             walkCount = 0
     else:
         if jumpCount >= -10:
 
-            fdp.sety(fdp.gety() - (jumpCount * abs(jumpCount)) * 0.5)
+            bucheron.sety(bucheron.gety() - (jumpCount * abs(jumpCount)) * 0.5)
             jumpCount -= 1
         else:
-            fdp.setisJump(False)
+            bucheron.setisJump(False)
             jumpCount = 10
 
-    vue.Update(terrain, fdp)
-
-pygame.quit()
+    vue.Update(terrain, bucheron,fenetre)
+    mechant.Creer(100, 300, fenetre)
+pygame.quit()s
