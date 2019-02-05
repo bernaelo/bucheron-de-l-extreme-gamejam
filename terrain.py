@@ -38,7 +38,8 @@ class Terrain(object):
                 if i==6 and j==5:
                     case.setType(tc.typecase.ARBRE)
                     suede.append(pygame.Rect(j * 50, i * 50, 50, 50))
-
+                if i==5 and j==17:
+                    case.setType(tc.typecase.TOUR)
                 if i==11 and j==7:
                     case.setType(tc.typecase.ARBRE)
                     suede.append(pygame.Rect(j * 50, i * 50, 50, 50))

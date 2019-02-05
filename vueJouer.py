@@ -17,6 +17,7 @@ class Vue(object):
         self.terre = pygame.image.load('terre.png')
         self.herbe = pygame.image.load('herbe.png')
         self.arbre = pygame.image.load('Arbre.png')
+        self.tour = pygame.image.load('tour23.png')
         self.stopCount =0
         self.walkCount = 0
         self.nuageCount=0
@@ -45,6 +46,8 @@ class Vue(object):
                     fenetre.blit(self.nuagefG[self.nuageCount // 10], (j * 50, i * 50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRE:
                     fenetre.blit(self.arbre,(j*50,i*50))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.TOUR:
+                    fenetre.blit(self.tour,(j*50,i*50))
 
         self.nuageCount +=1
         if self.nuageCount>19:
