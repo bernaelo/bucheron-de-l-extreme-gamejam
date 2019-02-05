@@ -6,19 +6,17 @@ from pygame.locals import *
 
 pygame.init()
 
-clock = pygame.time.Clock()
 
 terrain=t.Terrain()
 vue = vj.Vue()
 fdp = b.Bucheron()
-
 vue.Update(terrain,fdp)
-
+terrain.printcases()
 jumpCount=10
+
 # mainloop
 run = True
 while run:
-    clock.tick(27)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

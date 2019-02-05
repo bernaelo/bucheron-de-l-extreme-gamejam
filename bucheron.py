@@ -5,7 +5,7 @@ class Bucheron(object):
         self.y=596
         self.right=False
         self.left=False
-        self.speed=10
+        self.speed=13
         self.walkCount = 0
         self.isJump=False
 

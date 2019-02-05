@@ -22,10 +22,11 @@ class Vue(object):
         self.fenetre.blit(bg,(0,0))
 
         for i in range(0,len(terrain.getCases())-1):
-            if terrain.getCases()[i].getType()==tc.typecase.TERRE:
-                self.fenetre.blit(terre,(i%terrain.getlargeur()*50,i//terrain.getlargeur()*50))
-            elif terrain.getCases()[i].getType()==tc.typecase.HERBE:
-                self.fenetre.blit(herbe,(i%terrain.getlargeur()*50,i//terrain.getlargeur()*50))
+            for j in range(0,len(terrain.getCases()[i])-1):
+                if terrain.getCases()[i][j].getType()==tc.typecase.TERRE:
+                    self.fenetre.blit(terre,(j*50,i*50))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.HERBE:
+                    self.fenetre.blit(herbe,(j*50,i*50))
 
         if bu.getwalkCount() >= 12:
             bu.reswalkCount()
