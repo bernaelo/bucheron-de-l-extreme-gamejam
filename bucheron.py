@@ -1,8 +1,10 @@
+import pygame
+
 class Bucheron(object):
 
     def __init__(self):
-        self.x=500
-        self.y=445
+        self.x=200
+        self.y=440
         self.right=False
         self.left=False
         self.speed=13
@@ -48,28 +50,72 @@ class Bucheron(object):
     def setisJump(self, iS):
         self.isJump = iS
 
-    def sauter(self):
-        if self.jumpCount >= -10:
-            self.y=(self.y-(self.jumpCount * abs(self.jumpCount)) * 0.5)
+    def sauter(self,collide):
+        test=False
+        if self.jumpCount >=0:
+            self.y-=(self.jumpCount * abs(self.jumpCount)) * 0.5
+            self.updhitbox()
+            if not pygame.Rect(self.hitbox).collidelist(collide) == -1:
+                while not pygame.Rect(self.hitbox).collidelist(collide)== -1:
+                    self.y += 1
+                    self.updhitbox()
+                if self.jumpCount>0:
+                    self.jumpCount=0
+
+
             self.jumpCount -= 1
+        elif self.jumpCount <0:
+
+            self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5
+            self.updhitbox()
+
+            if not pygame.Rect(self.hitbox).collidelist(collide) == -1:
+                while not pygame.Rect(self.hitbox).collidelist(collide)== -1:
+                    self.y -= 1
+                    self.updhitbox()
+                test=True
+
+            self.jumpCount -= 1
+
+            if test:
+                self.jumpCount = 10
+                self.isJump = False
+
         else:
             self.isJump=False
             self.jumpCount = 10
         self.updhitbox()
 
-    def bougerdroite(self):
+    def bougerdroite(self,collide):
         self.x += self.speed
+        self.updhitbox()
+        if not pygame.Rect(self.hitbox).collidelist(collide) == -1:
+            while not pygame.Rect(self.hitbox).collidelist(collide) == -1:
+                self.x -= 1
+                self.updhitbox()
+
         self.right = True
         self.left = False
-        self.updhitbox()
         self.oldleft = False
+        #descendre
+        #self.descendre(collide)
+        self.updhitbox()
 
-    def bougergauche(self):
+    def bougergauche(self,collide):
         self.x -= self.speed
+        self.updhitbox()
+        if not pygame.Rect(self.hitbox).collidelist(collide) == -1:
+            while not pygame.Rect(self.hitbox).collidelist(collide) == -1:
+                self.x += 1
+                self.updhitbox()
+
         self.left = True
         self.right = False
-        self.updhitbox()
         self.oldleft = True
+
+        #descendre
+        #self.descendre(collide)
+        self.updhitbox()
 
     def pasbouger(self):
         self.walkCount = 0
@@ -84,3 +130,8 @@ class Bucheron(object):
 
     def getoldleft(self):
         return self.oldleft
+
+
+    def descendre(self,collide):
+        self.jumpCount=-1
+        self.sauter(collide)

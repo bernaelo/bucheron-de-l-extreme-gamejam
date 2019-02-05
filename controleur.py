@@ -12,9 +12,10 @@ fenetre = pygame.display.set_mode((1000, 700))
 clock = pygame.time.Clock()
 
 terrain = t.Terrain()
+collide=terrain.initcases()
 vue = vj.Vue()
 bucheron = b.Bucheron()
-mechant = m.Mechant()
+#mechant = m.Mechant()
 
 vue.Update(terrain, bucheron, fenetre)
 jumpCount = 10
@@ -30,9 +31,9 @@ while run:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_LEFT]:
-        bucheron.bougergauche()
+        bucheron.bougergauche(collide)
     elif keys[pygame.K_RIGHT]:
-        bucheron.bougerdroite()
+        bucheron.bougerdroite(collide)
     else:
         bucheron.pasbouger()
 
@@ -41,8 +42,8 @@ while run:
             bucheron.setisJump(True)
 
     else:
-        bucheron.sauter()
+        bucheron.sauter(collide)
 
     vue.Update(terrain, bucheron,fenetre)
-    mechant.Creer(100, 300, fenetre)
+#    mechant.Creer(100, 300, fenetre)
 pygame.quit()
