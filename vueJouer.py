@@ -18,6 +18,8 @@ class Vue(object):
     def Update(self,terrain,bu,fenetre):
         terre = pygame.image.load('terre.png')
         herbe = pygame.image.load('herbe.png')
+        nuagefD = pygame.image.load('NUAGE FIN D.png')
+        nuagefG = pygame.image.load('NUAGE FIN G.png')
         nuage = pygame.image.load('nuage.png')
         fenetre.fill((255,255,255))
 
@@ -29,6 +31,11 @@ class Vue(object):
                     fenetre.blit(herbe,(j*50,i*50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.NUAGE:
                     fenetre.blit(nuage,(j*50,i*50))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGED:
+                    fenetre.blit(nuagefD, (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGEG:
+                    fenetre.blit(nuagefG,(j*50,i*50))
+
 
         if self.walkCount >= 12:
             self.walkCount=0
