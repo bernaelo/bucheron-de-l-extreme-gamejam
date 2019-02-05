@@ -15,6 +15,7 @@ class Bucheron(object):
         self.jumpCount = 9.5
         self.oldleft=False
         self.isAttack=False
+        self.traitrise=False
 
 
     def getx(self):
@@ -107,9 +108,11 @@ class Bucheron(object):
         self.right = True
         self.left = False
         self.oldleft = False
+        self.traitrise = False
 
 
     def bougergauche(self,collide):
+        self.traitrise = True
         if self.isAttack==False:
             self.x -= self.speed
             self.updhitbox()
@@ -125,6 +128,7 @@ class Bucheron(object):
         self.left = True
         self.right = False
         self.oldleft = True
+        self.traitrise = False
 
     def attack(self):
         self.isAttack=True
@@ -160,3 +164,6 @@ class Bucheron(object):
 
     def setAttack(self,b):
         self.isAttack = b
+
+    def getTraitrise(self):
+        return self.traitrise

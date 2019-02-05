@@ -63,13 +63,12 @@ class Terrain(object):
                     else:
                         case.setType(tc.typecase.NUAGE)
                         collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
-                if i >11:
-                    if i>0 and listecases[i-1][j].getType()==tc.typecase.VIDE:
-                        case.setType(tc.typecase.HERBE)
-                        collision.append(pygame.Rect(j * 50, i * 50,50,50))
-                    else:
-                        case.setType(tc.typecase.TERRE)
-                        collision.append(pygame.Rect(j * 50, i * 50,50,50))
+                if i==12:
+                    case.setType(tc.typecase.HERBE)
+                    collision.append(pygame.Rect(j * 50, i * 50,50,50))
+                if i >12:
+                    case.setType(tc.typecase.TERRE)
+                    collision.append(pygame.Rect(j * 50, i * 50,50,50))
                 ligne.append(case)
             listecases.append(ligne)
         self.cases=listecases

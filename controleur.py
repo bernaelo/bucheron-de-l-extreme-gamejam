@@ -28,7 +28,7 @@ jumpCount = 10
 # mainloop
 run = True
 while run:
-    clock.tick(18)
+    clock.tick(60)
 
     for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
         if event.type==pygame.QUIT:
