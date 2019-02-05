@@ -28,7 +28,7 @@ class Vue(object):
         self.attCount=0
 
 
-    def Update(self,terrain,bu,fenetre):
+    def Update(self,terrain,bu,fenetre, mechant, mechant2):
 
 
         fenetre.blit(pygame.image.load('background.png'),(0,0))
@@ -111,6 +111,28 @@ class Vue(object):
         pygame.draw.rect(fenetre,(255,0,0),bu.gethitbox(),2)
         pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
         pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
+
+        if bu.getx() == mechant.getx() and bu.gety() == mechant.gety():
+            mechant.attaqueBucheronDroite(fenetre)
+
+        elif mechant.getx() == 500:  # emplacement de la tour
+            mechant.attaqueTourDroite(fenetre)
+            mechant.suprimer()
+            mechant.recréerDroite()
+
+        else:
+            mechant.deplacerDroite(fenetre)
+        # ninja a gauche
+        # if bu.getx() == mechant2.getx() and bu.gety() == mechant2.gety():
+        #     mechant2.attaqueBucheronGauche(fenetre)
+        #
+        # elif mechant2.getx() == 500:  # emplacement de la tour
+        #     mechant2.attaqueTourGauche(fenetre)
+        #     mechant2.suprimer()
+        #     mechant2.recréerGauche()
+        #
+        # else:
+        #     mechant2.deplacerGauche(fenetre)
 
         pygame.display.flip()
 
