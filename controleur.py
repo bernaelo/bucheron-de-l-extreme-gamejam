@@ -16,10 +16,11 @@ collide=terrain.initcases()
 vue = vj.Vue()
 bucheron = b.Bucheron()
 #mechant = m.Mechant()
-son = pygame.mixer.Sound("son.wav")
+son = pygame.mixer.Sound("Theme.wav")
 saut = pygame.mixer.Sound("saut.wav")
 
-
+son.play()
+son.set_volume(0.5)
 vue.Update(terrain, bucheron, fenetre)
 jumpCount = 10
 # mainloop
@@ -43,6 +44,7 @@ while run:
     if not (bucheron.getisJump()):
         if keys[pygame.K_SPACE]:
             saut.play()
+            saut.set_volume(0.3)
             bucheron.setisJump(True)
 
 
