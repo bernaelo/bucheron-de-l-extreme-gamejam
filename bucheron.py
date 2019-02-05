@@ -120,7 +120,6 @@ class Bucheron(object):
         self.updhitbox()
 
     def pasbouger(self):
-        self.walkCount = 0
         self.left = False
         self.right = False
 

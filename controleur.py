@@ -30,19 +30,19 @@ while run:
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_LEFT]:
-        bucheron.bougergauche(collide)
-    elif keys[pygame.K_RIGHT]:
-        bucheron.bougerdroite(collide)
-    else:
-        bucheron.pasbouger()
-
     if not (bucheron.getisJump()):
         if keys[pygame.K_SPACE]:
             bucheron.setisJump(True)
 
     else:
         bucheron.sauter(collide)
+
+    if keys[pygame.K_LEFT]:
+        bucheron.bougergauche(collide)
+    elif keys[pygame.K_RIGHT]:
+        bucheron.bougerdroite(collide)
+    else:
+        bucheron.pasbouger()
 
     vue.Update(terrain, bucheron,fenetre)
 #    mechant.Creer(100, 300, fenetre)
