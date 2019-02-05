@@ -14,6 +14,7 @@ clock = pygame.time.Clock()
 terrain = t.Terrain()
 terrain.initcases()
 collide=terrain.getCollide()
+ressorts=terrain.getRessorts()
 vue = vj.Vue()
 bucheron = b.Bucheron()
 #mechant = m.Mechant()
@@ -28,7 +29,7 @@ jumpCount = 10
 # mainloop
 run = True
 while run:
-    clock.tick(18)
+    clock.tick(40)
 
     for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
         if event.type==pygame.QUIT:
@@ -42,17 +43,19 @@ while run:
             bucheron.setisJump(True)
     else:
         bucheron.sauter(collide)
+        #bucheron.sauter(ressorts)
 
     if keys[pygame.K_d]:
         attB.play()
         bucheron.attack()
     elif keys[pygame.K_LEFT]:
         bucheron.bougergauche(collide)
+        #bucheron.bougergauche(ressorts)
     elif keys[pygame.K_RIGHT]:
         bucheron.bougerdroite(collide)
+        #bucheron.bougerdroite(ressorts)
     else:
         bucheron.pasbouger()
-
 
     vue.Update(terrain, bucheron,fenetre)
 #    mechant.Creer(100, 300, fenetre)
