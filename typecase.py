@@ -8,6 +8,8 @@ typecase= type(
         "ARBRE": 3,
         "ARBRECOUPE": 4,
         "NUAGE":5,
+        "NUAGED":6,
+        "NUAGEG":7,
 
         "dictReverse": {
             0: "VIDE",
@@ -15,5 +17,7 @@ typecase= type(
             2: "HERBE",
             3: "ARBRE",
             4: "ARBRE COUPE",
-            5: "NUAGE"}
+            5: "NUAGE",
+            6: "NUAGED",
+            7: "NUAGEG"}
     })

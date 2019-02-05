@@ -9,6 +9,8 @@ class Vue(object):
         self.walkRight = [pygame.image.load('Bucheron-Run-Right0.png'), pygame.image.load('Bucheron-Run-Right1.png'), pygame.image.load('Bucheron-Run-Right2.png'), pygame.image.load('Bucheron-Run-Right3.png'), pygame.image.load('Bucheron-Run-Right4.png'),pygame.image.load('Bucheron-Run-Right5.png')]
         self.immobileDroite = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.load('Bucheron-Stop-Right1.png')]
         self.immobileGauche = [pygame.image.load('Bucheron-Stop-Left0.png'), pygame.image.load('Bucheron-Stop-Left1.png')]
+        self.attaqueDroite = [pygame.image.load('att D0.png'), pygame.image.load('att D1.png'), pygame.image.load('att D2.png'), pygame.image.load('att D3.png'), pygame.image.load('att D4.png')]
+        self.attaqueGauche = [pygame.image.load('att G0.png'), pygame.image.load('att G1.png'), pygame.image.load('att G2.png'), pygame.image.load('att G3.png'), pygame.image.load('att G4.png')]
         self.stopCount =0
         self.walkCount = 0
 
@@ -16,8 +18,10 @@ class Vue(object):
     def Update(self,terrain,bu,fenetre):
         terre = pygame.image.load('terre.png')
         herbe = pygame.image.load('herbe.png')
+        nuagefD = pygame.image.load('NUAGE FIN D.png')
+        nuagefG = pygame.image.load('NUAGE FIN G.png')
         nuage = pygame.image.load('nuage.png')
-        fenetre.fill((255,255,255))
+        fenetre.blit(pygame.image.load('background.png'),(0,0))
 
         for i in range(0,len(terrain.getCases())-1):
             for j in range(0,len(terrain.getCases()[i])-1):
@@ -27,6 +31,11 @@ class Vue(object):
                     fenetre.blit(herbe,(j*50,i*50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.NUAGE:
                     fenetre.blit(nuage,(j*50,i*50))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGED:
+                    fenetre.blit(nuagefD, (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGEG:
+                    fenetre.blit(nuagefG,(j*50,i*50))
+
 
         if self.walkCount >= 12:
             self.walkCount=0
