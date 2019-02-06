@@ -19,6 +19,9 @@ collide=terrain.getCollide()
 arbres=terrain.getArbres()
 posArbres=terrain.getPosArbres()
 
+arbrescoupes=[]
+posArbrescoupes=[]
+
 ressorts=terrain.getRessorts()
 collide = terrain.getCollide()
 
@@ -76,6 +79,8 @@ while run:
                 print(arbres[i][1] )
                 print("arbre tapé")
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
+                arbrescoupes.append(arbres[i])
+                posArbrescoupes.append((posArbres[i]))
                 del arbres[i]
                 del posArbres[i]
                 bucheron.ajoutbuche()
@@ -90,11 +95,22 @@ while run:
                 print(arbres[i][1])
                 print("arbre tapé")
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
+                arbrescoupes.append(arbres[i])
+                posArbrescoupes.append((posArbres[i]))
                 del arbres[i]
                 del posArbres[i]
                 bucheron.ajoutbuche()
                 print("buche : ")
                 print(bucheron.getbucheportee())
+
+        if len(arbres)<1:
+            print("repousse")
+            arbres=arbrescoupes
+            posArbres=posArbrescoupes
+            arbrescoupes=[]
+            posArbrescoupes=[]
+            for i in range(0,len(posArbres)):
+                terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRE)
 
     vue.Update(terrain, bucheron, fenetre,arbres)
 
