@@ -20,21 +20,25 @@ def text_objects(text, font):
     textSurface = font.render(text, True, (255, 255, 255))
     return textSurface, textSurface.get_rect()
 
-
-def instructionsloop():
-    highscore = True
+def controlesloop():
+    controles = True
     stopCount = 0
-    while highscore:
+    while controles:
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
-                highscore = False
+                controles=False
+                pygame.quit()
+                quit()
 
         fenetre.fill((255, 255, 255))
-        largeText = pygame.font.Font('freesansbold.ttf', 70)
-        TextSurf, TextRect = text_objects("Instructions", largeText)
+        TextSurf, TextRect = text_objects("Instructions", pygame.font.Font('freesansbold.ttf', 70))
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
         TextRect.center = ((1000 / 2), 100)
+        fenetre.blit(TextSurf, TextRect)
+
+        TextSurf, TextRect = text_objects("Déplacement : ", pygame.font.Font('freesansbold.ttf', 20))
+        TextRect.center = (80, 200)
         fenetre.blit(TextSurf, TextRect)
 
         mouse = pygame.mouse.get_pos()
@@ -53,12 +57,109 @@ def instructionsloop():
                     fenetre.blit(attaqueDroite[attCount], (705, 400))
                     attCount += 1
                     pygame.display.flip()
+                controles = False
                 introloop()
+
         else:
             pygame.draw.rect(fenetre, (100, 100, 100), (800, 500, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
-        textSurf, textRect = text_objects("Retour", smallText)
+        textSurf, textRect = text_objects("Menu", smallText)
         textRect.center = ((800 + (100 / 2)), (500 + (50 / 2)))
+        fenetre.blit(textSurf, textRect)
+
+        # bouton2
+        if 800 + 100 > mouse[0] > 800 and 400 + 50 > mouse[1] > 400:
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 400, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (700, 300))
+            stopCount += 1
+            if stopCount > 7:
+                stopCount = 0
+            if click[0] == 1:
+                attCount = 0
+                while attCount < 1:
+                    fenetre.blit(attaqueDroite[attCount], (705, 300))
+                    attCount += 1
+                    pygame.display.flip()
+                controles = False
+                instructionsloop()
+
+        else:
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 400, 100, 50))
+        smallText = pygame.font.SysFont("comicsansms", 20)
+        textSurf, textRect = text_objects("Instructions", smallText)
+        textRect.center = ((800 + (100 / 2)), (400 + (50 / 2)))
+        fenetre.blit(textSurf, textRect)
+
+        pygame.display.update()
+        clock.tick(15)
+
+
+def instructionsloop():
+    highscore = True
+    stopCount = 0
+    while highscore:
+        for event in pygame.event.get():
+            # print(event)
+            if event.type == pygame.QUIT:
+                highscore=False
+                pygame.quit()
+                quit()
+
+        fenetre.fill((255, 255, 255))
+        TextSurf, TextRect = text_objects("Instructions", pygame.font.Font('freesansbold.ttf', 70))
+        fenetre.blit(pygame.image.load('background.png'), (0, 0))
+        TextRect.center = ((1000 / 2), 100)
+        TextSurf, TextRect = text_objects('aaaaaa \n bbbbbbb', pygame.font.Font('freesansbold.ttf', 20))
+        TextRect.center = (80, 200)
+        fenetre.blit(TextSurf, TextRect)
+
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+
+        # bouton1
+        if 800 + 100 > mouse[0] > 800 and 500 + 50 > mouse[1] > 500:
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 500, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (700, 400))
+            stopCount += 1
+            if stopCount > 7:
+                stopCount = 0
+            if click[0] == 1:
+                attCount = 0
+                while attCount < 1:
+                    fenetre.blit(attaqueDroite[attCount], (705, 400))
+                    attCount += 1
+                    pygame.display.flip()
+                highscore=False
+                introloop()
+
+        else:
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 500, 100, 50))
+        smallText = pygame.font.SysFont("comicsansms", 20)
+        textSurf, textRect = text_objects("Menu", smallText)
+        textRect.center = ((800 + (100 / 2)), (500 + (50 / 2)))
+        fenetre.blit(textSurf, textRect)
+
+        # bouton2
+        if 800 + 100 > mouse[0] > 800 and 400 + 50 > mouse[1] > 400:
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 400, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (700, 300))
+            stopCount += 1
+            if stopCount > 7:
+                stopCount = 0
+            if click[0] == 1:
+                attCount = 0
+                while attCount < 1:
+                    fenetre.blit(attaqueDroite[attCount], (705, 300))
+                    attCount += 1
+                    pygame.display.flip()
+                highscore=False
+                controlesloop()
+
+        else:
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 400, 100, 50))
+        smallText = pygame.font.SysFont("comicsansms", 20)
+        textSurf, textRect = text_objects("Controles", smallText)
+        textRect.center = ((800 + (100 / 2)), (400 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
         pygame.display.update()
@@ -73,6 +174,7 @@ def introloop():
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
+                intro = False
                 pygame.quit()
                 quit()
 
@@ -99,7 +201,9 @@ def introloop():
                     fenetre.blit(attaqueDroite[attCount], (5, 200))
                     attCount += 1
                     pygame.display.flip()
+                intro = False
                 gameloop()
+
         else:
             pygame.draw.rect(fenetre, (100, 100, 100), (100, 300, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
@@ -120,7 +224,10 @@ def introloop():
                     fenetre.blit(attaqueDroite[attCount], (5, 300))
                     attCount += 1
                     pygame.display.flip()
+                intro = False
                 instructionsloop()
+
+
         else:
             pygame.draw.rect(fenetre, (100, 100, 100), (100, 400, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
@@ -141,6 +248,8 @@ def introloop():
                     fenetre.blit(attaqueDroite[attCount], (5, 400))
                     attCount += 1
                     pygame.display.flip()
+                intro = False
+                pygame.quit()
                 quit()
         else:
             pygame.draw.rect(fenetre, (100, 100, 100), (100, 500, 100, 50))
@@ -190,7 +299,9 @@ def gameloop():
 
         for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
             if event.type == pygame.QUIT:
-                gameexit=True
+                gameexit = True
+                pygame.quit()
+                quit()
 
         keys = pygame.key.get_pressed()
 
