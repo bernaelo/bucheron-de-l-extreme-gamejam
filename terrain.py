@@ -8,7 +8,6 @@ class Terrain(object):
     def __init__(self):
         self.tour=t.Tour()
         self.cases=[]
-        self.posTour=(850,650)
         self.collide=[]
         self.arbres=[]
         self.posArbres=[]

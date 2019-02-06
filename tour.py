@@ -1,9 +1,11 @@
 class Tour(object):
 
     def __init__(self):
-        self.nbetage = 6
-        self.nbbuche = 24
+        self.nbetage = 5
+        self.nbbuche = 20
         self.hauteuretage = 100
+        self.x=500
+        self.y=600
 
     def gethauteuretage(self):
         return self.hauteuretage
