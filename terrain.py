@@ -45,6 +45,11 @@ class Terrain(object):
                     suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
                     posiArbres.append((j,i))
 
+                if i==8 and j==14:
+                    case.setType(tc.typecase.ARBRE)
+                    suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
+                    posiArbres.append((j,i))
+
                 if i==11 and j==7:
                     case.setType(tc.typecase.ARBRE)
                     suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
@@ -83,6 +88,10 @@ class Terrain(object):
                     boing.append(pygame.Rect(j * 50, i * 50, 50, 50))
                 ligne.append(case)
             listecases.append(ligne)
+
+        collision.append((-5,0,5,700))
+        collision.append((1000, 0, 5, 700))
+
         self.cases=listecases
         self.collide=collision
         self.ressorts=boing

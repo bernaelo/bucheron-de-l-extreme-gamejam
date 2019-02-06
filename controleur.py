@@ -68,12 +68,12 @@ while run:
         bucheron.pasbouger()
 
     if bucheron.getCoupHache():
-        i=0
         if bucheron.getoldleft():
             if not pygame.Rect(bucheron.gethitboxAttG()).collidelist(arbres) == -1:
-                while pygame.Rect(bucheron.gethitboxAttG()).colliderect(arbres[i]) == -1:
-                    i+=1
-                print(arbres[i][1] /50)
+                for j in range(0,len(arbres)):
+                    if pygame.Rect(bucheron.gethitboxAttG()).colliderect(arbres[j]):
+                        i=j
+                print(arbres[i][1] )
                 print("arbre tapé")
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
                 del arbres[i]
@@ -84,9 +84,10 @@ while run:
 
         else:
             if not pygame.Rect(bucheron.gethitboxAttD()).collidelist(arbres) == -1:
-                while pygame.Rect(bucheron.gethitboxAttD()).colliderect(arbres[i]) == -1:
-                    i+=1
-
+                for j in range(0,len(arbres)):
+                    if pygame.Rect(bucheron.gethitboxAttD()).colliderect(arbres[j]):
+                        i=j
+                print(arbres[i][1])
                 print("arbre tapé")
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
                 del arbres[i]

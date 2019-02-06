@@ -103,13 +103,13 @@ class Vue(object):
                     self.walkCount = 0
         else:
             if bu.getoldleft():
-                fenetre.blit(self.immobileGauche[self.stopCount//4], (bu.getx(), bu.gety()))
+                fenetre.blit(self.immobileGauche[self.stopCount//10], (bu.getx(), bu.gety()))
             else:
-                fenetre.blit(self.immobileDroite[self.stopCount // 4], (bu.getx(), bu.gety()))
+                fenetre.blit(self.immobileDroite[self.stopCount // 10], (bu.getx(), bu.gety()))
             bu.setright(False)
             bu.setleft(False)
             self.stopCount += 1
-            if self.stopCount>7:
+            if self.stopCount>19:
                 self.stopCount=0
 
         pygame.draw.rect(fenetre,(255,0,0),bu.gethitbox(),2)
