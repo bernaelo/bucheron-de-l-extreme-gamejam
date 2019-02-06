@@ -16,8 +16,8 @@ class Vue(object):
         self.nuage = [pygame.image.load('nuage.png'), pygame.image.load('NUAGE mouv2.png')]
         self.terre = pygame.image.load('terre.png')
         self.herbe = pygame.image.load('herbe.png')
-        self.arbre = pygame.image.load('Arbre2.png')
-        self.arbrecoupe = pygame.image.load('Arbre_coupe2.png')
+        self.arbre = pygame.image.load('Arbre4.png')
+        self.arbrecoupe = pygame.image.load('Arbre_coupe4.png')
         self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png')]
         self.stopCount =0
         self.walkCount = 0
