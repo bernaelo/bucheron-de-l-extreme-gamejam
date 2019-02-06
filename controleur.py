@@ -17,33 +17,24 @@ clock = pygame.time.Clock()
 immobileDroite = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.load('Bucheron-Stop-Right1.png')]
 attaqueDroite = [pygame.image.load('att D1.png'), pygame.image.load('att D3.png')]
 
-def finloop():
-    intro = True
-    stopCount = 0
 
-    while intro:
+def finloop():
+    while True:
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
 
-        fenetre.fill((255, 255, 255))
-        largeText = pygame.font.Font('freesansbold.ttf', 35)
-        TextSurf, TextRect = text_objects("Veuillez écrire votre Nom", largeText)
-        fenetre.blit(pygame.image.load('background.png'), (0, 0))
-        TextRect.center = ((1000 / 2), 350)
-        fenetre.blit(TextSurf, TextRect)
-        TextRect.center = ((1000 / 2), 350)
+        nomJoueurCourant = rete.name(fenetre)
+        print(nomJoueurCourant)
+        introloop()
 
-        pygame.display.update()
-        clock.tick(15)
-
-        rete.name(fenetre)
 
 def text_objects(text, font):
     textSurface = font.render(text, True, (255, 255, 255))
     return textSurface, textSurface.get_rect()
+
 
 def controlesloop():
     controles = True
@@ -52,7 +43,7 @@ def controlesloop():
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
-                controles=False
+                controles = False
                 pygame.quit()
                 quit()
 
@@ -126,7 +117,7 @@ def instructionsloop():
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
-                highscore=False
+                highscore = False
                 pygame.quit()
                 quit()
 
@@ -154,7 +145,7 @@ def instructionsloop():
                     fenetre.blit(attaqueDroite[attCount], (705, 400))
                     attCount += 1
                     pygame.display.flip()
-                highscore=False
+                highscore = False
                 introloop()
 
         else:
@@ -177,7 +168,7 @@ def instructionsloop():
                     fenetre.blit(attaqueDroite[attCount], (705, 300))
                     attCount += 1
                     pygame.display.flip()
-                highscore=False
+                highscore = False
                 controlesloop()
 
         else:
@@ -399,14 +390,15 @@ def gameloop():
                 for i in range(0, len(posArbres)):
                     terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRE)
 
-        if pygame.Rect(bucheron.gethitbox()).colliderect(terrain.getTour().gethitbox()) and bucheron.getbucheportee()>0:
+        if pygame.Rect(bucheron.gethitbox()).colliderect(
+                terrain.getTour().gethitbox()) and bucheron.getbucheportee() > 0:
             terrain.getTour().augnbbuche(bucheron.getbucheportee())
             print(str(bucheron.getbucheportee()) + "buches ajoutees")
             bucheron.rstbuche()
 
         vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres)
 
-        if pygame.time.get_ticks()//1000 == 180:
+        if pygame.time.get_ticks() // 1000 == 5:
             finloop()
             print("FIN DU JEU TA MERE LA PUTE")
 
