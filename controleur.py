@@ -312,11 +312,10 @@ def gameloop():
     mechant2 = m.Mechant()
 
     mechant2.recréerGauche()
-    tour = to.Tour()
 
     son.play()
     son.set_volume(0.5)
-    vue.Update(terrain, bucheron, fenetre, tour, mechant, mechant2, arbres)
+    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres)
     jumpCount = 10
 
     # mainloop
@@ -406,7 +405,10 @@ def gameloop():
             print(str(bucheron.getbucheportee()) + "buches ajoutees")
             bucheron.rstbuche()
 
-        vue.Update(terrain, bucheron, fenetre, tour, mechant, mechant2, arbres)
+        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres)
+
+        if pygame.time.get_ticks()//1000 == 180:
+            print("FIN DU JEU TA MERE LA PUTE")
 
 
 introloop()

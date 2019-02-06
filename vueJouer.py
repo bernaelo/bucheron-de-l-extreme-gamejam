@@ -35,7 +35,7 @@ class Vue(object):
             self.demarrer = demarrer
 
 
-    def Update(self, terrain, bu, fenetre, tour, mechant, mechant2, arbres):
+    def Update(self, terrain, bu, fenetre, mechant, mechant2, arbres):
 
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
 
@@ -148,18 +148,8 @@ class Vue(object):
         fenetre.blit(text, (10, 640))
 
         #horloge
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
         temps = self.font.render("Temps : " + str(pygame.time.get_ticks()//1000), 1, (255, 255, 255))
         fenetre.blit(temps,(800,5))
-
-        if pygame.time.get_ticks()//1000 == 180:
-            pygame.quit()
-
-
-
-
 
 
 
@@ -173,9 +163,9 @@ class Vue(object):
             mechant.attaqueTourDroite(fenetre)
             mechant.suprimer()
             mechant.recréerDroite()
-            if tour.getnbbuche() >0:
-                tour.setnbbuche(tour.getnbbuche() - 1)
-            print("nbBuche de le tour : ", terrain.getTour().getnbbuche())  # enlever les image des buches
+            if terrain.getTour().getnbbuche() >0:
+                terrain.getTour().setnbbuche(terrain.getTour().getnbbuche() - 1)
+
         else:
             mechant.deplacerDroite(fenetre)
 
@@ -189,9 +179,9 @@ class Vue(object):
             mechant2.attaqueTourGauche(fenetre)
             mechant2.suprimer()
             mechant2.recréerGauche()
-            if tour.getnbbuche() > 0:
-                tour.setnbbuche(tour.getnbbuche() - 1)
-            print("nbBuche de le tour : ", terrain.getTour().getnbbuche())  # enlever les image des buches
+            if terrain.getTour().getnbbuche() > 0:
+                terrain.getTour().setnbbuche(terrain.getTour().getnbbuche() - 1)
+
 
         else:
             mechant2.deplacerGauche(fenetre)
