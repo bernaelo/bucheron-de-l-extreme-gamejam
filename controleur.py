@@ -72,28 +72,25 @@ while run:
 
 
     if bucheron.getCoupHache():
+        i=-1
         if bucheron.getoldleft():
             if not pygame.Rect(bucheron.gethitboxAttG()).collidelist(arbres) == -1:
                 for j in range(0,len(arbres)):
                     if pygame.Rect(bucheron.gethitboxAttG()).colliderect(arbres[j]):
                         i=j
-                terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
-                arbrescoupes.append(arbres[i])
-                posArbrescoupes.append((posArbres[i]))
-                del arbres[i]
-                del posArbres[i]
-                bucheron.ajoutbuche()
 
         else:
             if not pygame.Rect(bucheron.gethitboxAttD()).collidelist(arbres) == -1:
                 for j in range(0,len(arbres)):
                     if pygame.Rect(bucheron.gethitboxAttD()).colliderect(arbres[j]):
                         i=j
-                terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
-                arbrescoupes.append(arbres[i])
-                posArbrescoupes.append((posArbres[i]))
-                del arbres[i]
-                del posArbres[i]
+        if i!=-1:
+            terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
+            arbrescoupes.append(arbres[i])
+            posArbrescoupes.append((posArbres[i]))
+            del arbres[i]
+            del posArbres[i]
+            if bucheron.getbucheportee()<2:
                 bucheron.ajoutbuche()
 
         if len(arbres)<1:
