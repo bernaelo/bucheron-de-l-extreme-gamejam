@@ -6,7 +6,7 @@ class Tour(object):
         self.hauteuretage = 100
         self.x=500
         self.y=600
-        self.hitbox = (self.x-52, self.y-250,122,250)
+        self.hitbox = (self.x-52, self.y-250,145,250)
 
     def gethauteuretage(self):
         return self.hauteuretage
