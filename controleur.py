@@ -31,11 +31,14 @@ bucheron = b.Bucheron()
 son = pygame.mixer.Sound("Theme.wav")
 saut = pygame.mixer.Sound("saut.wav")
 attB = pygame.mixer.Sound("attaque_hache.wav")
-
+mechant = m.Mechant()
+mechant2 = m.Mechant()
+mechant2.recréerGauche()
+tour = tour.Tour()
 
 son.play()
 son.set_volume(0.5)
-vue.Update(terrain, bucheron, fenetre,arbres)
+vue.Update(terrain, bucheron, fenetre, tour, mechant, mechant2, arbres)
 jumpCount = 10
 # mainloop
 run = True
@@ -103,7 +106,6 @@ while run:
             for i in range(0,len(posArbres)):
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRE)
 
-    vue.Update(terrain, bucheron, fenetre,arbres)
-
+    vue.Update(terrain, bucheron, fenetre, tour, mechant, mechant2,arbres)
 
 pygame.quit()
