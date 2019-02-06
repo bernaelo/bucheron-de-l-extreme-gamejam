@@ -153,11 +153,11 @@ class Vue(object):
 
 
 
-        if bu.getx() <= mechant.getx() <= bu.getx() + 40:  # gerer le y
+        if pygame.Rect(mechant.gethitbox()).colliderect(bu.gethitbox()):
             mechant.attaqueBucheronDroite(fenetre)
             if bu.getbucheportee() >0:
                 bu.setbucheportee(bu.getbucheportee() - 1)
-            # enlever une buche au bucheron
+                # enlever une buche au bucheron
 
         if mechant.getx() == 450:  # emplacement de la tour
             mechant.attaqueTourDroite(fenetre)
@@ -171,9 +171,10 @@ class Vue(object):
 
         # ninja a droite
 
-        if bu.getx() == mechant2.getx() and bu.gety() == mechant2.gety():
+        if pygame.Rect(mechant2.gethitbox()).colliderect(bu.gethitbox()):
             mechant2.attaqueBucheronGauche(fenetre)
-            bu.setbucheportee(bu.getbucheportee() - 1)
+            if bu.getbucheportee() > 0:
+                bu.setbucheportee(bu.getbucheportee() - 1)
 
         elif mechant2.getx() == 500:  # emplacement de la tour
             mechant2.attaqueTourGauche(fenetre)
