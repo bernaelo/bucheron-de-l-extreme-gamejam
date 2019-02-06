@@ -45,6 +45,7 @@ class Mechant(object):
             pygame.display.flip()
 
             self.x += 0.5
+            self.updhitbox()
 
     def attaqueTourDroite(self, fenetre):
         if self.mort == 0:
@@ -94,6 +95,7 @@ class Mechant(object):
             pygame.display.flip()
 
             self.x -= 0.5
+            self.updhitbox()
 
     def attaqueTourGauche(self, fenetre):
         if self.mort == 0:

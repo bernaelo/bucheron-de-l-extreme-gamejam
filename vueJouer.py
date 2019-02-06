@@ -33,7 +33,7 @@ class Vue(object):
         for i in range(0,len(terrain.getCases())-1):
             for j in range(0,len(terrain.getCases()[i])-1):
                 if terrain.getCases()[i][j].getType() == tc.typecase.TOUR:
-                    fenetre.blit(pygame.image.load('tour23.png'), (j * 50, i * 50))
+                    fenetre.blit(pygame.image.load('Buche.png'), (j * 50, i * 50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRE:
                     fenetre.blit(self.arbre,(j*50 -10,i*50 -28))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRECOUPE:
@@ -117,6 +117,9 @@ class Vue(object):
 
         pygame.draw.rect(fenetre, (0, 0, 255), terrain.getTour().gethitbox(), 2)
 
+        pygame.draw.rect(fenetre, (255, 0, 0), mechant.gethitbox(), 2)
+        pygame.draw.rect(fenetre, (255, 0, 0), mechant2.gethitbox(), 2)
+
         if len(arbres)>0:
             i=0
             while i <len(arbres):
@@ -131,14 +134,16 @@ class Vue(object):
 
         if bu.getx() <= mechant.getx() <= bu.getx() + 40:  # gerer le y
             mechant.attaqueBucheronDroite(fenetre)
-            bu.setbucheportee(bu.getbucheportee() - 1)
+            if bu.getbucheportee() >0:
+                bu.setbucheportee(bu.getbucheportee() - 1)
             # enlever une buche au bucheron
 
         if mechant.getx() == 450:  # emplacement de la tour
             mechant.attaqueTourDroite(fenetre)
             mechant.suprimer()
             mechant.recréerDroite()
-            tour.setnbbuche(tour.getnbbuche() - 1)
+            if tour.getnbbuche() >0:
+                tour.setnbbuche(tour.getnbbuche() - 1)
             print("nbBuche de le tour : ", tour.getnbbuche())  # enlever les image des buches
         else:
             mechant.deplacerDroite(fenetre)
@@ -154,7 +159,8 @@ class Vue(object):
             mechant2.attaqueTourGauche(fenetre)
             mechant2.suprimer()
             mechant2.recréerGauche()
-            tour.setnbbuche(tour.getnbbuche() - 1)
+            if tour.getnbbuche() > 0:
+                tour.setnbbuche(tour.getnbbuche() - 1)
             print("nbBuche de le tour : ", tour.getnbbuche())  # enlever les image des buches
 
         else:

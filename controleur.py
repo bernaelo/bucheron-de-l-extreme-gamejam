@@ -245,6 +245,11 @@ def gameloop():
                 for i in range(0, len(posArbres)):
                     terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRE)
 
+        if pygame.Rect(bucheron.gethitbox()).colliderect(terrain.getTour().gethitbox()) and bucheron.getbucheportee()>0:
+            terrain.getTour().augnbbuche(bucheron.getbucheportee())
+            print(str(bucheron.getbucheportee()) + "buches ajoutees")
+            bucheron.rstbuche()
+
         vue.Update(terrain, bucheron, fenetre, tour, mechant, mechant2, arbres)
 
 introloop()
