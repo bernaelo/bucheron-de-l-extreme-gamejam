@@ -124,8 +124,10 @@ class Vue(object):
                 pygame.draw.rect(fenetre, (255, 0, 0), arbres[i], 2)
                 i+=1
 
-
-        text = self.font.render("Buches : "+str(bu.getbucheportee()), 1, (255, 255, 255))
+        if bu.getbucheportee()<2:
+            text = self.font.render("Buches : "+str(bu.getbucheportee()), 1, (255, 255, 255))
+        else:
+            text = self.font.render("Buches : " + str(bu.getbucheportee() ), 1, (255, 0, 0))
         fenetre.blit(text, (10, 670))
 
         if bu.getx() <= mechant.getx() <= bu.getx() + 40:  # gerer le y

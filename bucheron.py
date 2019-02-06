@@ -59,7 +59,10 @@ class Bucheron(object):
     def setisJump(self, iS):
         self.isJump = iS
 
-    def sauter(self, collide):
+    def setJumpCount(self, jc):
+        self.jumpCount = jc
+
+    def sauter(self,collide):
         if self.isAttack == False:
             test = False
             if self.jumpCount >= 0:
@@ -71,6 +74,7 @@ class Bucheron(object):
                         self.updhitbox()
                     if self.jumpCount > 0:
                         self.jumpCount = 0
+
 
                 self.jumpCount -= 1
             elif self.jumpCount < 0:
@@ -148,6 +152,12 @@ class Bucheron(object):
         self.hitboxAttG = (self.x, self.y + 40, 60, 114)
         self.hitboxAttD = (self.x + 100, self.y + 40, 60, 114)
 
+    def jumpspring(self, collide):
+        self.jumpCount = 10
+        self.updhitbox()
+        self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5
+        self.updhitbox()
+
     def gethitboxAttG(self):
         return self.hitboxAttG
 
@@ -167,9 +177,6 @@ class Bucheron(object):
 
     def setAttack(self, b):
         self.isAttack = b
-
-    def jumpspring(self, collide):
-        self.sauter(collide)
 
     def getTraitrise(self):
         return self.traitrise
