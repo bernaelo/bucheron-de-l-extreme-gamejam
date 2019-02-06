@@ -8,80 +8,119 @@ class Mechant(object):
         pygame.display.set_caption("Bucheron Vie")
         self.hp = 1
         self.degat = 0
-        self.quitter = False
-        self.mouvement = 0
+        self.x = 0
+        self.y = 550
+        self.mort = 0
 
-    def Creer(self, x, y, fenetre):
+    def getx(self):
+        return self.x
 
-        while x <= 350 and self.quitter == False:
-            # si part de la gauche
+    def gety(self):
+        return self.y
+
+    def attaqueBucheronDroite(self, fenetre):
+
+        if self.mort == 0:
+            ninja = pygame.image.load("Ninja PAUSE ATT0.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
+            pygame.display.update()
+            pygame.time.delay(50)
+
+            ninja = pygame.image.load("Ninja PAUSE ATT1.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
+            pygame.display.update()
+            pygame.time.delay(50)
+
+    def deplacerDroite(self, fenetre):
+        if self.mort == 0:
+            # sprite1
+            ninja = pygame.image.load("Ninja_Mouvement1.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
+            pygame.display.update()
+            pygame.display.flip()
+            pygame.time.delay(50)
+
+            # sprite2
+            ninja = pygame.image.load("Ninja_Mouvement0.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
+            pygame.display.update()
+            pygame.display.flip()
+            pygame.time.delay(50)
+
+            self.x += 10
+
+    def attaqueTourDroite(self, fenetre):
+        if self.mort == 0:
             # sprite 1
-            for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
-                if event.type == KEYDOWN:  # Si un de ces événements est de type QUIT
-                    self.quitter = True  # On arrête la boucle
-            if self.mouvement == 1:
-                fond = pygame.image.load("background.png").convert()
-                fenetre.blit(fond, (0, 0))
-                ninja = pygame.image.load("Ninja_Mouvement1.png").convert_alpha()
-                fenetre.blit(ninja, (x, y))
-                pygame.display.update()
-                pygame.time.delay(100)
-                self.mouvement = 0
-                # sprite2
-            elif self.mouvement == 0:
-                fond = pygame.image.load("background.png").convert()
-                fenetre.blit(fond, (0, 0))
-                ninja = pygame.image.load("Ninja_Mouvement0.png").convert_alpha()
-                fenetre.blit(ninja, (x, y))
-                pygame.display.update()
-                pygame.time.delay(100)
-                self.mouvement = 1
+            ninja = pygame.image.load("Ninja MOUV attaque0.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
 
-            x += 3
+            pygame.display.update()
+            pygame.time.delay(75)
 
-            print(x)
-            if x >= 350:
-                # sprite 1
-                fond = pygame.image.load("background.png").convert()
-                fenetre.blit(fond, (0, 0))
-                ninja = pygame.image.load("Ninja MOUV attaque0.png").convert_alpha()
-                fenetre.blit(ninja, (x, y))
+            # sprite 2
+            ninja = pygame.image.load("Ninja MOUV attaque1.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
 
-                pygame.display.update()
-                pygame.time.delay(100)
+            pygame.display.update()
+            pygame.time.delay(250)
 
-                # sprite 2
-                fond = pygame.image.load("background.png").convert()
-                fenetre.blit(fond, (0, 0))
-                ninja = pygame.image.load("Ninja MOUV attaque1.png").convert_alpha()
-                fenetre.blit(ninja, (x, y))
+    def recréerDroite(self):
+        self.mort = 0
+        self.x = 0
+        self.y = 550
 
-                pygame.display.update()
-                pygame.time.delay(250)
+    def suprimer(self):
+        self.mort = 1
 
-                # sprite 3
-                fond = pygame.image.load("background.png").convert()
-                fenetre.blit(fond, (0, 0))
-                ninja = pygame.image.load("Ninja MOUV attaque0.png").convert_alpha()
-                fenetre.blit(ninja, (x, y))
+    def attaqueBucheronGauche(self, fenetre):
 
-                pygame.display.update()
-                pygame.time.delay(300)
+        if self.mort == 0:
+            ninja = pygame.image.load("Ninja PAUSE ATT GAUCHE0.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
+            pygame.display.update()
+            pygame.time.delay(50)
 
-            # si part de la droite
-            if y == 100:
-                # x = taille de la map (512)
-                x = 512
-                x = x - 1
-                # sprite 1
+            ninja = pygame.image.load("Ninja PAUSE ATT GAUCHE1.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
+            pygame.display.update()
+            pygame.time.delay(50)
 
-                #
-                pygame.display.update()
-                pygame.time.delay(100)
-                # sprite2
+    def deplacerGauche(self, fenetre):
+        if self.mort == 0:
+            # sprite1
+            ninja = pygame.image.load("Ninja MOUV GAUCHE1.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
+            pygame.display.update()
+            pygame.display.flip()
+            pygame.time.delay(50)
 
-                #
-                pygame.display.update()
-                pygame.time.delay(100)
+            # sprite2
+            ninja = pygame.image.load("Ninja MOUV GAUCHE0.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
+            pygame.display.update()
+            pygame.display.flip()
+            pygame.time.delay(50)
 
-        pygame.display.flip()
+            self.x -= 10
+
+    def attaqueTourGauche(self, fenetre):
+        if self.mort == 0:
+            # sprite 1
+            ninja = pygame.image.load("Ninja MOUV ATT GAUCHE0.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
+
+            pygame.display.update()
+            pygame.time.delay(75)
+
+            # sprite 2
+            ninja = pygame.image.load("Ninja MOUV ATT GAUCHE1.png").convert_alpha()
+            fenetre.blit(ninja, (self.x, self.y))
+
+            pygame.display.update()
+            pygame.time.delay(250)
+
+    def recréerGauche(self):
+        self.mort = 0
+        self.x = 900
+        self.y = 550

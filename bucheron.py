@@ -167,6 +167,9 @@ class Bucheron(object):
     def setAttack(self,b):
         self.isAttack = b
 
+    def jumpspring(self, collide):
+        self.sauter(collide)
+
     def getTraitrise(self):
         return self.traitrise
 

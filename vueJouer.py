@@ -18,16 +18,16 @@ class Vue(object):
         self.herbe = pygame.image.load('herbe.png')
         self.arbre = pygame.image.load('Arbre2.png')
         self.arbrecoupe = pygame.image.load('Arbre_coupe2.png')
+        self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png')]
         self.stopCount =0
         self.walkCount = 0
+        self.ressortCount = 0
         self.nuageCount=0
         self.attCount=0
 
+    def Update(self, terrain, bu, fenetre,arbres mechant, mechant2):
 
-    def Update(self,terrain,bu,fenetre,arbres):
-
-
-        fenetre.blit(pygame.image.load('background.png'),(0,0))
+        fenetre.blit(pygame.image.load('background.png'), (0, 0))
 
         for i in range(0,len(terrain.getCases())-1):
             for j in range(0,len(terrain.getCases()[i])-1):
@@ -39,27 +39,37 @@ class Vue(object):
                     #fenetre.blit(nuage,(j*50,i*50))
                     fenetre.blit(self.nuage[self.nuageCount // 10], (j*50, i*50))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGED:
-                    #fenetre.blit(nuagefD, (j * 50, i * 50))
+                    # fenetre.blit(nuagefD, (j * 50, i * 50))
                     fenetre.blit(self.nuagefD[self.nuageCount // 10], (j * 50, i * 50))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGEG:
-                    #fenetre.blit(nuagefG,(j*50,i*50))
+                    # fenetre.blit(nuagefG,(j*50,i*50))
                     fenetre.blit(self.nuagefG[self.nuageCount // 10], (j * 50, i * 50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRE:
                     fenetre.blit(self.arbre,(j*50 -10,i*50 -28))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRECOUPE:
                     fenetre.blit(self.arbrecoupe,(j*50 -10,i*50 -28))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
+                    fenetre.blit(self.ressort[self.ressortCount // 10], (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.TOUR:
+                    fenetre.blit(pygame.image.load('tour23.png'),(j*50,i*50))
 
-        self.nuageCount +=1
-        if self.nuageCount>19:
-            self.nuageCount=0
+        self.nuageCount += 1
+        if self.nuageCount > 19:
+            self.nuageCount = 0
 
 
+        self.ressortCount += 1
+        if self.ressortCount > 15:
+            self.ressortCount = 0
+
+        if self.walkCount >= 12:
+            self.walkCount=0
 
         if bu.isAttacking():
             if bu.getoldleft():
-                fenetre.blit(self.attaqueGauche[self.attCount ], (bu.getx(), bu.gety()))
+                fenetre.blit(self.attaqueGauche[self.attCount], (bu.getx(), bu.gety()))
             else:
-                fenetre.blit(self.attaqueDroite[self.attCount ], (bu.getx(), bu.gety()))
+                fenetre.blit(self.attaqueDroite[self.attCount], (bu.getx(), bu.gety()))
 
             self.attCount+=1
             if self.attCount==3:
@@ -88,7 +98,7 @@ class Vue(object):
                 self.walkCount=0
             else:
                 fenetre.blit(self.walkRight[self.walkCount // 2], (bu.getx(), bu.gety()))
-                self.walkCount += 1
+                self.walkCount+=1
                 if self.walkCount > 11:
                     self.walkCount = 0
         else:
@@ -105,6 +115,30 @@ class Vue(object):
         pygame.draw.rect(fenetre,(255,0,0),bu.gethitbox(),2)
         pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
         pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
+        print(bu.gety())
+        print(mechant.gety())
+        if bu.getx() <= mechant.getx() <= bu.getx() + 40:
+            mechant.attaqueBucheronDroite(fenetre)
+
+        elif mechant.getx() == 500:  # emplacement de la tour
+            mechant.attaqueTourDroite(fenetre)
+            mechant.suprimer()
+            mechant.recréerDroite()
+
+        else:
+            mechant.deplacerDroite(fenetre)
+        # ninja a droite
+        #
+        # if bu.getx() == mechant2.getx() and bu.gety() == mechant2.gety():
+        #     mechant2.attaqueBucheronGauche(fenetre)
+        #
+        # elif mechant2.getx() == 500:  # emplacement de la tour
+        #     mechant2.attaqueTourGauche(fenetre)
+        #     mechant2.suprimer()
+        #     mechant2.recréerGauche()
+        #
+        # else:
+        #     mechant2.deplacerGauche(fenetre)
 
         if len(arbres)>1:
             for i in(0,len(arbres)-1):
