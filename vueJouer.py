@@ -26,6 +26,13 @@ class Vue(object):
         self.attCount=0
         self.font = pygame.font.Font(None, 40)
         self.temps = pygame.time.Clock()
+        self.demarrer = 0
+
+        def getdemarrer(self):
+            return self.demarrer
+
+        def setdemarrer(self, demarrer):
+            self.demarrer = demarrer
 
 
     def Update(self, terrain, bu, fenetre, tour, mechant, mechant2, arbres):
@@ -138,14 +145,15 @@ class Vue(object):
         fenetre.blit(text, (10, 670))
 
         #horloge
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        temps = self.font.render("Temps : " + str(pygame.time.get_ticks()//1000), 1, (255, 255, 255))
-        fenetre.blit(temps,(800,5))
+        if getdemarrer()==1:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+            temps = self.font.render("Temps : " + str(pygame.time.get_ticks()//1000), 1, (255, 255, 255))
+            fenetre.blit(temps,(800,5))
 
-        if pygame.time.get_ticks()//1000 == 180:
-            pygame.quit()
+            if pygame.time.get_ticks()//1000 == 180:
+                pygame.quit()
 
 
 

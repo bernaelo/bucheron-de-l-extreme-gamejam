@@ -20,6 +20,7 @@ class Bucheron(object):
         self.coupHache = False
         self.bucheportee = 0
 
+
     def getx(self):
         return self.x
 
