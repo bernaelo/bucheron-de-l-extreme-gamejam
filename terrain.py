@@ -54,6 +54,11 @@ class Terrain(object):
                     suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
                     posiArbres.append((j,i))
 
+                if i==11 and j==18:
+                    case.setType(tc.typecase.ARBRE)
+                    suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
+                    posiArbres.append((j,i))
+
                 if i==5 and j==9:
                     case.setType(tc.typecase.TOUR)
 
@@ -116,5 +121,3 @@ class Terrain(object):
 
     def getRessorts(self):
         return self.ressorts
-
-

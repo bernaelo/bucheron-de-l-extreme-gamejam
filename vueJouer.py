@@ -117,11 +117,12 @@ class Vue(object):
         pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
         pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
 
-        if len(arbres)>1:
-            for i in(0,len(arbres)-1):
+        if len(arbres)>0:
+            i=0
+            while i <len(arbres):
                 pygame.draw.rect(fenetre, (255, 0, 0), arbres[i], 2)
-        elif len(arbres)==1:
-            pygame.draw.rect(fenetre, (255, 0, 0), arbres[0], 2)
+                i+=1
+
 
 
         pygame.display.flip()
