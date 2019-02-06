@@ -39,16 +39,19 @@ class Terrain(object):
             ligne=[]
             for j in range(0,21):
                 case=c.Case()
+
                 if i==6 and j==5:
                     case.setType(tc.typecase.ARBRE)
-                    suede.append(pygame.Rect(j * 50, i * 50, 50, 50))
+                    suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
                     posiArbres.append((j,i))
-                if i==5 and j==17:
-                    case.setType(tc.typecase.TOUR)
+
                 if i==11 and j==7:
                     case.setType(tc.typecase.ARBRE)
-                    suede.append(pygame.Rect(j * 50, i * 50, 50, 50))
+                    suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
                     posiArbres.append((j,i))
+
+                if i==5 and j==17:
+                    case.setType(tc.typecase.TOUR)
                 if i==7 and j in range(3,7):
                     if j==3:
                         case.setType(tc.typecase.NUAGEG)

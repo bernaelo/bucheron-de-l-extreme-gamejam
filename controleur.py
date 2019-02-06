@@ -82,6 +82,19 @@ while run:
                 print("buche : ")
                 print(bucheron.getbucheportee())
 
+        else:
+            if not pygame.Rect(bucheron.gethitboxAttD()).collidelist(arbres) == -1:
+                while pygame.Rect(bucheron.gethitboxAttD()).colliderect(arbres[i]) == -1:
+                    i+=1
+
+                print("arbre tapé")
+                terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
+                del arbres[i]
+                del posArbres[i]
+                bucheron.ajoutbuche()
+                print("buche : ")
+                print(bucheron.getbucheportee())
+
     vue.Update(terrain, bucheron, fenetre,arbres)
 
 
