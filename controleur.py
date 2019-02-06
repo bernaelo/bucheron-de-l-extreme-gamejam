@@ -399,7 +399,7 @@ def gameloop():
     mechant2.recréerGauche()
 
     son.play()
-    son.set_volume(0.5)
+    son.set_volume(0.2)
     vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres)
     jumpCount = 10
 
@@ -427,7 +427,7 @@ def gameloop():
             bucheron.sauter(collide)
 
         if keys[pygame.K_d]:
-            attB.set_volume(0.2)
+            attB.set_volume(0.1)
             attB.play()
             bucheron.attack()
         elif keys[pygame.K_LEFT]:
