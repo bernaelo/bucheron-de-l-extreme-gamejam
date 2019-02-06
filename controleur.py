@@ -5,15 +5,68 @@ import bucheron as b
 import tour as to
 import typecase as tc
 import mechants as m
+import RecupText as rete
 from pygame.locals import *
 
 pygame.init()
 
 fenetre = pygame.display.set_mode((1000, 700))
+
 pygame.display.set_caption('Menu')
 clock = pygame.time.Clock()
 immobileDroite = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.load('Bucheron-Stop-Right1.png')]
 attaqueDroite = [pygame.image.load('att D1.png'), pygame.image.load('att D3.png')]
+
+
+def name():
+    pygame.init()
+    screen = pygame.display.set_mode((480, 360))
+    name = ""
+    font = pygame.font.Font(None, 50)
+    while True:
+        for evt in pygame.event.get():
+            if evt.type == KEYDOWN:
+                if evt.unicode.isalpha():
+                    name += evt.unicode
+                elif evt.key == K_BACKSPACE:
+                    name = name[:-1]
+                elif evt.key == K_RETURN:
+                    name = ""
+            elif evt.type == QUIT:
+                return
+        screen.fill((0, 0, 0))
+        block = font.render(name, True, (255, 255, 255))
+        rect = block.get_rect()
+        rect.center = screen.get_rect().center
+        screen.blit(block, rect)
+
+
+pygame.display.flip()
+
+
+def finloop():
+    intro = True
+    stopCount = 0
+
+    while intro:
+        for event in pygame.event.get():
+            # print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        fenetre.fill((255, 255, 255))
+        largeText = pygame.font.Font('freesansbold.ttf', 35)
+        TextSurf, TextRect = text_objects("Veuillez écrire votre Nom", largeText)
+        fenetre.blit(pygame.image.load('background.png'), (0, 0))
+        TextRect.center = ((1000 / 2), 350)
+        fenetre.blit(TextSurf, TextRect)
+        TextRect.center = ((1000 / 2), 350)
+
+        pygame.display.update()
+        clock.tick(15)
+
+        rete.name(fenetre)
 
 
 def text_objects(text, font):
@@ -183,14 +236,18 @@ def gameloop():
     son.set_volume(0.5)
     vue.Update(terrain, bucheron, fenetre, tour, mechant, mechant2, arbres)
     jumpCount = 10
+
     # mainloop
     gameexit = False
-    while not(gameexit):
+    while not (gameexit):
         clock.tick(60)
 
         for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
             if event.type == pygame.QUIT:
-                gameexit=True
+                finloop()
+                gameexit = True
+                pygame.quit()
+                quit()
 
         keys = pygame.key.get_pressed()
 
@@ -246,6 +303,7 @@ def gameloop():
                     terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRE)
 
         vue.Update(terrain, bucheron, fenetre, tour, mechant, mechant2, arbres)
+
 
 introloop()
 pygame.quit()
