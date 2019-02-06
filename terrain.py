@@ -60,7 +60,7 @@ class Terrain(object):
                     suede.append(pygame.Rect(j * 51, i * 52, 50, 78))
                     posiArbres.append((j,i))
 
-                if i==5 and j==9:
+                if i==11 and j==9:
                     case.setType(tc.typecase.TOUR)
 
                 if i==7 and j in range(4,8):
