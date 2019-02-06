@@ -145,15 +145,14 @@ class Vue(object):
         fenetre.blit(text, (10, 670))
 
         #horloge
-        if getdemarrer()==1:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-            temps = self.font.render("Temps : " + str(pygame.time.get_ticks()//1000), 1, (255, 255, 255))
-            fenetre.blit(temps,(800,5))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        temps = self.font.render("Temps : " + str(pygame.time.get_ticks()//1000), 1, (255, 255, 255))
+        fenetre.blit(temps,(800,5))
 
-            if pygame.time.get_ticks()//1000 == 180:
-                pygame.quit()
+        if pygame.time.get_ticks()//1000 == 180:
+            pygame.quit()
 
 
 
