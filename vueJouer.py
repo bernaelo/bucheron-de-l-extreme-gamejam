@@ -144,6 +144,9 @@ class Vue(object):
             text = self.font.render("Buches : " + str(bu.getbucheportee() ) , 1, (255, 0, 0))
         fenetre.blit(text, (10, 670))
 
+        text = self.font.render("Tour : " + str(terrain.getTour().getnbbuche()), 1, (255, 255, 255))
+        fenetre.blit(text, (10, 640))
+
         #horloge
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -172,7 +175,7 @@ class Vue(object):
             mechant.recréerDroite()
             if tour.getnbbuche() >0:
                 tour.setnbbuche(tour.getnbbuche() - 1)
-            print("nbBuche de le tour : ", tour.getnbbuche())  # enlever les image des buches
+            print("nbBuche de le tour : ", terrain.getTour().getnbbuche())  # enlever les image des buches
         else:
             mechant.deplacerDroite(fenetre)
 
@@ -181,7 +184,6 @@ class Vue(object):
         if bu.getx() == mechant2.getx() and bu.gety() == mechant2.gety():
             mechant2.attaqueBucheronGauche(fenetre)
             bu.setbucheportee(bu.getbucheportee() - 1)
-            print(bu.getbucheportee)
 
         elif mechant2.getx() == 500:  # emplacement de la tour
             mechant2.attaqueTourGauche(fenetre)
@@ -189,7 +191,7 @@ class Vue(object):
             mechant2.recréerGauche()
             if tour.getnbbuche() > 0:
                 tour.setnbbuche(tour.getnbbuche() - 1)
-            print("nbBuche de le tour : ", tour.getnbbuche())  # enlever les image des buches
+            print("nbBuche de le tour : ", terrain.getTour().getnbbuche())  # enlever les image des buches
 
         else:
             mechant2.deplacerGauche(fenetre)

@@ -310,6 +310,7 @@ def gameloop():
     bucheron.bougergauche(collide)
     mechant = m.Mechant()
     mechant2 = m.Mechant()
+
     mechant2.recréerGauche()
     tour = to.Tour()
 
@@ -360,12 +361,27 @@ def gameloop():
                     for j in range(0, len(arbres)):
                         if pygame.Rect(bucheron.gethitboxAttG()).colliderect(arbres[j]):
                             i = j
+                if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant.gethitbox()):
+                    mechant.suprimer()
+                    print("supprimer gauche")
+                if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant2.gethitbox()):
+                    mechant2.suprimer()
+                    print("supprimer droite")
 
             else:
                 if not pygame.Rect(bucheron.gethitboxAttD()).collidelist(arbres) == -1:
                     for j in range(0, len(arbres)):
                         if pygame.Rect(bucheron.gethitboxAttD()).colliderect(arbres[j]):
                             i = j
+
+                if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant.gethitbox()):
+                    mechant.suprimer()
+                    mechant.recréerGauche()
+                    print("supprimer gauche")
+                if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant2.gethitbox()):
+                    mechant2.suprimer()
+                    mechant2.recréerDroite()
+                    print("supprimer droite")
             if i != -1:
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
                 arbrescoupes.append(arbres[i])
