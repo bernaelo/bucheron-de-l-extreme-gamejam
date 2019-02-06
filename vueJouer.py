@@ -26,6 +26,13 @@ class Vue(object):
         self.attCount=0
         self.font = pygame.font.Font(None, 40)
         self.temps = pygame.time.Clock()
+        self.demarrer = 0
+
+        def getdemarrer(self):
+            return self.demarrer
+
+        def setdemarrer(self, demarrer):
+            self.demarrer = demarrer
 
 
     def Update(self, terrain, bu, fenetre, tour, mechant, mechant2, arbres):
