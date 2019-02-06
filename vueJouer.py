@@ -31,7 +31,15 @@ class Vue(object):
 
         for i in range(0,len(terrain.getCases())-1):
             for j in range(0,len(terrain.getCases()[i])-1):
-                if terrain.getCases()[i][j].getType()==tc.typecase.TERRE:
+                if terrain.getCases()[i][j].getType() == tc.typecase.TOUR:
+                    fenetre.blit(pygame.image.load('tour23.png'), (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRE:
+                    fenetre.blit(self.arbre,(j*50 -10,i*50 -28))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRECOUPE:
+                    fenetre.blit(self.arbrecoupe,(j*50 -10,i*50 -28))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
+                    fenetre.blit(self.ressort[self.ressortCount // 10], (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.TERRE:
                     fenetre.blit(self.terre,(j*50,i*50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.HERBE:
                     fenetre.blit(self.herbe,(j*50,i*50))
@@ -44,14 +52,7 @@ class Vue(object):
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGEG:
                     # fenetre.blit(nuagefG,(j*50,i*50))
                     fenetre.blit(self.nuagefG[self.nuageCount // 10], (j * 50, i * 50))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRE:
-                    fenetre.blit(self.arbre,(j*50 -10,i*50 -28))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRECOUPE:
-                    fenetre.blit(self.arbrecoupe,(j*50 -10,i*50 -28))
-                elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
-                    fenetre.blit(self.ressort[self.ressortCount // 10], (j * 50, i * 50))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.TOUR:
-                    fenetre.blit(pygame.image.load('tour23.png'),(j*50,i*50))
+
 
         self.nuageCount += 1
         if self.nuageCount > 19:
