@@ -39,24 +39,25 @@ class Terrain(object):
             for j in range(0,21):
                 case=c.Case()
 
-                if i==6 and j==5:
+                if i==5 and j==5:
                     case.setType(tc.typecase.ARBRE)
-                    suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
+                    suede.append(pygame.Rect(j * 55, i * 60-28, 50, 78))
                     posiArbres.append((j,i))
 
-                if i==8 and j==14:
+
+                if i==7 and j==14:
                     case.setType(tc.typecase.ARBRE)
-                    suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
+                    suede.append(pygame.Rect(j * 52, i * 57-28, 50, 78))
                     posiArbres.append((j,i))
 
-                if i==11 and j==3:
+                if i==10 and j==3:
                     case.setType(tc.typecase.ARBRE)
-                    suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
+                    suede.append(pygame.Rect(j * 55, i * 52, 50, 78))
                     posiArbres.append((j,i))
 
-                if i==11 and j==18:
+                if i==10 and j==18:
                     case.setType(tc.typecase.ARBRE)
-                    suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
+                    suede.append(pygame.Rect(j * 51, i * 52, 50, 78))
                     posiArbres.append((j,i))
 
                 if i==5 and j==9:

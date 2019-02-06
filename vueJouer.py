@@ -16,8 +16,8 @@ class Vue(object):
         self.nuage = [pygame.image.load('nuage.png'), pygame.image.load('NUAGE mouv2.png')]
         self.terre = pygame.image.load('terre.png')
         self.herbe = pygame.image.load('herbe.png')
-        self.arbre = pygame.image.load('Arbre2.png')
-        self.arbrecoupe = pygame.image.load('Arbre_coupe2.png')
+        self.arbre = pygame.image.load('Arbre4.png')
+        self.arbrecoupe = pygame.image.load('Arbre_coupe4.png')
         self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png')]
         self.stopCount =0
         self.walkCount = 0
@@ -26,7 +26,7 @@ class Vue(object):
         self.attCount=0
         self.font = pygame.font.Font(None, 40)
 
-    def Update(self, terrain, bu, fenetre,arbres):
+    def Update(self, terrain, bu, fenetre, tour, mechant, mechant2, arbres):
 
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
 
@@ -129,7 +129,36 @@ class Vue(object):
             text = self.font.render("Buches : " + str(bu.getbucheportee() ) , 1, (255, 0, 0))
         fenetre.blit(text, (10, 670))
 
+        if bu.getx() <= mechant.getx() <= bu.getx() + 40:  # gerer le y
+            mechant.attaqueBucheronDroite(fenetre)
+            bu.setbucheportee(bu.getbucheportee() - 1)
+            # enlever une buche au bucheron
 
+        if mechant.getx() == 450:  # emplacement de la tour
+            mechant.attaqueTourDroite(fenetre)
+            mechant.suprimer()
+            mechant.recréerDroite()
+            tour.setnbbuche(tour.getnbbuche() - 1)
+            print("nbBuche de le tour : ", tour.getnbbuche())  # enlever les image des buches
+        else:
+            mechant.deplacerDroite(fenetre)
+
+        # ninja a droite
+
+        if bu.getx() == mechant2.getx() and bu.gety() == mechant2.gety():
+            mechant2.attaqueBucheronGauche(fenetre)
+            bu.setbucheportee(bu.getbucheportee() - 1)
+            print(bu.getbucheportee)
+
+        elif mechant2.getx() == 500:  # emplacement de la tour
+            mechant2.attaqueTourGauche(fenetre)
+            mechant2.suprimer()
+            mechant2.recréerGauche()
+            tour.setnbbuche(tour.getnbbuche() - 1)
+            print("nbBuche de le tour : ", tour.getnbbuche())  # enlever les image des buches
+
+        else:
+            mechant2.deplacerGauche(fenetre)
 
         pygame.display.flip()
 
