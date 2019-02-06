@@ -49,13 +49,15 @@ while run:
     keys = pygame.key.get_pressed()
 
     if not (bucheron.getisJump()):
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] or pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
+            if pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
+                bucheron.setJumpCount(13.7)
             saut.set_volume(0.2)
             saut.play()
+            print("Saut")
             bucheron.setisJump(True)
     else:
-        bucheron.sauter(collide)
-        #bucheron.sauter(ressorts)
+            bucheron.sauter(collide)
 
     if keys[pygame.K_d]:
         attB.set_volume(0.2)
@@ -63,12 +65,11 @@ while run:
         bucheron.attack()
     elif keys[pygame.K_LEFT]:
         bucheron.bougergauche(collide)
-        #bucheron.bougergauche(ressorts)
     elif keys[pygame.K_RIGHT]:
         bucheron.bougerdroite(collide)
-        #bucheron.bougerdroite(ressorts)
     else:
         bucheron.pasbouger()
+
 
     if bucheron.getCoupHache():
         if bucheron.getoldleft():
