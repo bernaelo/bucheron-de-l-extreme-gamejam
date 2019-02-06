@@ -192,3 +192,6 @@ class Bucheron(object):
 
     def getbucheportee(self):
         return self.bucheportee
+
+    def rstbuche(self):
+        self.bucheportee = 0
