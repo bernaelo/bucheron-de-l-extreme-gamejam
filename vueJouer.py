@@ -86,14 +86,11 @@ class Vue(object):
             if bu.getisJump() and not bu.getTraitrise():
                 fenetre.blit(self.walkLeft[5], (bu.getx(), bu.gety()))
                 self.walkCount=0
-                #print("bite")
             else:
-                #print("sale pute")
                 fenetre.blit(self.walkLeft[self.walkCount // 2], (bu.getx(), bu.gety()))
                 self.walkCount += 1
                 if self.walkCount >= 12:
                     self.walkCount = 0
-                    #print("reset")
         elif bu.getright():
             if bu.getisJump() and not bu.getTraitrise():
                 fenetre.blit(self.walkRight[5], (bu.getx(), bu.gety()))
@@ -118,6 +115,8 @@ class Vue(object):
         pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
         pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
 
+        pygame.draw.rect(fenetre, (0, 0, 255), terrain.getTour().gethitbox(), 2)
+
         if len(arbres)>0:
             i=0
             while i <len(arbres):
@@ -127,7 +126,7 @@ class Vue(object):
         if bu.getbucheportee()<2:
             text = self.font.render("Buches : "+str(bu.getbucheportee()), 1, (255, 255, 255))
         else:
-            text = self.font.render("Buches : " + str(bu.getbucheportee() ), 1, (255, 0, 0))
+            text = self.font.render("Buches : " + str(bu.getbucheportee() ) , 1, (255, 0, 0))
         fenetre.blit(text, (10, 670))
 
 

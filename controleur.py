@@ -32,6 +32,7 @@ son = pygame.mixer.Sound("Theme.wav")
 saut = pygame.mixer.Sound("saut.wav")
 attB = pygame.mixer.Sound("attaque_hache.wav")
 
+bucheron.bougergauche(collide)
 
 son.play()
 son.set_volume(0.5)
@@ -40,7 +41,8 @@ jumpCount = 10
 # mainloop
 run = True
 while run:
-    clock.tick(60)
+
+    clock.tick(40)
 
     for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
         if event.type == pygame.QUIT:
@@ -54,7 +56,6 @@ while run:
                 bucheron.setJumpCount(13.7)
             saut.set_volume(0.2)
             saut.play()
-            print("Saut")
             bucheron.setisJump(True)
     else:
             bucheron.sauter(collide)
@@ -102,6 +103,7 @@ while run:
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRE)
 
     vue.Update(terrain, bucheron, fenetre,arbres)
+
 
 
 pygame.quit()

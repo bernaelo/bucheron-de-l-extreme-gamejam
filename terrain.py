@@ -95,7 +95,7 @@ class Terrain(object):
                 if i >12:
                     case.setType(tc.typecase.TERRE)
                     collision.append(pygame.Rect(j * 50, i * 50,50,50))
-                if i == 11 and j == 10:
+                if i == 11 and j == 16:
                     case.setType(tc.typecase.RESSORT)
                     boing.append(pygame.Rect(j * 50, i * 50, 50, 50))
                 ligne.append(case)
