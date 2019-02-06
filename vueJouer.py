@@ -24,6 +24,7 @@ class Vue(object):
         self.ressortCount = 0
         self.nuageCount=0
         self.attCount=0
+        self.font = pygame.font.Font(None, 40)
 
     def Update(self, terrain, bu, fenetre,arbres):
 
@@ -122,6 +123,10 @@ class Vue(object):
             while i <len(arbres):
                 pygame.draw.rect(fenetre, (255, 0, 0), arbres[i], 2)
                 i+=1
+
+
+        text = self.font.render("Buches : "+str(bu.getbucheportee()), 1, (255, 255, 255))
+        fenetre.blit(text, (10, 670))
 
 
 
