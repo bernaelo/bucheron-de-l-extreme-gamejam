@@ -25,9 +25,6 @@ collide = terrain.getCollide()
 vue = vj.Vue()
 
 bucheron = b.Bucheron()
-mechant = m.Mechant()
-mechant2 = m2.Mechant()
-mechant2.recréerGauche()
 son = pygame.mixer.Sound("Theme.wav")
 saut = pygame.mixer.Sound("saut.wav")
 attB = pygame.mixer.Sound("attaque_hache.wav")
@@ -35,7 +32,7 @@ attB = pygame.mixer.Sound("attaque_hache.wav")
 
 son.play()
 son.set_volume(0.5)
-vue.Update(terrain, bucheron, fenetre,arbres, mechant, mechant2)
+vue.Update(terrain, bucheron, fenetre,arbres)
 jumpCount = 10
 # mainloop
 run = True
@@ -85,7 +82,7 @@ while run:
                 print("buche : ")
                 print(bucheron.getbucheportee())
 
-    vue.Update(terrain, bucheron, fenetre,arbres, mechant, mechant2)
+    vue.Update(terrain, bucheron, fenetre,arbres)
 
 
 pygame.quit()
