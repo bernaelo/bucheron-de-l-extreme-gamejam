@@ -19,6 +19,9 @@ collide=terrain.getCollide()
 arbres=terrain.getArbres()
 posArbres=terrain.getPosArbres()
 
+arbrescoupes=[]
+posArbrescoupes=[]
+
 ressorts=terrain.getRessorts()
 collide = terrain.getCollide()
 
@@ -73,28 +76,32 @@ while run:
                 for j in range(0,len(arbres)):
                     if pygame.Rect(bucheron.gethitboxAttG()).colliderect(arbres[j]):
                         i=j
-                print(arbres[i][1] )
-                print("arbre tapé")
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
+                arbrescoupes.append(arbres[i])
+                posArbrescoupes.append((posArbres[i]))
                 del arbres[i]
                 del posArbres[i]
                 bucheron.ajoutbuche()
-                print("buche : ")
-                print(bucheron.getbucheportee())
 
         else:
             if not pygame.Rect(bucheron.gethitboxAttD()).collidelist(arbres) == -1:
                 for j in range(0,len(arbres)):
                     if pygame.Rect(bucheron.gethitboxAttD()).colliderect(arbres[j]):
                         i=j
-                print(arbres[i][1])
-                print("arbre tapé")
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
+                arbrescoupes.append(arbres[i])
+                posArbrescoupes.append((posArbres[i]))
                 del arbres[i]
                 del posArbres[i]
                 bucheron.ajoutbuche()
-                print("buche : ")
-                print(bucheron.getbucheportee())
+
+        if len(arbres)<1:
+            arbres=arbrescoupes
+            posArbres=posArbrescoupes
+            arbrescoupes=[]
+            posArbrescoupes=[]
+            for i in range(0,len(posArbres)):
+                terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRE)
 
     vue.Update(terrain, bucheron, fenetre,arbres)
 

@@ -24,6 +24,7 @@ class Vue(object):
         self.ressortCount = 0
         self.nuageCount=0
         self.attCount=0
+        self.font = pygame.font.Font(None, 40)
 
     def Update(self, terrain, bu, fenetre,arbres):
 
@@ -31,7 +32,15 @@ class Vue(object):
 
         for i in range(0,len(terrain.getCases())-1):
             for j in range(0,len(terrain.getCases()[i])-1):
-                if terrain.getCases()[i][j].getType()==tc.typecase.TERRE:
+                if terrain.getCases()[i][j].getType() == tc.typecase.TOUR:
+                    fenetre.blit(pygame.image.load('tour23.png'), (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRE:
+                    fenetre.blit(self.arbre,(j*50 -10,i*50 -28))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRECOUPE:
+                    fenetre.blit(self.arbrecoupe,(j*50 -10,i*50 -28))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
+                    fenetre.blit(self.ressort[self.ressortCount // 10], (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType()==tc.typecase.TERRE:
                     fenetre.blit(self.terre,(j*50,i*50))
                 elif terrain.getCases()[i][j].getType()==tc.typecase.HERBE:
                     fenetre.blit(self.herbe,(j*50,i*50))
@@ -44,14 +53,7 @@ class Vue(object):
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGEG:
                     # fenetre.blit(nuagefG,(j*50,i*50))
                     fenetre.blit(self.nuagefG[self.nuageCount // 10], (j * 50, i * 50))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRE:
-                    fenetre.blit(self.arbre,(j*50 -10,i*50 -28))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRECOUPE:
-                    fenetre.blit(self.arbrecoupe,(j*50 -10,i*50 -28))
-                elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
-                    fenetre.blit(self.ressort[self.ressortCount // 10], (j * 50, i * 50))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.TOUR:
-                    fenetre.blit(pygame.image.load('tour23.png'),(j*50,i*50))
+
 
         self.nuageCount += 1
         if self.nuageCount > 19:
@@ -116,11 +118,16 @@ class Vue(object):
         pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
         pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
 
-        if len(arbres)>1:
-            for i in(0,len(arbres)-1):
+        if len(arbres)>0:
+            i=0
+            while i <len(arbres):
                 pygame.draw.rect(fenetre, (255, 0, 0), arbres[i], 2)
-        elif len(arbres)==1:
-            pygame.draw.rect(fenetre, (255, 0, 0), arbres[0], 2)
+                i+=1
+
+
+        text = self.font.render("Buches : "+str(bu.getbucheportee()), 1, (255, 255, 255))
+        fenetre.blit(text, (10, 670))
+
 
 
         pygame.display.flip()

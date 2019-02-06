@@ -8,7 +8,6 @@ class Terrain(object):
     def __init__(self):
         self.tour=t.Tour()
         self.cases=[]
-        self.posTour=(850,650)
         self.collide=[]
         self.arbres=[]
         self.posArbres=[]
@@ -55,27 +54,40 @@ class Terrain(object):
                     suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
                     posiArbres.append((j,i))
 
-                if i==5 and j==17:
+                if i==11 and j==18:
+                    case.setType(tc.typecase.ARBRE)
+                    suede.append(pygame.Rect(j * 50, i * 50-28, 50, 78))
+                    posiArbres.append((j,i))
+
+                if i==5 and j==9:
                     case.setType(tc.typecase.TOUR)
-                if i==7 and j in range(3,7):
-                    if j==3:
+
+                if i==7 and j in range(4,8):
+                    if j==4:
                         case.setType(tc.typecase.NUAGEG)
                         collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
-                    elif j==6:
+                    elif j==7:
                         case.setType(tc.typecase.NUAGED)
                         collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
                     else:
                         case.setType(tc.typecase.NUAGE)
                         collision.append(pygame.Rect(j * 50, i * 50,50,50))
-                if i==9 and j in range(10,15):
-                    if j == 10:
+                if i==9 and j in range(13,16):
+                    if j == 13:
                         case.setType(tc.typecase.NUAGEG)
                         collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
-                    elif j == 14:
+                    elif j == 15:
                         case.setType(tc.typecase.NUAGED)
                         collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
                     else:
                         case.setType(tc.typecase.NUAGE)
+                        collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
+                if i==9 and j in range(0,2):
+                    if j == 0:
+                        case.setType(tc.typecase.NUAGEG)
+                        collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
+                    elif j == 1:
+                        case.setType(tc.typecase.NUAGED)
                         collision.append(pygame.Rect(j * 50, i * 50, 50, 50))
                 if i==12:
                     case.setType(tc.typecase.HERBE)
@@ -109,5 +121,3 @@ class Terrain(object):
 
     def getRessorts(self):
         return self.ressorts
-
-
