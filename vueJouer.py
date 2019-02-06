@@ -143,7 +143,9 @@ class Vue(object):
                 running = False
         temps = self.font.render("Temps : " + str(pygame.time.get_ticks()//1000), 1, (255, 255, 255))
         fenetre.blit(temps,(800,5))
-        self.temps.tick(60)
+
+        if pygame.time.get_ticks()//1000 == 180:
+            pygame.quit()
 
 
 
