@@ -29,5 +29,5 @@ class Tour(object):
     def augnbbuche(self, nb):
         self.nbbuche += nb
         if self.nbbuche//4 > self.nbetage:
-            self.nbetage+=1
+            self.nbetage += 1
 

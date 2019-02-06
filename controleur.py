@@ -325,7 +325,6 @@ def gameloop():
 
         for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
             if event.type == pygame.QUIT:
-                finloop()
                 gameexit = True
                 pygame.quit()
                 quit()
@@ -408,6 +407,7 @@ def gameloop():
         vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres)
 
         if pygame.time.get_ticks()//1000 == 180:
+            finloop()
             print("FIN DU JEU TA MERE LA PUTE")
 
 
