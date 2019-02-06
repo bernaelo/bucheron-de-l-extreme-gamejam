@@ -8,7 +8,7 @@ class Mechant(object):
         pygame.display.set_caption("Bucheron Vie")
         self.hp = 1
         self.degat = 0
-        self.x = 1
+        self.x = -50
         self.y = 550
         self.mort = 0
         self.hitbox=(self.x,self.y,50,50)
@@ -44,7 +44,7 @@ class Mechant(object):
             pygame.display.update()
             pygame.display.flip()
 
-            self.x += 0.5
+            self.x += 1
             self.updhitbox()
 
     def attaqueTourDroite(self, fenetre):
@@ -63,7 +63,7 @@ class Mechant(object):
 
     def recréerDroite(self):
         self.mort = 0
-        self.x = 1
+        self.x = -50
         self.y = 550
 
     def suprimer(self):
@@ -94,7 +94,7 @@ class Mechant(object):
             pygame.display.update()
             pygame.display.flip()
 
-            self.x -= 0.5
+            self.x -= 1
             self.updhitbox()
 
     def attaqueTourGauche(self, fenetre):
@@ -113,7 +113,7 @@ class Mechant(object):
 
     def recréerGauche(self):
         self.mort = 0
-        self.x = 900
+        self.x = 1000
         self.y = 550
 
     def updhitbox(self):
