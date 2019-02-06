@@ -1,24 +1,24 @@
 import pygame
 
+
 class Bucheron(object):
 
     def __init__(self):
-        self.x=200
-        self.y=440
-        self.right=False
-        self.left=False
-        self.speed=13
-        self.isJump=False
-        self.hitbox=(self.x + 60,self.y+40,40,114)
-        self.hitboxAttG = (self.x , self.y + 40, 60, 114)
+        self.x = 200
+        self.y = 440
+        self.right = False
+        self.left = False
+        self.speed = 13
+        self.isJump = False
+        self.hitbox = (self.x + 60, self.y + 40, 40, 114)
+        self.hitboxAttG = (self.x, self.y + 40, 60, 114)
         self.hitboxAttD = (self.x + 100, self.y + 40, 60, 114)
         self.jumpCount = 9.5
-        self.oldleft=False
-        self.isAttack=False
-        self.traitrise=False
-        self.coupHache=False
-        self.bucheportee=0
-
+        self.oldleft = False
+        self.isAttack = False
+        self.traitrise = False
+        self.coupHache = False
+        self.bucheportee = 0
 
     def getx(self):
         return self.x
@@ -32,23 +32,26 @@ class Bucheron(object):
     def getright(self):
         return self.right
 
-    def setx(self,x1):
-        self.x=x1
+    def setx(self, x1):
+        self.x = x1
 
     def sety(self, y1):
         self.y = y1
 
-    def setleft(self,b):
-        self.left=b
+    def setleft(self, b):
+        self.left = b
 
-    def setright(self,b):
-        self.right=b
+    def setright(self, b):
+        self.right = b
 
     def getspeed(self):
         return self.speed
 
     def setspeed(self, sp):
         self.speed = sp
+
+    def setbucheportee(self, buche):
+        self.bucheportee = buche
 
     def getisJump(self):
         return self.isJump
@@ -61,29 +64,29 @@ class Bucheron(object):
 
     def sauter(self,collide):
         if self.isAttack == False:
-            test=False
-            if self.jumpCount >=0:
-                self.y-=(self.jumpCount * abs(self.jumpCount)) * 0.5
+            test = False
+            if self.jumpCount >= 0:
+                self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5
                 self.updhitbox()
                 if not pygame.Rect(self.hitbox).collidelist(collide) == -1:
-                    while not pygame.Rect(self.hitbox).collidelist(collide)== -1:
+                    while not pygame.Rect(self.hitbox).collidelist(collide) == -1:
                         self.y += 1
                         self.updhitbox()
-                    if self.jumpCount>0:
-                        self.jumpCount=0
+                    if self.jumpCount > 0:
+                        self.jumpCount = 0
 
 
                 self.jumpCount -= 1
-            elif self.jumpCount <0:
+            elif self.jumpCount < 0:
 
                 self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5
                 self.updhitbox()
 
                 if not pygame.Rect(self.hitbox).collidelist(collide) == -1:
-                    while not pygame.Rect(self.hitbox).collidelist(collide)== -1:
+                    while not pygame.Rect(self.hitbox).collidelist(collide) == -1:
                         self.y -= 1
                         self.updhitbox()
-                    test=True
+                    test = True
 
                 self.jumpCount -= 1
 
@@ -92,11 +95,11 @@ class Bucheron(object):
                     self.isJump = False
 
             else:
-                self.isJump=False
+                self.isJump = False
                 self.jumpCount = 9.5
             self.updhitbox()
 
-    def bougerdroite(self,collide):
+    def bougerdroite(self, collide):
         if self.isAttack == False:
 
             self.x += self.speed
@@ -115,10 +118,9 @@ class Bucheron(object):
         self.oldleft = False
         self.traitrise = False
 
-
-    def bougergauche(self,collide):
+    def bougergauche(self, collide):
         self.traitrise = True
-        if self.isAttack==False:
+        if self.isAttack == False:
             self.x -= self.speed
             self.updhitbox()
             if not pygame.Rect(self.hitbox).collidelist(collide) == -1:
@@ -136,7 +138,7 @@ class Bucheron(object):
         self.traitrise = False
 
     def attack(self):
-        self.isAttack=True
+        self.isAttack = True
 
     def pasbouger(self):
         self.left = False
@@ -146,8 +148,8 @@ class Bucheron(object):
         return self.hitbox
 
     def updhitbox(self):
-        self.hitbox=(self.x + 60,self.y+40,40,114)
-        self.hitboxAttG = (self.x , self.y + 40, 60, 114)
+        self.hitbox = (self.x + 60, self.y + 40, 40, 114)
+        self.hitboxAttG = (self.x, self.y + 40, 60, 114)
         self.hitboxAttD = (self.x + 100, self.y + 40, 60, 114)
 
     def jumpspring(self, collide):
@@ -155,7 +157,6 @@ class Bucheron(object):
         self.updhitbox()
         self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5
         self.updhitbox()
-
 
     def gethitboxAttG(self):
         return self.hitboxAttG
@@ -166,15 +167,15 @@ class Bucheron(object):
     def getoldleft(self):
         return self.oldleft
 
-    def descendre(self,collide):
-        self.jumpCount=-1
-        self.isJump=True
+    def descendre(self, collide):
+        self.jumpCount = -1
+        self.isJump = True
         self.sauter(collide)
 
     def isAttacking(self):
         return self.isAttack
 
-    def setAttack(self,b):
+    def setAttack(self, b):
         self.isAttack = b
 
     def getTraitrise(self):
@@ -183,7 +184,7 @@ class Bucheron(object):
     def getCoupHache(self):
         return self.coupHache
 
-    def setCoupHache(self,b):
+    def setCoupHache(self, b):
         self.coupHache = b
 
     def ajoutbuche(self):
@@ -191,3 +192,6 @@ class Bucheron(object):
 
     def getbucheportee(self):
         return self.bucheportee
+
+    def rstbuche(self):
+        self.bucheportee = 0
