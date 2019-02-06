@@ -176,7 +176,7 @@ class Vue(object):
             if bu.getbucheportee() > 0:
                 bu.setbucheportee(bu.getbucheportee() - 1)
 
-        elif mechant2.getx() == 500:  # emplacement de la tour
+        if mechant2.getx() == 500:  # emplacement de la tour
             mechant2.attaqueTourGauche(fenetre)
             mechant2.suprimer()
             mechant2.recréerGauche()
