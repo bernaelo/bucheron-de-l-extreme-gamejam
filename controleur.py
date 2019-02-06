@@ -16,7 +16,7 @@ pygame.display.set_caption('Menu')
 clock = pygame.time.Clock()
 immobileDroite = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.load('Bucheron-Stop-Right1.png')]
 attaqueDroite = [pygame.image.load('att D1.png'), pygame.image.load('att D3.png')]
-
+terrain = t.Terrain()
 
 def finloop():
     while True:
@@ -27,7 +27,8 @@ def finloop():
                 quit()
 
         nomJoueurCourant = rete.name(fenetre)
-        print(nomJoueurCourant)
+        print("nom : ", nomJoueurCourant)
+        print("score : ", terrain.getTour().getnbbuche())
         introloop()
 
 
@@ -279,7 +280,7 @@ def introloop():
 
 
 def gameloop():
-    terrain = t.Terrain()
+
     terrain.initcases()
     collide = terrain.getCollide()
     arbres = terrain.getArbres()
@@ -393,7 +394,7 @@ def gameloop():
 
         vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres)
 
-        if pygame.time.get_ticks() // 1000 == 180:
+        if pygame.time.get_ticks() // 1000 == 5:
             finloop()
             print("FIN DU JEU TA MERE LA PUTE")
 
