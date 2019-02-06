@@ -362,11 +362,9 @@ def gameloop():
                 if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant.gethitbox()):
                     mechant.suprimer()
                     mechant.recréerDroite()
-                    print("supprimer gauche")
                 if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant2.gethitbox()):
                     mechant2.suprimer()
                     mechant2.recréerGauche()
-                    print("supprimer droite")
 
             else:
                 if not pygame.Rect(bucheron.gethitboxAttD()).collidelist(arbres) == -1:
@@ -377,11 +375,9 @@ def gameloop():
                 if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant.gethitbox()):
                     mechant.suprimer()
                     mechant.recréerDroite()
-                    print("supprimer gauche")
                 if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant2.gethitbox()):
                     mechant2.suprimer()
                     mechant2.recréerGauche()
-                    print("supprimer droite")
             if i != -1:
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
                 arbrescoupes.append(arbres[i])
@@ -401,7 +397,6 @@ def gameloop():
 
         if pygame.Rect(bucheron.gethitbox()).colliderect(terrain.getTour().gethitbox()) and bucheron.getbucheportee()>0:
             terrain.getTour().augnbbuche(bucheron.getbucheportee())
-            print(str(bucheron.getbucheportee()) + "buches ajoutees")
             bucheron.rstbuche()
 
         vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres)
