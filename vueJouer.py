@@ -131,6 +131,7 @@ class Vue(object):
             print("nbBuche de le tour : ", tour.getnbbuche())
         else:
             mechant.deplacerDroite(fenetre)
+
         # ninja a droite
         #
         # if bu.getx() == mechant2.getx() and bu.gety() == mechant2.gety():
