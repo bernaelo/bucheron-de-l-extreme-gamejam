@@ -23,7 +23,7 @@ try:
     nom_list = [score[0] for score in scores]  # création de la liste des noms
     index = nom_list.index(nom)  # recherche du joueur
     # Si le joueur a un score:
-    print("Le joueur {} a déjà un score. il est à l'index n°{} de la liste".format(name, index))
+    print("Le joueur {} a déjà un score. il est à l'index n°{} de la liste".format(nom, index))
     if new_score > scores[index][1]:  # et que son nouveau score est mieux
         scores[index][1] = new_score
 except ValueError:  # Si le joueur n'a pas de score précédent / index(nom) renvoie une ValueError si il trouve pas nom
