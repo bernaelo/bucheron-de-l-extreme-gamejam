@@ -128,7 +128,7 @@ class Vue(object):
             mechant.suprimer()
             mechant.recréerDroite()
             tour.setnbbuche(tour.getnbbuche() - 1)
-            print("nbBuche de le tour : ", tour.getnbbuche())
+            print("nbBuche de le tour : ", tour.getnbbuche())  # enlever les image des buches
         else:
             mechant.deplacerDroite(fenetre)
 
