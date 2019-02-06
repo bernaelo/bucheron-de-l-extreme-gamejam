@@ -11,6 +11,7 @@ class Mechant(object):
         self.x = 1
         self.y = 550
         self.mort = 0
+        self.hitbox=(self.x,self.y,50,50)
 
     def getx(self):
         return self.x
@@ -112,3 +113,9 @@ class Mechant(object):
         self.mort = 0
         self.x = 900
         self.y = 550
+
+    def updhitbox(self):
+        self.hitbox = (self.x, self.y, 50, 50)
+
+    def gethitbox(self):
+        return self.hitbox
