@@ -7,10 +7,12 @@ class Mechant(object):
     def __init__(self, lieuspawn):
         self.hp = 1
         self.degat = 0
-        self.vitesse = 5
+        self.vitesse = 0
         self.x = -50
         self.y = 550
         self.mort = False
+        self.enlevitation = False
+        self.templevitaion = 0
         self.spawn = lieuspawn
         self.hitbox=(self.x,self.y,50,50)
 
@@ -25,6 +27,18 @@ class Mechant(object):
 
     def setvitesse(self, v):
         self.vitesse = v
+
+    def setemplevitation(self, i):
+        self.templevitation = i
+
+    def getemplevitation(self):
+        return self.templevitation
+
+    def setenlevitation(self, b):
+        self.enlevitation = b
+
+    def getenlevitation(self):
+        return self.enlevitation
 
     def deplacer(self):
         if not self.mort:
@@ -50,10 +64,14 @@ class Mechant(object):
         self.mort = True
 
     def leviter(self):
-        self.y += 75
+        self.setvitesse(1.5)
+        self.y -= self.vitesse
+        self.updhitbox()
 
     def aterre(self):
-        self.y -= 75
+        self.enlevitation = False
+        self.y += 150
+        self.updhitbox()
 
 
     def gethitbox(self):

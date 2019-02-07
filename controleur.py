@@ -488,12 +488,25 @@ def gameloop():
                 ennemi.respawn()
                 if terrain.getTour().getnbbuche() > 0:
                     terrain.getTour().setnbbuche(terrain.getTour().getnbbuche() - 1)
+
+
+            if pygame.Rect(ennemi.gethitbox()).colliderect(missilGravite.gethitbox()):
+                ennemi.setemplevitation(200)
+                ennemi.setenlevitation(True)
+
+            if ennemi.getenlevitation():
+                if ennemi.gety() < -20:
+                    ennemi.respawn()
+                    ennemi.setenlevitation(False)
+                else:
+                    ennemi.leviter()
             else:
+                ennemi.setvitesse(2)
                 ennemi.deplacer()
+
 
         majmechant(mechant)
         majmechant(mechant2)
-        print("SAmere la pute : " + str(mechant2.getx()))
 
         vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
 
