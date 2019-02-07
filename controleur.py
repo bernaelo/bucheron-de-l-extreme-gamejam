@@ -20,6 +20,7 @@ immobileDroite = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.lo
 attaqueDroite = [pygame.image.load('att D1.png'), pygame.image.load('att D3.png')]
 terrain = t.Terrain()
 
+
 def finloop():
     while True:
         for event in pygame.event.get():
@@ -112,6 +113,7 @@ def controlesloop():
         pygame.display.update()
         clock.tick(15)
 
+
 def créditsloop():
     controles = True
     stopCount = 0
@@ -119,7 +121,7 @@ def créditsloop():
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
-                controles=False
+                controles = False
                 pygame.quit()
                 quit()
 
@@ -134,10 +136,12 @@ def créditsloop():
         TextSurf, TextRect = text_objects('son de fond par OrangeHead', pygame.font.Font('freesansbold.ttf', 20))
         TextRect.center = (500, 300)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('bruitages par findsond(attaque) et ressources mario(saut)', pygame.font.Font('freesansbold.ttf', 20))
+        TextSurf, TextRect = text_objects('bruitages par findsond(attaque) et ressources mario(saut)',
+                                          pygame.font.Font('freesansbold.ttf', 20))
         TextRect.center = (500, 400)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('toutes les autres textures par la TimberCorp :)', pygame.font.Font('freesansbold.ttf', 20))
+        TextSurf, TextRect = text_objects('toutes les autres textures par la TimberCorp :)',
+                                          pygame.font.Font('freesansbold.ttf', 20))
         TextRect.center = (500, 500)
         fenetre.blit(TextSurf, TextRect)
 
@@ -167,7 +171,6 @@ def créditsloop():
         textRect.center = ((800 + (100 / 2)), (500 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
-
         pygame.display.update()
         clock.tick(15)
 
@@ -190,8 +193,6 @@ def instructionsloop():
         TextSurf, TextRect = text_objects('aaaaaa \n bbbbbbb', pygame.font.Font('freesansbold.ttf', 20))
         TextRect.center = (80, 200)
         fenetre.blit(TextSurf, TextRect)
-
-
 
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
@@ -264,7 +265,6 @@ def introloop():
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
         TextRect.center = ((1000 / 2), 100)
         fenetre.blit(TextSurf, TextRect)
-
 
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
@@ -339,7 +339,6 @@ def introloop():
         textRect.center = ((100 + (100 / 2)), (500 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
-
         # bouton4 Crédits
         if 100 + 100 > mouse[0] > 100 and 600 + 50 > mouse[1] > 600:
             pygame.draw.rect(fenetre, (100, 100, 100), (100, 600, 100, 50))
@@ -367,7 +366,6 @@ def introloop():
 
 
 def gameloop():
-
     terrain.initcases()
     collide = terrain.getCollide()
     arbres = terrain.getArbres()
@@ -440,7 +438,7 @@ def gameloop():
         else:
             bucheron.pasbouger()
 
-        #Exécution de l'attaque Speciale Jutsu
+        # Exécution de l'attaque Speciale Jutsu
         if bucheron.isAttackingSpe():
             missilActive = True
             missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
@@ -513,6 +511,7 @@ def gameloop():
         vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
 
         if pygame.time.get_ticks() // 1000 == 180:
+            pygame.time.delay(1000)
             finloop()
 
 
