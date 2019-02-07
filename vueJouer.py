@@ -30,6 +30,7 @@ class Vue(object):
         self.attCount=0
         self.attSpeCount = 0
         self.vagueAntigravActive = False
+        self.vagueAntigravDirect = ""
         self.font = pygame.font.Font(None, 40)
         self.temps = pygame.time.Clock()
         self.demarrer = 0
@@ -87,8 +88,10 @@ class Vue(object):
         if bu.isAttackingSpe():
             if bu.getoldleft():
                 fenetre.blit(self.attaqueSpeGauche[self.attSpeCount], (bu.getx(), bu.gety()))
+                self.vagueAntigravDirect = "G"
             else:
                 fenetre.blit(self.attaqueSpeDroite[self.attSpeCount], (bu.getx(), bu.gety()))
+                self.vagueAntigravDirect = "D"
 
             self.attSpeCount += 1
             if self.attSpeCount == 3:
@@ -101,7 +104,7 @@ class Vue(object):
         if self.vagueAntigravActive:
             print("X : " + str(missil.getx()))
             print("Y : " + str(missil.gety()))
-            if bu.getoldleft():
+            if self.vagueAntigravDirect == "G":
                 fenetre.blit(self.vagueAntigravGauche[0], (missil.getx(), missil.gety()))
             else:
                 fenetre.blit(self.vagueAntigravDroite[0], (missil.getx(), missil.gety()))

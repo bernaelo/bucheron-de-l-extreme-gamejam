@@ -310,6 +310,7 @@ def gameloop():
     attB = pygame.mixer.Sound("attaque_hache.wav")
     missilGravite = proj.projectile(bucheron.getx(), bucheron.gety)
     missilActive = False
+    missilDirection = ""
 
     bucheron.bougergauche(collide)
     mechant = m.Mechant()
@@ -363,18 +364,20 @@ def gameloop():
         if bucheron.isAttackingSpe():
             missilActive = True
             missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
+            if bucheron.getoldleft():
+                missilDirection = "G"
+            else:
+                missilDirection = "D"
 
         if (missilGravite.getx() - 60) < 0:
             missilActive = False
             missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
 
         if missilActive:
-            if bucheron.getoldleft():
+            if missilDirection == "G":
                 missilGravite.shoot("G")
             else:
                 missilGravite.shoot("D")
-
-
 
         if bucheron.getCoupHache():
             i = -1
