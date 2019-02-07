@@ -108,9 +108,8 @@ class Vue(object):
                 fenetre.blit(self.vagueAntigravGauche[0], (missil.getx(), missil.gety()))
             else:
                 fenetre.blit(self.vagueAntigravDroite[0], (missil.getx(), missil.gety()))
-
-            if (missil.getx() - 60) < 0:
-                print("LE JO LE DAVID !")
+            #Distance maximum sur l'axe X de la vague Antigravité
+            if missil.getx() < -100 or missil.getx() > 1000:
                 self.vagueAntigravActive = False
 
         if bu.isAttacking():

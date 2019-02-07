@@ -308,7 +308,7 @@ def gameloop():
     son = pygame.mixer.Sound("Theme.wav")
     saut = pygame.mixer.Sound("saut.wav")
     attB = pygame.mixer.Sound("attaque_hache.wav")
-    missilGravite = proj.projectile(bucheron.getx(), bucheron.gety)
+    missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
     missilActive = False
     missilDirection = ""
 
@@ -369,7 +369,7 @@ def gameloop():
             else:
                 missilDirection = "D"
 
-        if (missilGravite.getx() - 60) < 0:
+        if missilGravite.getx() < -100 or missilGravite.getx() > 1000:
             missilActive = False
             missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
 
