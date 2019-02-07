@@ -28,7 +28,7 @@ def finloop():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-
+        #5805478848757760
         nom = rete.name(fenetre)
         new_score = str(terrain.getTour().getnbbuche())
 
@@ -340,6 +340,7 @@ def gameloop():
 
     arbrescoupes = []
     posArbrescoupes = []
+    lesmechants = []
 
     ressorts = terrain.getRessorts()
     collide = terrain.getCollide()
@@ -380,6 +381,9 @@ def gameloop():
 
         keys = pygame.key.get_pressed()
 
+        if bucheron.getchargeUltim() > 7:
+            bucheron.setchargeUltim(8)
+
         if not (bucheron.getisJump()):
             if keys[pygame.K_SPACE] or pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
                 if pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
@@ -394,9 +398,10 @@ def gameloop():
             attB.set_volume(0.1)
             attB.play()
             bucheron.attack()
-        elif keys[pygame.K_r]:
-            print("BRRRE! BRRRE! PETER LES CHEVILLES !");
+        elif keys[pygame.K_r] and bucheron.getchargeUltim() > 7:
+            print("FUCK FUCK FUCK FUCK!");
             bucheron.attackSpe()
+            bucheron.resetchargeUltim()
         elif keys[pygame.K_LEFT]:
             bucheron.bougergauche(collide)
         elif keys[pygame.K_RIGHT]:
@@ -436,9 +441,11 @@ def gameloop():
                 if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant.gethitbox()):
                     mechant.tuer()
                     mechant.respawn()
+                    bucheron.addchargeultim()
                 if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant2.gethitbox()):
                     mechant2.tuer()
                     mechant2.respawn()
+                    bucheron.addchargeultim()
 
             else:
                 if not pygame.Rect(bucheron.gethitboxAttD()).collidelist(arbres) == -1:
@@ -449,9 +456,11 @@ def gameloop():
                 if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant.gethitbox()):
                     mechant.tuer()
                     mechant.respawn()
+                    bucheron.addchargeultim()
                 if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant2.gethitbox()):
                     mechant2.tuer()
                     mechant2.respawn()
+                    bucheron.addchargeultim()
             if i != -1:
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
                 arbrescoupes.append(arbres[i])

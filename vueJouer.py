@@ -199,6 +199,9 @@ class Vue(object):
             text = self.font.render("Buches : " + str(bu.getbucheportee()), 1, (255, 0, 0))
         fenetre.blit(text, (10, 670))
 
+        infoUltim = self.font.render("Capacité : " + str(bu.getchargeUltim()) + "/8", 1, (255, 255, 255))
+        fenetre.blit(infoUltim, (550, 640))
+
 
         # horloge
         if (pygame.time.get_ticks() // 1000 - temps) >170:

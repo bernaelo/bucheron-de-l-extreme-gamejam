@@ -14,6 +14,7 @@ class Bucheron(object):
         self.hitboxAttG = (self.x, self.y + 40, 60, 114)
         self.hitboxAttD = (self.x + 100, self.y + 40, 60, 114)
         self.jumpCount = 9.5
+        self.chargeUltim = 0
         self.oldleft = False
         self.isAttack = False
         self.isAttackSpe = False
@@ -63,6 +64,18 @@ class Bucheron(object):
 
     def setJumpCount(self, jc):
         self.jumpCount = jc
+
+    def getchargeUltim(self):
+        return self.chargeUltim
+
+    def addchargeultim(self):
+        self.chargeUltim += 1
+
+    def resetchargeUltim(self):
+        self.chargeUltim = 0
+
+    def setchargeUltim(self, i):
+        self.chargeUltim = i
 
     def sauter(self,collide):
         if self.isAttack == False:
