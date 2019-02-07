@@ -57,27 +57,23 @@ class Vue(object):
             for j in range(0, len(terrain.getCases()[i]) - 1):
                 if terrain.getCases()[i][j].getType() == tc.typecase.TOUR:
                     for k in range(0, terrain.getTour().getnbbuche()):
-                        fenetre.blit(pygame.image.load('Bûche.png'),
-                                     (j * 50 + 36 * (k % 4), i * 50 - 20 - 70 * (k // 4)))
+                        fenetre.blit(pygame.image.load('Bûche.png'),(j * 30 + 26 * (k % 5), i * 30 - 20 - 50 * (k // 5)))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.ARBRE:
-                    fenetre.blit(self.arbre, (j * 50 - 10, i * 50 - 28))
+                    fenetre.blit(self.arbre, (j * 30 -20, i * 30 - 48))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.ARBRECOUPE:
-                    fenetre.blit(self.arbrecoupe, (j * 50 - 10, i * 50 - 28))
+                    fenetre.blit(self.arbrecoupe, (j * 30 - 10, i * 30 - 28))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
-                    fenetre.blit(self.ressort[self.ressortCount // 10], (j * 50, i * 50))
+                    fenetre.blit(self.ressort[self.ressortCount // 10], (j * 30, i * 30))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.TERRE:
-                    fenetre.blit(self.terre, (j * 50, i * 50))
+                    fenetre.blit(self.terre, (j * 30, i * 30))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.HERBE:
-                    fenetre.blit(self.herbe, (j * 50, i * 50))
+                    fenetre.blit(self.herbe, (j * 30, i * 30))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGE:
-                    # fenetre.blit(nuage,(j*50,i*50))
-                    fenetre.blit(self.nuage[self.nuageCount // 10], (j * 50, i * 50))
+                    fenetre.blit(self.nuage[self.nuageCount // 10], (j * 30, i * 30))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGED:
-                    # fenetre.blit(nuagefD, (j * 50, i * 50))
-                    fenetre.blit(self.nuagefD[self.nuageCount // 10], (j * 50, i * 50))
+                    fenetre.blit(self.nuagefD[self.nuageCount // 10], (j * 30, i * 30))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGEG:
-                    # fenetre.blit(nuagefG,(j*50,i*50))
-                    fenetre.blit(self.nuagefG[self.nuageCount // 10], (j * 50, i * 50))
+                    fenetre.blit(self.nuagefG[self.nuageCount // 10], (j * 30, i * 30))
 
         self.nuageCount += 1
         if self.nuageCount > 19:
