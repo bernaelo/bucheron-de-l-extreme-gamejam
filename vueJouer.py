@@ -100,18 +100,9 @@ class Vue(object):
                 self.attSpeCount=0
                 bu.setAttackSpe(False)
 
-        if self.vagueAntigravActive:
-            print("X : " + str(missil.getx()))
-            print("Y : " + str(missil.gety()))
-            if self.vagueAntigravDirect == "G":
-                fenetre.blit(self.vagueAntigravGauche[0], (missil.getx(), missil.gety()))
-            else:
-                fenetre.blit(self.vagueAntigravDroite[0], (missil.getx(), missil.gety()))
-            #Distance maximum sur l'axe X de la vague Antigravité
-            if missil.getx() < -100 or missil.getx() > 1000:
-                self.vagueAntigravActive = False
 
-        if bu.isAttacking():
+
+        elif bu.isAttacking():
             if bu.getoldleft():
                 fenetre.blit(self.attaqueGauche[self.attCount], (bu.getx(), bu.gety()))
             else:
@@ -155,6 +146,17 @@ class Vue(object):
             if self.stopCount > 19:
                 self.stopCount = 0
 
+        if self.vagueAntigravActive:
+            print("X : " + str(missil.getx()))
+            print("Y : " + str(missil.gety()))
+            if self.vagueAntigravDirect == "G":
+                fenetre.blit(self.vagueAntigravGauche[0], (missil.getx(), missil.gety()))
+            else:
+                fenetre.blit(self.vagueAntigravDroite[0], (missil.getx(), missil.gety()))
+            #Distance maximum sur l'axe X de la vague Antigravité
+            if missil.getx() < -100 or missil.getx() > 1000:
+                self.vagueAntigravActive = False
+
 
         pygame.draw.rect(fenetre, (255, 0, 0), bu.gethitbox(), 2)
         pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
@@ -179,12 +181,20 @@ class Vue(object):
             text = self.font.render("Buches : " + str(bu.getbucheportee()), 1, (255, 0, 0))
         fenetre.blit(text, (10, 670))
 
-        text = self.font.render("Tour : " + str(terrain.getTour().getnbbuche()), 1, (255, 255, 255))
-        fenetre.blit(text, (10, 640))
 
         # horloge
-        temps = self.font.render("Temps : " + str(pygame.time.get_ticks() // 1000), 1, (255, 255, 255))
+        if pygame.time.get_ticks() // 1000 >1700:
+            couleur=(255, 0, 0)
+        elif pygame.time.get_ticks() // 1000 >150:
+            couleur = (204, 85, 0)
+        else:
+            couleur = (255, 255, 255)
+        if pygame.time.get_ticks() // 1000 %60<10:
+            temps = self.font.render("Temps : 0" + str(pygame.time.get_ticks() // 1000 //60) +":0"+str(pygame.time.get_ticks() // 1000 %60), 1, couleur)
+        else:
+            temps = self.font.render("Temps : 0" + str(pygame.time.get_ticks() // 1000 // 60) + ":" + str(pygame.time.get_ticks() // 1000 % 60), 1, couleur)
         fenetre.blit(temps, (800, 5))
+
 
         if pygame.Rect(mechant.gethitbox()).colliderect(bu.gethitbox()):
             mechant.attaqueBucheronDroite(fenetre)

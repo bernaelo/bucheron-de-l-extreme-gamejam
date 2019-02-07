@@ -11,7 +11,7 @@ class projectile(object):
         return self.hitbox
 
     def ajouterhitbox(self):
-        self.hitbox = (self.x + 50, self.y + 50, 20, 90)
+        self.hitbox = (self.x -10, self.y + 10, 150, 160)
 
     def retirerhitbox(self):
         self.hitbox = (self.x, self.y , 0, 0)

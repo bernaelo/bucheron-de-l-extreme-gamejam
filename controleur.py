@@ -382,6 +382,7 @@ def gameloop():
     vue = vj.Vue()
 
     bucheron = b.Bucheron()
+
     son = pygame.mixer.Sound("Theme.wav")
     saut = pygame.mixer.Sound("saut.wav")
     attB = pygame.mixer.Sound("attaque_hache.wav")
@@ -392,6 +393,8 @@ def gameloop():
     bucheron.bougergauche(collide)
     mechant = m.Mechant()
     mechant2 = m.Mechant()
+    mechant.sethitboxG()
+    mechant2.sethitboxD()
 
     mechant2.recréerGauche()
 
@@ -440,7 +443,7 @@ def gameloop():
         #Exécution de l'attaque Speciale Jutsu
         if bucheron.isAttackingSpe():
             missilActive = True
-            #missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
+            missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
             missilGravite.ajouterhitbox()
             if bucheron.getoldleft():
                 missilDirection = "G"
