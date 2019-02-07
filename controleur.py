@@ -181,16 +181,16 @@ def créditsloop():
         click = pygame.mouse.get_pressed()
 
         # bouton1
-        if 850 + 100 > mouse[0] > 850 and 580 + 50 > mouse[1] > 580:
-            pygame.draw.rect(fenetre, (100, 100, 100), (850, 580, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (775, 535))
+        if 800 + 100 > mouse[0] > 800 and 530 + 50 > mouse[1] > 530:
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (725, 485))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (775, 535))
+                    fenetre.blit(attaqueDroite[attCount], (730, 485))
                     attCount += 1
                     pygame.display.flip()
                 pygame.time.delay(200)
@@ -198,10 +198,10 @@ def créditsloop():
                 introloop()
 
         else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (850, 580, 100, 50))
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
         textSurf, textRect = text_objects("Menu", smallText)
-        textRect.center = ((850 + (100 / 2)), (580 + (50 / 2)))
+        textRect.center = ((800 + (100 / 2)), (530 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
         pygame.display.update()
