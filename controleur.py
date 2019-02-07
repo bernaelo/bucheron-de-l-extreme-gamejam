@@ -389,14 +389,13 @@ def gameloop():
     missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
     missilActive = False
     missilDirection = ""
+    mechant = m.Mechant("G")
+    mechant2 = m.Mechant("D")
+    mechant.respawn()
+    mechant2.respawn()
 
     bucheron.bougergauche(collide)
-    mechant = m.Mechant()
-    mechant2 = m.Mechant()
-    mechant.sethitboxG()
-    mechant2.sethitboxD()
 
-    mechant2.recréerGauche()
 
     son.play()
     son.set_volume(0.2)
@@ -470,11 +469,11 @@ def gameloop():
                         if pygame.Rect(bucheron.gethitboxAttG()).colliderect(arbres[j]):
                             i = j
                 if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant.gethitbox()):
-                    mechant.suprimer()
-                    mechant.recréerDroite()
+                    mechant.tuer()
+                    mechant.respawn()
                 if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant2.gethitbox()):
-                    mechant2.suprimer()
-                    mechant2.recréerGauche()
+                    mechant2.tuer()
+                    mechant2.respawn()
 
             else:
                 if not pygame.Rect(bucheron.gethitboxAttD()).collidelist(arbres) == -1:
@@ -483,11 +482,11 @@ def gameloop():
                             i = j
 
                 if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant.gethitbox()):
-                    mechant.suprimer()
-                    mechant.recréerDroite()
+                    mechant.tuer()
+                    mechant.respawn()
                 if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant2.gethitbox()):
-                    mechant2.suprimer()
-                    mechant2.recréerGauche()
+                    mechant2.tuer()
+                    mechant2.respawn()
             if i != -1:
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
                 arbrescoupes.append(arbres[i])
@@ -505,10 +504,27 @@ def gameloop():
                 for i in range(0, len(posArbres)):
                     terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRE)
 
-        if pygame.Rect(bucheron.gethitbox()).colliderect(
-                terrain.getTour().gethitbox()) and bucheron.getbucheportee() > 0:
+        if pygame.Rect(bucheron.gethitbox()).colliderect(terrain.getTour().gethitbox()) and bucheron.getbucheportee() > 0:
             terrain.getTour().augnbbuche(bucheron.getbucheportee())
             bucheron.rstbuche()
+
+        def majmechant(ennemi):
+            if pygame.Rect(ennemi.gethitbox()).colliderect(bucheron.gethitbox()):
+                if bucheron.getbucheportee() > 0:
+                    bucheron.setbucheportee(bucheron.getbucheportee() - 1)
+                    # enlever une buche au bucheron
+
+            if pygame.Rect(ennemi.gethitbox()).colliderect(terrain.getTour().gethitbox()):
+                ennemi.tuer()
+                ennemi.respawn()
+                if terrain.getTour().getnbbuche() > 0:
+                    terrain.getTour().setnbbuche(terrain.getTour().getnbbuche() - 1)
+            else:
+                ennemi.deplacer()
+
+        majmechant(mechant)
+        majmechant(mechant2)
+        print("SAmere la pute : " + str(mechant2.getx()))
 
         vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
 

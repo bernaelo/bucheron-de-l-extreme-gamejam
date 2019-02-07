@@ -19,6 +19,11 @@ class Vue(object):
         self.nuagefD = [pygame.image.load('NUAGE FIN D.png'), pygame.image.load('NUAGE FIN D2.png')]
         self.nuagefG = [pygame.image.load('NUAGE FIN G.png'), pygame.image.load('NUAGE FIN G2.png')]
         self.nuage = [pygame.image.load('nuage.png'), pygame.image.load('NUAGE mouv2.png')]
+        self.ninjaDepGauche = [pygame.image.load('Ninja MOUV G0.png'), pygame.image.load('Ninja MOUV G1.png')]
+        self.ninjaDepDroite = [pygame.image.load('Ninja MOUV D0.png'), pygame.image.load('Ninja MOUV D1.png')]
+        self.ninjaAttGauche = [pygame.image.load('Ninja ATT G0.png'), pygame.image.load('Ninja ATT G1.png')]
+        self.ninjaAttDroite = [pygame.image.load('Ninja ATT D0.png'), pygame.image.load('Ninja ATT D1.png')]
+        self.ninjaDeces = [pygame.image.load('Ninja MORT.png')]
         self.terre = pygame.image.load('terre.png')
         self.herbe = pygame.image.load('herbe.png')
         self.arbre = pygame.image.load('Arbre4.png')
@@ -26,6 +31,7 @@ class Vue(object):
         self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png')]
         self.stopCount = 0
         self.walkCount = 0
+        self.walkNinjaCount = 0
         self.ressortCount = 0
         self.nuageCount=0
         self.attCount=0
@@ -84,6 +90,20 @@ class Vue(object):
         if self.walkCount >= 12:
             self.walkCount = 0
 
+        self.walkNinjaCount += 1
+        if self.walkNinjaCount > 1:
+            self.walkNinjaCount = 0
+
+        def runninja(ennemi, runCount):
+            if ennemi.getspawn() == "G":
+                fenetre.blit(self.ninjaDepGauche[runCount], (ennemi.getx(), ennemi.gety()))
+            else:
+                fenetre.blit(self.ninjaDepDroite[runCount], (ennemi.getx(), ennemi.gety()))
+
+        runninja(mechant, self.walkNinjaCount)
+        runninja(mechant2, self.walkNinjaCount)
+
+
         if bu.isAttackingSpe():
             if bu.getoldleft():
                 fenetre.blit(self.attaqueSpeGauche[self.attSpeCount], (bu.getx(), bu.gety()))
@@ -99,8 +119,6 @@ class Vue(object):
             if self.attSpeCount == 4:
                 self.attSpeCount=0
                 bu.setAttackSpe(False)
-
-
 
         elif bu.isAttacking():
             if bu.getoldleft():
@@ -194,40 +212,5 @@ class Vue(object):
         else:
             temps = self.font.render("Temps : 0" + str(pygame.time.get_ticks() // 1000 // 60) + ":" + str(pygame.time.get_ticks() // 1000 % 60), 1, couleur)
         fenetre.blit(temps, (800, 5))
-
-
-        if pygame.Rect(mechant.gethitbox()).colliderect(bu.gethitbox()):
-            mechant.attaqueBucheronDroite(fenetre)
-            if bu.getbucheportee() > 0:
-                bu.setbucheportee(bu.getbucheportee() - 1)
-                # enlever une buche au bucheron
-
-        if mechant.getx() == 450:  # emplacement de la tour
-            mechant.attaqueTourDroite(fenetre)
-            mechant.suprimer()
-            mechant.recréerDroite()
-            if terrain.getTour().getnbbuche() > 0:
-                terrain.getTour().setnbbuche(terrain.getTour().getnbbuche() - 1)
-
-        else:
-            mechant.deplacerDroite(fenetre)
-
-        # ninja a droite
-
-        if pygame.Rect(mechant2.gethitbox()).colliderect(bu.gethitbox()):
-            mechant2.attaqueBucheronGauche(fenetre)
-            if bu.getbucheportee() > 0:
-                bu.setbucheportee(bu.getbucheportee() - 1)
-
-        if mechant2.getx() == 500:  # emplacement de la tour
-            mechant2.attaqueTourGauche(fenetre)
-            mechant2.suprimer()
-            mechant2.recréerGauche()
-            if terrain.getTour().getnbbuche() > 0:
-                terrain.getTour().setnbbuche(terrain.getTour().getnbbuche() - 1)
-
-
-        else:
-            mechant2.deplacerGauche(fenetre)
 
         pygame.display.flip()
