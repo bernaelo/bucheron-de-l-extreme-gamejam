@@ -35,15 +35,14 @@ class Vue(object):
         self.walkNinjaCount = 0
         self.levitCount = 0
         self.ressortCount = 0
-        self.nuageCount=0
-        self.attCount=0
+        self.nuageCount = 0
+        self.attCount = 0
         self.attSpeCount = 0
         self.vagueAntigravActive = False
         self.vagueAntigravDirect = ""
         self.font = pygame.font.Font(None, 40)
         self.temps = pygame.time.Clock()
         self.demarrer = 0
-        self.old_charge = 0
 
         def getdemarrer(self):
             return self.demarrer
@@ -51,8 +50,7 @@ class Vue(object):
         def setdemarrer(self, demarrer):
             self.demarrer = demarrer
 
-
-    def Update(self, terrain, bu, fenetre, lesmechants, arbres, missil,temps):
+    def Update(self, terrain, bu, fenetre, lesmechants, arbres, missil, temps):
 
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
 
@@ -62,7 +60,7 @@ class Vue(object):
                     for k in range(0, terrain.getTour().getnbbuche()):
                         fenetre.blit(pygame.image.load('Bûche.png'),(j * 30 + 26 * (k % 5), i * 30 - 20 - 50 * (k // 5)))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.ARBRE:
-                    fenetre.blit(self.arbre, (j * 30 -20, i * 30 - 48))
+                    fenetre.blit(self.arbre, (j * 30 - 20, i * 30 - 48))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.ARBRECOUPE:
                     fenetre.blit(self.arbrecoupe, (j * 30 - 10, i * 30 - 28))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
@@ -101,14 +99,13 @@ class Vue(object):
             if ennemi.getspawn() == "G":
                 fenetre.blit(self.ninjaDepGauche[runCount // 10], (ennemi.getx(), ennemi.gety()))
             else:
-                fenetre.blit(self.ninjaDepDroite[runCount// 10], (ennemi.getx(), ennemi.gety()))
+                fenetre.blit(self.ninjaDepDroite[runCount // 10], (ennemi.getx(), ennemi.gety()))
 
             if ennemi.getenlevitation():
-                fenetre.blit(self.levitation[levitCount //10], (ennemi.getx(), ennemi.gety() + 50))
+                fenetre.blit(self.levitation[levitCount // 10], (ennemi.getx(), ennemi.gety() + 50))
 
         for m in lesmechants:
             runninja(m, self.walkNinjaCount, self.levitCount)
-
 
         if bu.isAttackingSpe():
             if bu.getoldleft():
@@ -123,7 +120,7 @@ class Vue(object):
                 bu.attackSpe()
                 self.vagueAntigravActive = True
             if self.attSpeCount == 4:
-                self.attSpeCount=0
+                self.attSpeCount = 0
                 bu.setAttackSpe(False)
 
         elif bu.isAttacking():
@@ -175,27 +172,26 @@ class Vue(object):
                 fenetre.blit(self.vagueAntigravGauche[0], (missil.getx(), missil.gety()))
             else:
                 fenetre.blit(self.vagueAntigravDroite[0], (missil.getx(), missil.gety()))
-            #Distance maximum sur l'axe X de la vague Antigravité
+            # Distance maximum sur l'axe X de la vague Antigravité
             if missil.getx() < -100 or missil.getx() > 1000:
                 self.vagueAntigravActive = False
 
+        #pygame.draw.rect(fenetre, (255, 0, 0), bu.gethitbox(), 2)
+        #pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
+        #pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
 
-        pygame.draw.rect(fenetre, (255, 0, 0), bu.gethitbox(), 2)
-        pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
-        pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
+        #pygame.draw.rect(fenetre, (0, 0, 255), terrain.getTour().gethitbox(), 2)
 
-        pygame.draw.rect(fenetre, (0, 0, 255), terrain.getTour().gethitbox(), 2)
+        #for m in lesmechants:
+            #pygame.draw.rect(fenetre, (255, 0, 0), m.gethitbox(), 2)
 
-        for m in lesmechants:
-            pygame.draw.rect(fenetre, (255, 0, 0), m.gethitbox(), 2)
+        #pygame.draw.rect(fenetre, (255, 0, 0), missil.gethitbox(), 2)
 
-        pygame.draw.rect(fenetre, (255, 0, 0), missil.gethitbox(), 2)
-
-        if len(arbres) > 0:
-            i = 0
-            while i < len(arbres):
-                pygame.draw.rect(fenetre, (255, 0, 0), arbres[i], 2)
-                i += 1
+        #if len(arbres) > 0:
+            #i = 0
+            #while i < len(arbres):
+                #pygame.draw.rect(fenetre, (255, 0, 0), arbres[i], 2)
+                #i += 1
 
         if bu.getbucheportee() < 2:
             text = self.font.render("Buches : " + str(bu.getbucheportee()), 1, (255, 255, 255))
@@ -229,9 +225,9 @@ class Vue(object):
         #----- ET ELLE FONCTIONNE ! ----------------
 
         # horloge
-        if (pygame.time.get_ticks() // 1000 - temps) >170:
-            couleur=(255, 0, 0)
-        elif (pygame.time.get_ticks() // 1000 - temps) >150:
+        if (pygame.time.get_ticks() // 1000 - temps) > 170:
+            couleur = (255, 0, 0)
+        elif (pygame.time.get_ticks() // 1000 - temps) > 150:
             couleur = (204, 85, 0)
         else:
             couleur = (255, 255, 255)

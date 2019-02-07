@@ -23,6 +23,7 @@ terrain = t.Terrain()
 nom = ""
 new_score = 0
 
+
 def finloop():
     while True:
         for event in pygame.event.get():
@@ -49,7 +50,8 @@ def controlesloop():
     dCount = 0
     fCount = 0
     spaceCount = 0
-    arrowkeys = [pygame.image.load('arrows1.png'), pygame.image.load('arrows2.png'), pygame.image.load('arrows1.png'), pygame.image.load('arrows3.png')]
+    arrowkeys = [pygame.image.load('arrows1.png'), pygame.image.load('arrows2.png'), pygame.image.load('arrows1.png'),
+                 pygame.image.load('arrows3.png')]
     dkey = [pygame.image.load('dkey1.png'), pygame.image.load('dkey2.png')]
     fkey = [pygame.image.load('fkey1.png'), pygame.image.load('fkey2.png')]
     spacekey = [pygame.image.load('space1.png'), pygame.image.load('space2.png')]
@@ -129,6 +131,7 @@ def controlesloop():
         pygame.display.update()
         clock.tick(15)
 
+
 def créditsloop():
     controles = True
     stopCount = 0
@@ -151,7 +154,7 @@ def créditsloop():
         TextSurf, TextRect = text_objects('Musique : OrangeHead', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (200, 340)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('Sons : findsond, Nintendo', pygame.font.Font('freesansbold.ttf', 25))
+        TextSurf, TextRect = text_objects('Sons : Timber Corp', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (200, 440)
         fenetre.blit(TextSurf, TextRect)
         TextSurf, TextRect = text_objects('Graphismes : Timber Corp', pygame.font.Font('freesansbold.ttf', 25))
@@ -207,6 +210,7 @@ def créditsloop():
         pygame.display.update()
         clock.tick(15)
 
+
 def introloop():
     intro = True
     stopCount = 0
@@ -259,8 +263,8 @@ def introloop():
         with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
             unpickled = pk.Unpickler(fichier)
             scores = unpickled.load()  # On récupère la variable
-            i=0
-            j=250
+            i = 0
+            j = 250
             fin = True
             top1 = 0
             nom1 = ""
@@ -281,34 +285,42 @@ def introloop():
                     nom3 = str(scores[i][0])
                     top3 = int(scores[i][1])
 
+            pygame.draw.rect(fenetre, (100, 100, 100), (550, 230, 250, 325))
+
+            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("Meilleurs scores: ", True, (255, 255, 255))
+            fenetre.blit(TextRect, (570, 255))
+
             TextRect = pygame.font.Font('freesansbold.ttf', 25).render("1: ", True, (255, 204, 0))
-            fenetre.blit(TextRect,(600,285))
+            fenetre.blit(TextRect, (570, 315))
 
             TextSurf, TextRect = text_objects(nom1, pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (650, 300)
+            TextRect.center = (650, 330)
             fenetre.blit(TextSurf, TextRect)
 
             TextSurf, TextRect = text_objects(str(top1), pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (750, 300)
+            TextRect.center = (750, 330)
             fenetre.blit(TextSurf, TextRect)
 
-            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("2: ", True, (255, 204, 0))
-            fenetre.blit(TextRect, (600, 385))
+            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("2: ", True, (206, 206, 206))
+            fenetre.blit(TextRect, (570, 415))
 
             TextSurf, TextRect = text_objects(nom2, pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (650, 400)
+            TextRect.center = (650, 430)
             fenetre.blit(TextSurf, TextRect)
 
             TextSurf, TextRect = text_objects(str(top2), pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (750, 400)
+            TextRect.center = (750, 430)
             fenetre.blit(TextSurf, TextRect)
 
+            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("3: ", True, (97, 78, 26))
+            fenetre.blit(TextRect, (570, 515))
+
             TextSurf, TextRect = text_objects(nom3, pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (650, 500)
+            TextRect.center = (650, 530)
             fenetre.blit(TextSurf, TextRect)
 
             TextSurf, TextRect = text_objects(str(top3), pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (750, 500)
+            TextRect.center = (750, 530)
             fenetre.blit(TextSurf, TextRect)
 
             fichier.close()
@@ -417,6 +429,7 @@ def introloop():
 
 
 def gameloop():
+    terrain = t.Terrain()
     terrain.initcases()
     collide = terrain.getCollide()
     arbres = terrain.getArbres()
@@ -453,15 +466,15 @@ def gameloop():
     debutjeu = pygame.time.get_ticks() // 1000
     son.play()
     son.set_volume(0.2)
-    vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite,debutjeu)
+    vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite, debutjeu)
     jumpCount = 10
 
     # mainloop
     gameexit = False
 
-    timer=180
+    timer = 180
 
-    while ((not (gameexit)) and (timer >=0)):
+    while (not (gameexit)) and (timer >= 0):
         clock.tick(60)
 
         for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
@@ -479,17 +492,18 @@ def gameloop():
             if keys[pygame.K_SPACE] or pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
                 if pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
                     bucheron.setJumpCount(12.5)
-                saut.set_volume(2)
+                saut.set_volume(0.3)
                 saut.play()
                 bucheron.setisJump(True)
         else:
             bucheron.sauter(collide)
 
         if keys[pygame.K_d]:
-            attB.set_volume(0.1)
+            attB.set_volume(0.7)
             attB.play()
             bucheron.attack()
-        elif keys[pygame.K_r] and bucheron.getchargeUltim() > 7:
+        elif keys[pygame.K_f] and bucheron.getchargeUltim() > 7:
+            special.set_volume(0.7)
             special.set_volume(2)
             special.play()
             bucheron.attackSpe()
@@ -598,11 +612,10 @@ def gameloop():
                 ennemi.setvitesse(2)
                 ennemi.deplacer()
 
-
         for m in lesmechants:
             majmechant(m)
 
-        vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite,debutjeu)
+        vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite, debutjeu)
         if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
             finloop()
             pygame.mixer.music.stop()
