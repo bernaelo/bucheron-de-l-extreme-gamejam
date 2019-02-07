@@ -29,7 +29,7 @@ def finloop():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        #5805478848757760
+
         nom = rete.name(fenetre)
         new_score = str(terrain.getTour().getnbbuche())
 
