@@ -7,6 +7,7 @@ import typecase as tc
 import mechants as m
 import RecupText as rete
 import projectile as proj
+import pickle as pk
 
 from pygame.locals import *
 
@@ -28,9 +29,42 @@ def finloop():
                 pygame.quit()
                 quit()
 
-        nomJoueurCourant = rete.name(fenetre)
-        print("nom : ", nomJoueurCourant)
-        print("score : ", terrain.getTour().getnbbuche())
+        nom = rete.name(fenetre)
+        new_score = str(terrain.getTour().getnbbuche())
+
+        ##Permet de reset tout le fichier des scores (supprime les high scores donc WOLAH FAUT PAS Y TOUCHER)
+        # scores = []
+        # fichier = open("scores.txt","wb")
+        # pickled = pk.Pickler(fichier)
+        # pickled.dump(scores)
+        # fichier.close()
+
+        ## Récupération des scores
+        with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
+            unpickled = pk.Unpickler(fichier)
+            scores = unpickled.load()  # On récupère la variable
+            fichier.close()
+            print(scores)
+
+        ##Verification des scores existants ou inexistants selon les noms
+        try:
+            nom_list = [score[0] for score in scores]  # création de la liste des noms
+            index = nom_list.index(nom)  # recherche du joueur
+            # Si le joueur a un score:
+            print("Le joueur {} a déjà un score. il est à l'index n°{} de la liste".format(nom, index))
+            if new_score > scores[index][1]:  # et que son nouveau score est mieux
+                scores[index][1] = new_score
+        except ValueError:  # Si le joueur n'a pas de score précédent / index(nom) renvoie une ValueError si il trouve pas nom
+            print("Le joueur n'a pas de scores précédents")
+            scores.append([nom, new_score])  # Ajout du score
+        print(scores)
+
+        ## Sauvegarde des scores
+        with open("scores.txt", "wb") as fichier:
+            pickled = pk.Pickler(fichier)
+            pickled.dump(scores)
+            fichier.close()
+
         introloop()
 
 
@@ -180,7 +214,6 @@ def créditsloop():
         textRect.center = ((800 + (100 / 2)), (530 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
-
         pygame.display.update()
         clock.tick(15)
 
@@ -328,10 +361,10 @@ def gameloop():
 
     bucheron.bougergauche(collide)
 
-
+    debutjeu=pygame.time.get_ticks() // 1000
     son.play()
     son.set_volume(0.2)
-    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
+    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite,debutjeu)
     jumpCount = 10
 
     # mainloop
@@ -371,7 +404,7 @@ def gameloop():
         else:
             bucheron.pasbouger()
 
-        #Exécution de l'attaque Speciale Jutsu
+        # Exécution de l'attaque Speciale Jutsu
         if bucheron.isAttackingSpe():
             missilActive = True
             missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
@@ -436,7 +469,8 @@ def gameloop():
                 for i in range(0, len(posArbres)):
                     terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRE)
 
-        if pygame.Rect(bucheron.gethitbox()).colliderect(terrain.getTour().gethitbox()) and bucheron.getbucheportee() > 0:
+        if pygame.Rect(bucheron.gethitbox()).colliderect(
+                terrain.getTour().gethitbox()) and bucheron.getbucheportee() > 0:
             terrain.getTour().augnbbuche(bucheron.getbucheportee())
             bucheron.rstbuche()
 
@@ -471,9 +505,9 @@ def gameloop():
         majmechant(mechant)
         majmechant(mechant2)
 
-        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
+        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite,debutjeu)
 
-        if pygame.time.get_ticks() // 1000 == 180:
+        if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
             finloop()
 
 
