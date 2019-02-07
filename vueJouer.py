@@ -212,14 +212,14 @@ class Vue(object):
         bord_jauge = 4
         cran_jauge = larg_jauge / 8
         pygame.draw.rect(fenetre, (174, 166, 183), (x_jauge - (bord_jauge / 2), y_jauge, larg_jauge + bord_jauge, cran_jauge + (bord_jauge / 2)), 0)
-        if bu.getchargeUltim() == 8:
+        if bu.getchargeUltim() >= 8:
             pygame.draw.rect(fenetre, (250, 250, 250), (x_jauge - (bord_jauge / 2), y_jauge, larg_jauge + bord_jauge, cran_jauge + (bord_jauge / 2)), bord_jauge)
             pygame.draw.rect(fenetre, (250, 250, 250), (940, 628, 45, 45), 3)
         else:
             pygame.draw.rect(fenetre, (0, 0, 0), (x_jauge - (bord_jauge/2), y_jauge, larg_jauge + bord_jauge, cran_jauge +(bord_jauge/2)), bord_jauge)
             pygame.draw.rect(fenetre, (0, 0, 0), (940, 628, 45, 45), 3)
 
-        if bu.getchargeUltim() > 0:
+        if bu.getchargeUltim() > 0 and bu.getchargeUltim() < 9:
             pygame.draw.rect(fenetre, (145, 80 - 10 * (bu.getchargeUltim() - 1), 191),((x_jauge + larg_jauge - (bu.getchargeUltim() * 25)), y_jauge + bord_jauge - 1, (cran_jauge + ((bu.getchargeUltim()-1) * 25)), cran_jauge - bord_jauge + 1), 0)
             #image du spell
         iconUlt = pygame.image.load('icon_ultim.png')
