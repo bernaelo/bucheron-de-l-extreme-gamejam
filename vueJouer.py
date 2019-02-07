@@ -18,16 +18,16 @@ class Vue(object):
         self.vagueAntigravGauche = [pygame.image.load('vagueAntigrav G.png')]
         self.nuagefD = [pygame.image.load('NUAGE FIN D.png'), pygame.image.load('NUAGE FIN D2.png')]
         self.nuagefG = [pygame.image.load('NUAGE FIN G.png'), pygame.image.load('NUAGE FIN G2.png')]
-        self.nuage = [pygame.image.load('nuage.png'), pygame.image.load('NUAGE mouv2.png')]
+        self.nuage = [pygame.image.load('nuage0.png'), pygame.image.load('nuage1.png')]
         self.ninjaDepGauche = [pygame.image.load('Ninja MOUV G0.png'), pygame.image.load('Ninja MOUV G1.png')]
         self.ninjaDepDroite = [pygame.image.load('Ninja MOUV D0.png'), pygame.image.load('Ninja MOUV D1.png')]
         self.ninjaAttGauche = [pygame.image.load('Ninja ATT G0.png'), pygame.image.load('Ninja ATT G1.png')]
         self.ninjaAttDroite = [pygame.image.load('Ninja ATT D0.png'), pygame.image.load('Ninja ATT D1.png')]
         self.ninjaDeces = [pygame.image.load('Ninja MORT.png')]
-        self.terre = pygame.image.load('terre.png')
-        self.herbe = pygame.image.load('herbe.png')
-        self.arbre = pygame.image.load('Arbre4.png')
-        self.arbrecoupe = pygame.image.load('Arbre_coupe4.png')
+        self.terre = pygame.image.load('Terre.png')
+        self.herbe = pygame.image.load('Terre + Herbe.png')
+        self.arbre = pygame.image.load('arbre.png')
+        self.arbrecoupe = pygame.image.load('arbre_coupé.png')
         self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png')]
         self.stopCount = 0
         self.walkCount = 0
@@ -49,7 +49,7 @@ class Vue(object):
             self.demarrer = demarrer
 
 
-    def Update(self, terrain, bu, fenetre, mechant, mechant2, arbres, missil):
+    def Update(self, terrain, bu, fenetre, mechant, mechant2, arbres, missil,temps):
 
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
 
@@ -57,7 +57,7 @@ class Vue(object):
             for j in range(0, len(terrain.getCases()[i]) - 1):
                 if terrain.getCases()[i][j].getType() == tc.typecase.TOUR:
                     for k in range(0, terrain.getTour().getnbbuche()):
-                        fenetre.blit(pygame.image.load('Buche_36_70.png'),
+                        fenetre.blit(pygame.image.load('Bûche.png'),
                                      (j * 50 + 36 * (k % 4), i * 50 - 20 - 70 * (k // 4)))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.ARBRE:
                     fenetre.blit(self.arbre, (j * 50 - 10, i * 50 - 28))
@@ -201,16 +201,17 @@ class Vue(object):
 
 
         # horloge
-        if pygame.time.get_ticks() // 1000 >170:
+        if (pygame.time.get_ticks() // 1000 - temps) >170:
             couleur=(255, 0, 0)
-        elif pygame.time.get_ticks() // 1000 >150:
+        elif (pygame.time.get_ticks() // 1000 - temps) >150:
             couleur = (204, 85, 0)
         else:
             couleur = (255, 255, 255)
-        if pygame.time.get_ticks() // 1000 %60<10:
-            temps = self.font.render("Temps : 0" + str(pygame.time.get_ticks() // 1000 //60) +":0"+str(pygame.time.get_ticks() // 1000 %60), 1, couleur)
+
+        if (pygame.time.get_ticks() // 1000 - temps)%60 < 10:
+            temps = self.font.render("Temps : 0" + str((pygame.time.get_ticks() // 1000 - temps) //60) +":0"+str((pygame.time.get_ticks() // 1000 - temps )%60), 1, couleur)
         else:
-            temps = self.font.render("Temps : 0" + str(pygame.time.get_ticks() // 1000 // 60) + ":" + str(pygame.time.get_ticks() // 1000 % 60), 1, couleur)
+            temps = self.font.render("Temps : 0" + str((pygame.time.get_ticks() // 1000 - temps )// 60) + ":" + str((pygame.time.get_ticks() // 1000 - temps )% 60), 1, couleur)
         fenetre.blit(temps, (800, 5))
 
         pygame.display.flip()

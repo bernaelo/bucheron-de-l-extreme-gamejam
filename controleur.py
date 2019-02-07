@@ -21,7 +21,6 @@ immobileDroite = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.lo
 attaqueDroite = [pygame.image.load('att D1.png'), pygame.image.load('att D3.png')]
 terrain = t.Terrain()
 
-
 def finloop():
     while True:
         for event in pygame.event.get():
@@ -81,8 +80,7 @@ def controlesloop():
     dCount = 0
     fCount = 0
     spaceCount = 0
-    arrowkeys = [pygame.image.load('arrows1.png'), pygame.image.load('arrows2.png'), pygame.image.load('arrows1.png'),
-                 pygame.image.load('arrows3.png')]
+    arrowkeys = [pygame.image.load('arrows1.png'), pygame.image.load('arrows2.png'), pygame.image.load('arrows1.png'), pygame.image.load('arrows3.png')]
     dkey = [pygame.image.load('dkey1.png'), pygame.image.load('dkey2.png')]
     fkey = [pygame.image.load('fkey1.png'), pygame.image.load('fkey2.png')]
     spacekey = [pygame.image.load('space1.png'), pygame.image.load('space2.png')]
@@ -161,7 +159,6 @@ def controlesloop():
         pygame.display.update()
         clock.tick(15)
 
-
 def créditsloop():
     controles = True
     stopCount = 0
@@ -169,7 +166,7 @@ def créditsloop():
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
-                controles = False
+                controles=False
                 pygame.quit()
                 quit()
 
@@ -239,7 +236,6 @@ def créditsloop():
 
         pygame.display.update()
         clock.tick(15)
-
 
 def introloop():
     intro = True
@@ -385,9 +381,10 @@ def gameloop():
 
     bucheron.bougergauche(collide)
 
+    debutjeu=pygame.time.get_ticks() // 1000
     son.play()
     son.set_volume(0.2)
-    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
+    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite,debutjeu)
     jumpCount = 10
 
     # mainloop
@@ -528,9 +525,9 @@ def gameloop():
         majmechant(mechant)
         majmechant(mechant2)
 
-        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
+        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite,debutjeu)
 
-        if pygame.time.get_ticks() // 1000 == 5:
+        if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
             finloop()
 
 
