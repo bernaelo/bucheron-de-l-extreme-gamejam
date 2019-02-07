@@ -29,7 +29,7 @@ def finloop():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        #5805478848757760
+
         nom = rete.name(fenetre)
         new_score = str(terrain.getTour().getnbbuche())
 
@@ -138,14 +138,14 @@ def controlesloop():
         # bouton1
         if 800 + 100 > mouse[0] > 800 and 530 + 50 > mouse[1] > 530:
             pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (700, 430))
+            fenetre.blit(immobileDroite[stopCount // 4], (725, 485))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (705, 430))
+                    fenetre.blit(attaqueDroite[attCount], (730, 485))
                     attCount += 1
                     pygame.display.flip()
                 controles = False
@@ -256,20 +256,36 @@ def introloop():
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
         fenetre.blit(pygame.image.load('titrejeu.png'), (250, 0))
 
+        with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
+            unpickled = pk.Unpickler(fichier)
+            scores = unpickled.load()  # On récupère la variable
+            i=0
+            j=250
+            while i <= 1:
+                TextSurf, TextRect = text_objects(str(scores[i][0]), pygame.font.Font('freesansbold.ttf', 25))
+                TextRect.center = (650, j)
+                fenetre.blit(TextSurf, TextRect)
+                TextSurf, TextRect = text_objects(str(scores[i][1]), pygame.font.Font('freesansbold.ttf', 25))
+                TextRect.center = (750, j)
+                fenetre.blit(TextSurf, TextRect)
+                i += 1
+                j += 100
+            fichier.close()
+
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
         # bouton1
         if 100 + 100 > mouse[0] > 100 and 230 + 50 > mouse[1] > 230:
             pygame.draw.rect(fenetre, (100, 100, 100), (100, 230, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (0, 130))
+            fenetre.blit(immobileDroite[stopCount // 4], (25, 185))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (5, 130))
+                    fenetre.blit(attaqueDroite[attCount], (30, 185))
                     attCount += 1
                     pygame.display.flip()
                 intro = False
@@ -285,14 +301,14 @@ def introloop():
         # bouton2
         if 100 + 100 > mouse[0] > 100 and 330 + 50 > mouse[1] > 330:
             pygame.draw.rect(fenetre, (100, 100, 100), (100, 330, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (0, 230))
+            fenetre.blit(immobileDroite[stopCount // 4], (25, 285))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (5, 230))
+                    fenetre.blit(attaqueDroite[attCount], (30, 285))
                     attCount += 1
                     pygame.display.flip()
                 intro = False
@@ -309,14 +325,14 @@ def introloop():
         # bouton3 Crédits
         if 100 + 100 > mouse[0] > 100 and 430 + 50 > mouse[1] > 430:
             pygame.draw.rect(fenetre, (100, 100, 100), (100, 430, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (0, 330))
+            fenetre.blit(immobileDroite[stopCount // 4], (25, 385))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (5, 330))
+                    fenetre.blit(attaqueDroite[attCount], (30, 385))
                     attCount += 1
                     pygame.display.flip()
                 intro = False
@@ -331,14 +347,14 @@ def introloop():
         # bouton4
         if 100 + 100 > mouse[0] > 100 and 530 + 50 > mouse[1] > 530:
             pygame.draw.rect(fenetre, (100, 100, 100), (100, 530, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (0, 430))
+            fenetre.blit(immobileDroite[stopCount // 4], (25, 485))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (5, 430))
+                    fenetre.blit(attaqueDroite[attCount], (30, 485))
                     attCount += 1
                     pygame.display.flip()
                 intro = False
@@ -393,7 +409,10 @@ def gameloop():
 
     # mainloop
     gameexit = False
-    while not (gameexit):
+
+    timer=180
+
+    while ((not (gameexit)) and (timer >=0)):
         clock.tick(60)
 
         for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
