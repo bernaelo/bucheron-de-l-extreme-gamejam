@@ -201,7 +201,7 @@ class Vue(object):
 
 
         # horloge
-        if pygame.time.get_ticks() // 1000 >1700:
+        if pygame.time.get_ticks() // 1000 >170:
             couleur=(255, 0, 0)
         elif pygame.time.get_ticks() // 1000 >150:
             couleur = (204, 85, 0)
