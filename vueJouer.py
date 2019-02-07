@@ -59,7 +59,10 @@ class Vue(object):
                 if terrain.getCases()[i][j].getType() == tc.typecase.TOUR:
                     for k in range(0, terrain.getTour().getnbbuche()):
                         fenetre.blit(pygame.image.load('Bûche.png'),(j * 30 + 26 * (k % 5), i * 30 - 20 - 50 * (k // 5)))
-                elif terrain.getCases()[i][j].getType() == tc.typecase.ARBRE:
+
+        for i in range(0, len(terrain.getCases()) - 1):
+            for j in range(0, len(terrain.getCases()[i]) - 1):
+                if terrain.getCases()[i][j].getType() == tc.typecase.ARBRE:
                     fenetre.blit(self.arbre, (j * 30 - 20, i * 30 - 48))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.ARBRECOUPE:
                     fenetre.blit(self.arbrecoupe, (j * 30 - 10, i * 30 - 28))

@@ -60,7 +60,7 @@ class Terrain(object):
                     suede.append(pygame.Rect(j * 30 + 5, i * 30 - 10, 45, 68))
                     posiArbres.append((j,i))
 
-                if i==6 and j==11:
+                if i==6 and j==9:
                     case.setType(tc.typecase.ARBRE)
                     suede.append(pygame.Rect(j * 30 + 5, i * 30 - 10, 45, 68))
                     posiArbres.append((j,i))
@@ -171,11 +171,11 @@ class Terrain(object):
                         case.setType(tc.typecase.NUAGE)
                         collision.append(pygame.Rect(j * 30, i * 30,30,30))
 
-                if i==12 and j in range(9,13):
+                if i==12 and j in range(9,16):
                     if j==9:
                         case.setType(tc.typecase.NUAGEG)
                         collision.append(pygame.Rect(j * 30, i * 30, 30, 30))
-                    elif j==12:
+                    elif j==15:
                         case.setType(tc.typecase.NUAGED)
                         collision.append(pygame.Rect(j * 30, i * 30, 30, 30))
                     else:
@@ -291,9 +291,15 @@ class Terrain(object):
                     case.setType(tc.typecase.TERRE)
                     collision.append(pygame.Rect(j * 30, i * 30,30,30))
 
+                #ressorts
                 if i == 19 and j == 31:
                     case.setType(tc.typecase.RESSORT)
                     boing.append(pygame.Rect(j * 30, i * 30, 30, 30))
+
+                if i == 11 and j == 14:
+                    case.setType(tc.typecase.RESSORT)
+                    boing.append(pygame.Rect(j * 30, i * 30, 30, 30))
+
                 ligne.append(case)
             listecases.append(ligne)
 
