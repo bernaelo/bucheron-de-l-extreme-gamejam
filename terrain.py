@@ -259,11 +259,11 @@ class Terrain(object):
                         case.setType(tc.typecase.NUAGE)
                         collision.append(pygame.Rect(j * 30, i * 30,30,30))
 
-                if i==14 and j in range(26,31):
+                if i==14 and j in range(26,30):
                     if j==26:
                         case.setType(tc.typecase.NUAGEG)
                         collision.append(pygame.Rect(j * 30, i * 30, 30, 30))
-                    elif j==30:
+                    elif j==29:
                         case.setType(tc.typecase.NUAGED)
                         collision.append(pygame.Rect(j * 30, i * 30, 30, 30))
                     else:
