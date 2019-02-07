@@ -20,7 +20,6 @@ immobileDroite = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.lo
 attaqueDroite = [pygame.image.load('att D1.png'), pygame.image.load('att D3.png')]
 terrain = t.Terrain()
 
-
 def finloop():
     while True:
         for event in pygame.event.get():
@@ -43,6 +42,14 @@ def text_objects(text, font):
 def controlesloop():
     controles = True
     stopCount = 0
+    arrowCount = 0
+    dCount = 0
+    fCount = 0
+    spaceCount = 0
+    arrowkeys = [pygame.image.load('arrows1.png'), pygame.image.load('arrows2.png'), pygame.image.load('arrows1.png'), pygame.image.load('arrows3.png')]
+    dkey = [pygame.image.load('dkey1.png'), pygame.image.load('dkey2.png')]
+    fkey = [pygame.image.load('fkey1.png'), pygame.image.load('fkey2.png')]
+    spacekey = [pygame.image.load('space1.png'), pygame.image.load('space2.png')]
     while controles:
         for event in pygame.event.get():
             # print(event)
@@ -57,62 +64,66 @@ def controlesloop():
         TextRect.center = ((1000 / 2), 100)
         fenetre.blit(TextSurf, TextRect)
 
-        TextSurf, TextRect = text_objects("Déplacement : ", pygame.font.Font('freesansbold.ttf', 20))
-        TextRect.center = (80, 200)
+        TextSurf, TextRect = text_objects("Se Déplacer", pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (140, 280)
         fenetre.blit(TextSurf, TextRect)
+        fenetre.blit(arrowkeys[arrowCount // 4], (60, 350))
+        arrowCount += 1
+        if arrowCount > 15:
+            arrowCount = 0
+
+        TextSurf, TextRect = text_objects("Sauter", pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (340, 280)
+        fenetre.blit(TextSurf, TextRect)
+        fenetre.blit(spacekey[spaceCount // 4], (260, 405))
+        spaceCount += 1
+        if spaceCount > 7:
+            spaceCount = 0
+
+        TextSurf, TextRect = text_objects("Attaquer / Couper", pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (580, 280)
+        fenetre.blit(TextSurf, TextRect)
+        fenetre.blit(dkey[dCount // 4], (555, 405))
+        dCount += 1
+        if dCount > 7:
+            dCount = 0
+
+        TextSurf, TextRect = text_objects("Super Attaque", pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (840, 280)
+        fenetre.blit(TextSurf, TextRect)
+        fenetre.blit(fkey[fCount // 4], (815, 405))
+        fCount += 1
+        if fCount > 7:
+            fCount = 0
 
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
         # bouton1
-        if 800 + 100 > mouse[0] > 800 and 500 + 50 > mouse[1] > 500:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 500, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (700, 400))
+        if 800 + 100 > mouse[0] > 800 and 530 + 50 > mouse[1] > 530:
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (700, 430))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (705, 400))
+                    fenetre.blit(attaqueDroite[attCount], (705, 430))
                     attCount += 1
                     pygame.display.flip()
                 controles = False
                 introloop()
 
         else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 500, 100, 50))
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
         textSurf, textRect = text_objects("Menu", smallText)
-        textRect.center = ((800 + (100 / 2)), (500 + (50 / 2)))
-        fenetre.blit(textSurf, textRect)
-
-        # bouton2
-        if 800 + 100 > mouse[0] > 800 and 400 + 50 > mouse[1] > 400:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 400, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (700, 300))
-            stopCount += 1
-            if stopCount > 7:
-                stopCount = 0
-            if click[0] == 1:
-                attCount = 0
-                while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (705, 300))
-                    attCount += 1
-                    pygame.display.flip()
-                controles = False
-                instructionsloop()
-
-        else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 400, 100, 50))
-        smallText = pygame.font.SysFont("comicsansms", 20)
-        textSurf, textRect = text_objects("Instructions", smallText)
-        textRect.center = ((800 + (100 / 2)), (400 + (50 / 2)))
+        textRect.center = ((800 + (100 / 2)), (530 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
         pygame.display.update()
         clock.tick(15)
-
 
 def créditsloop():
     controles = True
@@ -121,7 +132,7 @@ def créditsloop():
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
-                controles = False
+                controles=False
                 pygame.quit()
                 quit()
 
@@ -130,122 +141,48 @@ def créditsloop():
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
         TextRect.center = ((1000 / 2), 100)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('background par edermunizz', pygame.font.Font('freesansbold.ttf', 20))
-        TextRect.center = (500, 200)
+        TextSurf, TextRect = text_objects('Arrière plan : edermunizz', pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (500, 240)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('son de fond par OrangeHead', pygame.font.Font('freesansbold.ttf', 20))
-        TextRect.center = (500, 300)
+        TextSurf, TextRect = text_objects('Musique : OrangeHead', pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (500, 340)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('bruitages par findsond(attaque) et ressources mario(saut)',
-                                          pygame.font.Font('freesansbold.ttf', 20))
-        TextRect.center = (500, 400)
+        TextSurf, TextRect = text_objects('Sons : findsond, Nintendo', pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (500, 440)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('toutes les autres textures par la TimberCorp :)',
-                                          pygame.font.Font('freesansbold.ttf', 20))
-        TextRect.center = (500, 500)
+        TextSurf, TextRect = text_objects('Graphismes : Timber Corp', pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (500, 540)
         fenetre.blit(TextSurf, TextRect)
 
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
         # bouton1
-        if 800 + 100 > mouse[0] > 800 and 500 + 50 > mouse[1] > 500:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 500, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (700, 400))
+        if 800 + 100 > mouse[0] > 800 and 530 + 50 > mouse[1] > 530:
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (700, 430))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (705, 400))
+                    fenetre.blit(attaqueDroite[attCount], (705, 430))
                     attCount += 1
                     pygame.display.flip()
                 controles = False
                 introloop()
 
         else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 500, 100, 50))
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
         textSurf, textRect = text_objects("Menu", smallText)
-        textRect.center = ((800 + (100 / 2)), (500 + (50 / 2)))
+        textRect.center = ((800 + (100 / 2)), (530 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
+
 
         pygame.display.update()
         clock.tick(15)
-
-
-def instructionsloop():
-    highscore = True
-    stopCount = 0
-    while highscore:
-        for event in pygame.event.get():
-            # print(event)
-            if event.type == pygame.QUIT:
-                highscore = False
-                pygame.quit()
-                quit()
-
-        fenetre.fill((255, 255, 255))
-        TextSurf, TextRect = text_objects("Règles", pygame.font.Font('freesansbold.ttf', 70))
-        fenetre.blit(pygame.image.load('background.png'), (0, 0))
-        TextRect.center = ((1000 / 2), 100)
-        TextSurf, TextRect = text_objects('aaaaaa \n bbbbbbb', pygame.font.Font('freesansbold.ttf', 20))
-        TextRect.center = (80, 200)
-        fenetre.blit(TextSurf, TextRect)
-
-        mouse = pygame.mouse.get_pos()
-        click = pygame.mouse.get_pressed()
-
-        # bouton1
-        if 800 + 100 > mouse[0] > 800 and 500 + 50 > mouse[1] > 500:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 500, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (700, 400))
-            stopCount += 1
-            if stopCount > 7:
-                stopCount = 0
-            if click[0] == 1:
-                attCount = 0
-                while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (705, 400))
-                    attCount += 1
-                    pygame.display.flip()
-                highscore = False
-                introloop()
-
-        else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 500, 100, 50))
-        smallText = pygame.font.SysFont("comicsansms", 20)
-        textSurf, textRect = text_objects("Menu", smallText)
-        textRect.center = ((800 + (100 / 2)), (500 + (50 / 2)))
-        fenetre.blit(textSurf, textRect)
-
-        # bouton2
-        if 800 + 100 > mouse[0] > 800 and 400 + 50 > mouse[1] > 400:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 400, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (700, 300))
-            stopCount += 1
-            if stopCount > 7:
-                stopCount = 0
-            if click[0] == 1:
-                attCount = 0
-                while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (705, 300))
-                    attCount += 1
-                    pygame.display.flip()
-                highscore = False
-                controlesloop()
-
-        else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 400, 100, 50))
-        smallText = pygame.font.SysFont("comicsansms", 20)
-        textSurf, textRect = text_objects("Controles", smallText)
-        textRect.center = ((800 + (100 / 2)), (400 + (50 / 2)))
-        fenetre.blit(textSurf, textRect)
-
-        pygame.display.update()
-        clock.tick(15)
-
 
 def introloop():
     intro = True
@@ -260,105 +197,102 @@ def introloop():
                 quit()
 
         fenetre.fill((255, 255, 255))
-        largeText = pygame.font.Font('freesansbold.ttf', 70)
-        TextSurf, TextRect = text_objects("Bucheron De L'Extreme", largeText)
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
-        TextRect.center = ((1000 / 2), 100)
-        fenetre.blit(TextSurf, TextRect)
+        fenetre.blit(pygame.image.load('titrejeu.png'), (250, 0))
 
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
         # bouton1
-        if 100 + 100 > mouse[0] > 100 and 300 + 50 > mouse[1] > 300:
-            pygame.draw.rect(fenetre, (100, 100, 100), (100, 300, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (0, 200))
+        if 100 + 100 > mouse[0] > 100 and 230 + 50 > mouse[1] > 230:
+            pygame.draw.rect(fenetre, (100, 100, 100), (100, 230, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (0, 130))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (5, 200))
+                    fenetre.blit(attaqueDroite[attCount], (5, 130))
                     attCount += 1
                     pygame.display.flip()
                 intro = False
                 gameloop()
 
         else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (100, 300, 100, 50))
+            pygame.draw.rect(fenetre, (100, 100, 100), (100, 230, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
         textSurf, textRect = text_objects("Démarrer", smallText)
-        textRect.center = ((100 + (100 / 2)), (300 + (50 / 2)))
+        textRect.center = ((100 + (100 / 2)), (230 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
         # bouton2
-        if 100 + 100 > mouse[0] > 100 and 400 + 50 > mouse[1] > 400:
-            pygame.draw.rect(fenetre, (100, 100, 100), (100, 400, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (0, 300))
+        if 100 + 100 > mouse[0] > 100 and 330 + 50 > mouse[1] > 330:
+            pygame.draw.rect(fenetre, (100, 100, 100), (100, 330, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (0, 230))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (5, 300))
+                    fenetre.blit(attaqueDroite[attCount], (5, 230))
                     attCount += 1
                     pygame.display.flip()
                 intro = False
-                instructionsloop()
+                controlesloop()
 
 
         else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (100, 400, 100, 50))
+            pygame.draw.rect(fenetre, (100, 100, 100), (100, 330, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
-        textSurf, textRect = text_objects("Règles", smallText)
-        textRect.center = ((100 + (100 / 2)), (400 + (50 / 2)))
+        textSurf, textRect = text_objects("Controles", smallText)
+        textRect.center = ((100 + (100 / 2)), (330 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
-        # bouton3
-        if 100 + 100 > mouse[0] > 100 and 500 + 50 > mouse[1] > 500:
-            pygame.draw.rect(fenetre, (100, 100, 100), (100, 500, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (0, 400))
+        # bouton3 Crédits
+        if 100 + 100 > mouse[0] > 100 and 430 + 50 > mouse[1] > 430:
+            pygame.draw.rect(fenetre, (100, 100, 100), (100, 430, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (0, 330))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (5, 400))
+                    fenetre.blit(attaqueDroite[attCount], (5, 330))
+                    attCount += 1
+                    pygame.display.flip()
+                intro = False
+                créditsloop()
+        else:
+            pygame.draw.rect(fenetre, (100, 100, 100), (100, 430, 100, 50))
+        smallText = pygame.font.SysFont("comicsansms", 20)
+        textSurf, textRect = text_objects("Crédits", smallText)
+        textRect.center = ((100 + (100 / 2)), (430 + (50 / 2)))
+        fenetre.blit(textSurf, textRect)
+
+        # bouton4
+        if 100 + 100 > mouse[0] > 100 and 530 + 50 > mouse[1] > 530:
+            pygame.draw.rect(fenetre, (100, 100, 100), (100, 530, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (0, 430))
+            stopCount += 1
+            if stopCount > 7:
+                stopCount = 0
+            if click[0] == 1:
+                attCount = 0
+                while attCount < 1:
+                    fenetre.blit(attaqueDroite[attCount], (5, 430))
                     attCount += 1
                     pygame.display.flip()
                 intro = False
                 pygame.quit()
                 quit()
         else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (100, 500, 100, 50))
+            pygame.draw.rect(fenetre, (100, 100, 100), (100, 530, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
         textSurf, textRect = text_objects("Quitter", smallText)
-        textRect.center = ((100 + (100 / 2)), (500 + (50 / 2)))
-        fenetre.blit(textSurf, textRect)
-
-        # bouton4 Crédits
-        if 100 + 100 > mouse[0] > 100 and 600 + 50 > mouse[1] > 600:
-            pygame.draw.rect(fenetre, (100, 100, 100), (100, 600, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (0, 500))
-            stopCount += 1
-            if stopCount > 7:
-                stopCount = 0
-            if click[0] == 1:
-                attCount = 0
-                while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (5, 300))
-                    attCount += 1
-                    pygame.display.flip()
-                intro = False
-                créditsloop()
-        else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (100, 600, 100, 50))
-        smallText = pygame.font.SysFont("comicsansms", 20)
-        textSurf, textRect = text_objects("Crédits", smallText)
-        textRect.center = ((100 + (100 / 2)), (600 + (50 / 2)))
+        textRect.center = ((100 + (100 / 2)), (530 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
         pygame.display.update()
@@ -366,6 +300,7 @@ def introloop():
 
 
 def gameloop():
+
     terrain.initcases()
     collide = terrain.getCollide()
     arbres = terrain.getArbres()
@@ -387,14 +322,13 @@ def gameloop():
     missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
     missilActive = False
     missilDirection = ""
+    mechant = m.Mechant("G")
+    mechant2 = m.Mechant("D")
+    mechant.respawn()
+    mechant2.respawn()
 
     bucheron.bougergauche(collide)
-    mechant = m.Mechant()
-    mechant2 = m.Mechant()
-    mechant.sethitboxG()
-    mechant2.sethitboxD()
 
-    mechant2.recréerGauche()
 
     son.play()
     son.set_volume(0.2)
@@ -438,7 +372,7 @@ def gameloop():
         else:
             bucheron.pasbouger()
 
-        # Exécution de l'attaque Speciale Jutsu
+        #Exécution de l'attaque Speciale Jutsu
         if bucheron.isAttackingSpe():
             missilActive = True
             missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
@@ -468,11 +402,11 @@ def gameloop():
                         if pygame.Rect(bucheron.gethitboxAttG()).colliderect(arbres[j]):
                             i = j
                 if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant.gethitbox()):
-                    mechant.suprimer()
-                    mechant.recréerDroite()
+                    mechant.tuer()
+                    mechant.respawn()
                 if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant2.gethitbox()):
-                    mechant2.suprimer()
-                    mechant2.recréerGauche()
+                    mechant2.tuer()
+                    mechant2.respawn()
 
             else:
                 if not pygame.Rect(bucheron.gethitboxAttD()).collidelist(arbres) == -1:
@@ -481,11 +415,11 @@ def gameloop():
                             i = j
 
                 if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant.gethitbox()):
-                    mechant.suprimer()
-                    mechant.recréerDroite()
+                    mechant.tuer()
+                    mechant.respawn()
                 if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant2.gethitbox()):
-                    mechant2.suprimer()
-                    mechant2.recréerGauche()
+                    mechant2.tuer()
+                    mechant2.respawn()
             if i != -1:
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
                 arbrescoupes.append(arbres[i])
@@ -503,15 +437,31 @@ def gameloop():
                 for i in range(0, len(posArbres)):
                     terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRE)
 
-        if pygame.Rect(bucheron.gethitbox()).colliderect(
-                terrain.getTour().gethitbox()) and bucheron.getbucheportee() > 0:
+        if pygame.Rect(bucheron.gethitbox()).colliderect(terrain.getTour().gethitbox()) and bucheron.getbucheportee() > 0:
             terrain.getTour().augnbbuche(bucheron.getbucheportee())
             bucheron.rstbuche()
+
+        def majmechant(ennemi):
+            if pygame.Rect(ennemi.gethitbox()).colliderect(bucheron.gethitbox()):
+                if bucheron.getbucheportee() > 0:
+                    bucheron.setbucheportee(bucheron.getbucheportee() - 1)
+                    # enlever une buche au bucheron
+
+            if pygame.Rect(ennemi.gethitbox()).colliderect(terrain.getTour().gethitbox()):
+                ennemi.tuer()
+                ennemi.respawn()
+                if terrain.getTour().getnbbuche() > 0:
+                    terrain.getTour().setnbbuche(terrain.getTour().getnbbuche() - 1)
+            else:
+                ennemi.deplacer()
+
+        majmechant(mechant)
+        majmechant(mechant2)
+        print("SAmere la pute : " + str(mechant2.getx()))
 
         vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
 
         if pygame.time.get_ticks() // 1000 == 180:
-            pygame.time.delay(1000)
             finloop()
 
 
