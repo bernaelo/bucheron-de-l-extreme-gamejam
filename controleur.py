@@ -179,42 +179,62 @@ def créditsloop():
         TextRect.center = ((1000 / 2), 100)
         fenetre.blit(TextSurf, TextRect)
         TextSurf, TextRect = text_objects('Arrière plan : edermunizz', pygame.font.Font('freesansbold.ttf', 25))
-        TextRect.center = (500, 240)
+        TextRect.center = (200, 240)
         fenetre.blit(TextSurf, TextRect)
         TextSurf, TextRect = text_objects('Musique : OrangeHead', pygame.font.Font('freesansbold.ttf', 25))
-        TextRect.center = (500, 340)
+        TextRect.center = (200, 340)
         fenetre.blit(TextSurf, TextRect)
         TextSurf, TextRect = text_objects('Sons : findsond, Nintendo', pygame.font.Font('freesansbold.ttf', 25))
-        TextRect.center = (500, 440)
+        TextRect.center = (200, 440)
         fenetre.blit(TextSurf, TextRect)
         TextSurf, TextRect = text_objects('Graphismes : Timber Corp', pygame.font.Font('freesansbold.ttf', 25))
-        TextRect.center = (500, 540)
+        TextRect.center = (200, 540)
+        fenetre.blit(TextSurf, TextRect)
+
+
+        TextSurf, TextRect = text_objects('Membre de Timber Corp :', pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (600, 240)
+        fenetre.blit(TextSurf, TextRect)
+        TextSurf, TextRect = text_objects('Yamine El-Mir', pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (600, 300)
+        fenetre.blit(TextSurf, TextRect)
+        TextSurf, TextRect = text_objects('Damien Brill', pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (600, 360)
+        fenetre.blit(TextSurf, TextRect)
+        TextSurf, TextRect = text_objects('Simon Loraux', pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (600, 420)
+        fenetre.blit(TextSurf, TextRect)
+        TextSurf, TextRect = text_objects('Mathieu Milliez', pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (600, 480)
+        fenetre.blit(TextSurf, TextRect)
+        TextSurf, TextRect = text_objects('Eloi Bernard', pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (600, 540)
         fenetre.blit(TextSurf, TextRect)
 
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
         # bouton1
-        if 800 + 100 > mouse[0] > 800 and 530 + 50 > mouse[1] > 530:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (700, 430))
+        if 850 + 100 > mouse[0] > 850 and 580 + 50 > mouse[1] > 580:
+            pygame.draw.rect(fenetre, (100, 100, 100), (850, 580, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (725, 500))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (705, 430))
+                    fenetre.blit(attaqueDroite[attCount], (725, 500))
                     attCount += 1
                     pygame.display.flip()
                 controles = False
                 introloop()
 
         else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
+            pygame.draw.rect(fenetre, (100, 100, 100), (850, 580, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
         textSurf, textRect = text_objects("Menu", smallText)
-        textRect.center = ((800 + (100 / 2)), (530 + (50 / 2)))
+        textRect.center = ((850 + (100 / 2)), (580 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
         pygame.display.update()
