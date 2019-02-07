@@ -64,11 +64,6 @@ class Mechant(object):
         self.y -= self.vitesse
         self.updhitbox()
 
-    def aterre(self):
-        self.enlevitation = False
-        self.y += 150
-        self.updhitbox()
-
 
     def gethitbox(self):
         return self.hitbox
