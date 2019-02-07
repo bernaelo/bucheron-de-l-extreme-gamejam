@@ -455,7 +455,7 @@ def gameloop():
         else:
             bucheron.pasbouger()
 
-        if terrain.getTour().getnbbuche() > lvlsupp:
+        if terrain.getTour().getnbbuche() > lvlsupp-4:
             lesmechants.append(mech.Mechant("D", 1150))
             lesmechants.append(mech.Mechant("G", -250))
             lvlsupp += 5
