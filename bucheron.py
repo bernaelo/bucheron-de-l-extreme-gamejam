@@ -16,6 +16,7 @@ class Bucheron(object):
         self.jumpCount = 9.5
         self.oldleft = False
         self.isAttack = False
+        self.isAttackSpe = False
         self.traitrise = False
         self.coupHache = False
         self.bucheportee = 0
@@ -141,6 +142,9 @@ class Bucheron(object):
     def attack(self):
         self.isAttack = True
 
+    def attackSpe(self):
+        self.isAttackSpe = True
+
     def pasbouger(self):
         self.left = False
         self.right = False
@@ -176,8 +180,14 @@ class Bucheron(object):
     def isAttacking(self):
         return self.isAttack
 
+    def isAttackingSpe(self):
+        return self.isAttackSpe
+
     def setAttack(self, b):
         self.isAttack = b
+
+    def setAttackSpe(self, b):
+        self.isAttackSpe = b
 
     def getTraitrise(self):
         return self.traitrise

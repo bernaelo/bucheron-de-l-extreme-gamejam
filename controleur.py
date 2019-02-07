@@ -6,6 +6,8 @@ import tour as to
 import typecase as tc
 import mechants as m
 import RecupText as rete
+import projectile as proj
+
 from pygame.locals import *
 
 pygame.init()
@@ -306,6 +308,8 @@ def gameloop():
     son = pygame.mixer.Sound("Theme.wav")
     saut = pygame.mixer.Sound("saut.wav")
     attB = pygame.mixer.Sound("attaque_hache.wav")
+    missilGravite = proj.projectile(bucheron.getx(), bucheron.gety)
+    missilActive = False
 
     bucheron.bougergauche(collide)
     mechant = m.Mechant()
@@ -315,7 +319,7 @@ def gameloop():
 
     son.play()
     son.set_volume(0.5)
-    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres)
+    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
     jumpCount = 10
 
     # mainloop
@@ -345,12 +349,32 @@ def gameloop():
             attB.set_volume(0.2)
             attB.play()
             bucheron.attack()
+        elif keys[pygame.K_r]:
+            print("BRRRE! BRRRE! PETER LES CHEVILLES !");
+            bucheron.attackSpe()
         elif keys[pygame.K_LEFT]:
             bucheron.bougergauche(collide)
         elif keys[pygame.K_RIGHT]:
             bucheron.bougerdroite(collide)
         else:
             bucheron.pasbouger()
+
+        #Exécution de l'attaque Speciale Jutsu
+        if bucheron.isAttackingSpe():
+            missilActive = True
+            missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
+
+        if (missilGravite.getx() - 60) < 0:
+            missilActive = False
+            missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
+
+        if missilActive:
+            if bucheron.getoldleft():
+                missilGravite.shoot("G")
+            else:
+                missilGravite.shoot("D")
+
+
 
         if bucheron.getCoupHache():
             i = -1
@@ -404,7 +428,7 @@ def gameloop():
             print(str(bucheron.getbucheportee()) + "buches ajoutees")
             bucheron.rstbuche()
 
-        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres)
+        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
 
         if pygame.time.get_ticks()//1000 == 180:
             finloop()

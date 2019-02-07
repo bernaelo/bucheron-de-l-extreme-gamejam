@@ -11,6 +11,10 @@ class Vue(object):
         self.immobileGauche = [pygame.image.load('Bucheron-Stop-Left0.png'), pygame.image.load('Bucheron-Stop-Left1.png')]
         self.attaqueDroite = [pygame.image.load('att D0.png'), pygame.image.load('att D1.png'), pygame.image.load('att D2.png'), pygame.image.load('att D3.png'), pygame.image.load('att D4.png')]
         self.attaqueGauche = [pygame.image.load('att G0.png'), pygame.image.load('att G1.png'), pygame.image.load('att G2.png'), pygame.image.load('att G3.png'), pygame.image.load('att G4.png')]
+        self.attaqueSpeDroite = [pygame.image.load('attSpe D0.png'), pygame.image.load('attSpe D1.png'), pygame.image.load('attSpe D2.png'), pygame.image.load('attSpe D3.png'), pygame.image.load('attSpe D4.png')]
+        self.attaqueSpeGauche = [pygame.image.load('attSpe G0.png'), pygame.image.load('attSpe G1.png'), pygame.image.load('attSpe G2.png'), pygame.image.load('attSpe G3.png'), pygame.image.load('attSpe G4.png')]
+        self.vagueAntigravDroite = [pygame.image.load('vagueAntigrav D.png')]
+        self.vagueAntigravGauche = [pygame.image.load('vagueAntigrav G.png')]
         self.nuagefD = [pygame.image.load('NUAGE FIN D.png'), pygame.image.load('NUAGE FIN D2.png')]
         self.nuagefG = [pygame.image.load('NUAGE FIN G.png'), pygame.image.load('NUAGE FIN G2.png')]
         self.nuage = [pygame.image.load('nuage.png'), pygame.image.load('NUAGE mouv2.png')]
@@ -24,6 +28,8 @@ class Vue(object):
         self.ressortCount = 0
         self.nuageCount=0
         self.attCount=0
+        self.attSpeCount = 0
+        self.vagueAntigravActive = False
         self.font = pygame.font.Font(None, 40)
         self.temps = pygame.time.Clock()
         self.demarrer = 0
@@ -35,7 +41,7 @@ class Vue(object):
             self.demarrer = demarrer
 
 
-    def Update(self, terrain, bu, fenetre, mechant, mechant2, arbres):
+    def Update(self, terrain, bu, fenetre, mechant, mechant2, arbres, missil):
 
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
 
@@ -77,6 +83,32 @@ class Vue(object):
 
         if self.walkCount >= 12:
             self.walkCount=0
+
+        if bu.isAttackingSpe():
+            if bu.getoldleft():
+                fenetre.blit(self.attaqueSpeGauche[self.attSpeCount], (bu.getx(), bu.gety()))
+            else:
+                fenetre.blit(self.attaqueSpeDroite[self.attSpeCount], (bu.getx(), bu.gety()))
+
+            self.attSpeCount += 1
+            if self.attSpeCount == 3:
+                bu.attackSpe()
+                self.vagueAntigravActive = True
+            if self.attSpeCount == 4:
+                self.attSpeCount=0
+                bu.setAttackSpe(False)
+
+        if self.vagueAntigravActive:
+            print("X : " + str(missil.getx()))
+            print("Y : " + str(missil.gety()))
+            if bu.getoldleft():
+                fenetre.blit(self.vagueAntigravGauche[0], (missil.getx(), missil.gety()))
+            else:
+                fenetre.blit(self.vagueAntigravDroite[0], (missil.getx(), missil.gety()))
+
+            if (missil.getx() - 60) < 0:
+                print("LE JO LE DAVID !")
+                self.vagueAntigravActive = False
 
         if bu.isAttacking():
             if bu.getoldleft():
