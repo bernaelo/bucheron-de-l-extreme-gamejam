@@ -4,7 +4,7 @@ import vueJouer as vj
 import bucheron as b
 import tour as to
 import typecase as tc
-import mechants as m
+import mechants as mech
 import RecupText as rete
 import projectile as proj
 import pickle as pk
@@ -355,17 +355,18 @@ def gameloop():
     missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
     missilActive = False
     missilDirection = ""
-    mechant = m.Mechant("G")
-    mechant2 = m.Mechant("D")
-    mechant.respawn()
-    mechant2.respawn()
+    lesmechants.append(mech.Mechant("G"))
+    lesmechants.append(mech.Mechant("D"))
+
+    for m in lesmechants:
+        m.respawn()
 
     bucheron.bougergauche(collide)
 
     debutjeu=pygame.time.get_ticks() // 1000
     son.play()
     son.set_volume(0.2)
-    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite,debutjeu)
+    vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite,debutjeu)
     jumpCount = 10
 
     # mainloop
@@ -438,29 +439,23 @@ def gameloop():
                     for j in range(0, len(arbres)):
                         if pygame.Rect(bucheron.gethitboxAttG()).colliderect(arbres[j]):
                             i = j
-                if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant.gethitbox()):
-                    mechant.tuer()
-                    mechant.respawn()
-                    bucheron.addchargeultim()
-                if pygame.Rect(bucheron.gethitboxAttG()).colliderect(mechant2.gethitbox()):
-                    mechant2.tuer()
-                    mechant2.respawn()
-                    bucheron.addchargeultim()
+                for m in lesmechants:
+                    if pygame.Rect(bucheron.gethitboxAttG()).colliderect(m.gethitbox()):
+                        m.tuer()
+                        m.respawn()
+                        bucheron.addchargeultim()
 
             else:
                 if not pygame.Rect(bucheron.gethitboxAttD()).collidelist(arbres) == -1:
                     for j in range(0, len(arbres)):
                         if pygame.Rect(bucheron.gethitboxAttD()).colliderect(arbres[j]):
                             i = j
+                for m in lesmechants:
+                    if pygame.Rect(bucheron.gethitboxAttD()).colliderect(m.gethitbox()):
+                        m.tuer()
+                        m.respawn()
+                        bucheron.addchargeultim()
 
-                if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant.gethitbox()):
-                    mechant.tuer()
-                    mechant.respawn()
-                    bucheron.addchargeultim()
-                if pygame.Rect(bucheron.gethitboxAttD()).colliderect(mechant2.gethitbox()):
-                    mechant2.tuer()
-                    mechant2.respawn()
-                    bucheron.addchargeultim()
             if i != -1:
                 terrain.getCases()[posArbres[i][1]][posArbres[i][0]].setType(tc.typecase.ARBRECOUPE)
                 arbrescoupes.append(arbres[i])
@@ -511,10 +506,10 @@ def gameloop():
                 ennemi.deplacer()
 
 
-        majmechant(mechant)
-        majmechant(mechant2)
+        for m in lesmechants:
+            majmechant(m)
 
-        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite,debutjeu)
+        vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite,debutjeu)
 
         if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
             finloop()

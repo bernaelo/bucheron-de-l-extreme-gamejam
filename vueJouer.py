@@ -49,7 +49,7 @@ class Vue(object):
             self.demarrer = demarrer
 
 
-    def Update(self, terrain, bu, fenetre, mechant, mechant2, arbres, missil,temps):
+    def Update(self, terrain, bu, fenetre, lesmechants, arbres, missil,temps):
 
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
 
@@ -100,8 +100,8 @@ class Vue(object):
             else:
                 fenetre.blit(self.ninjaDepDroite[runCount], (ennemi.getx(), ennemi.gety()))
 
-        runninja(mechant, self.walkNinjaCount)
-        runninja(mechant2, self.walkNinjaCount)
+        for m in lesmechants:
+            runninja(m, self.walkNinjaCount)
 
 
         if bu.isAttackingSpe():
@@ -165,8 +165,6 @@ class Vue(object):
                 self.stopCount = 0
 
         if self.vagueAntigravActive:
-            print("X : " + str(missil.getx()))
-            print("Y : " + str(missil.gety()))
             if self.vagueAntigravDirect == "G":
                 fenetre.blit(self.vagueAntigravGauche[0], (missil.getx(), missil.gety()))
             else:
@@ -182,8 +180,8 @@ class Vue(object):
 
         pygame.draw.rect(fenetre, (0, 0, 255), terrain.getTour().gethitbox(), 2)
 
-        pygame.draw.rect(fenetre, (255, 0, 0), mechant.gethitbox(), 2)
-        pygame.draw.rect(fenetre, (255, 0, 0), mechant2.gethitbox(), 2)
+        for m in lesmechants:
+            pygame.draw.rect(fenetre, (255, 0, 0), m.gethitbox(), 2)
 
         pygame.draw.rect(fenetre, (255, 0, 0), missil.gethitbox(), 2)
 

@@ -27,11 +27,9 @@ class projectile(object):
 
     def shoot(self, direction):
         if direction == "D":
-            print('Shoot Droite')
             self.x += self.vitesse
             self.updhitbox()
 
         elif direction == "G":
-            print('Shoot Gauche')
             self.x -= self.vitesse
             self.updhitbox()
