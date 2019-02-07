@@ -241,4 +241,7 @@ class Vue(object):
             temps = self.font.render("Temps : 0" + str((pygame.time.get_ticks() // 1000 - temps )// 60) + ":" + str((pygame.time.get_ticks() // 1000 - temps )% 60), 1, couleur)
         fenetre.blit(temps, (800, 5))
 
+        text = self.font.render("Score : " + str(terrain.getTour().getnbbuche()), 1, (255, 255, 255))
+        fenetre.blit(text, (455, 620))
+
         pygame.display.flip()
