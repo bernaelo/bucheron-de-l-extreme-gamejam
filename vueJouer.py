@@ -194,22 +194,22 @@ class Vue(object):
             if missil.getx() < -100 or missil.getx() > 1000:
                 self.vagueAntigravActive = False
 
-        pygame.draw.rect(fenetre, (255, 0, 0), bu.gethitbox(), 2)
-        pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
-        pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
+        #pygame.draw.rect(fenetre, (255, 0, 0), bu.gethitbox(), 2)
+        #pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
+        #pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
 
-        pygame.draw.rect(fenetre, (0, 0, 255), terrain.getTour().gethitbox(), 2)
+        #pygame.draw.rect(fenetre, (0, 0, 255), terrain.getTour().gethitbox(), 2)
 
-        for m in lesmechants:
-            pygame.draw.rect(fenetre, (255, 0, 0), m.gethitbox(), 2)
+        #for m in lesmechants:
+            #pygame.draw.rect(fenetre, (255, 0, 0), m.gethitbox(), 2)
 
-        pygame.draw.rect(fenetre, (255, 0, 0), missil.gethitbox(), 2)
+        #pygame.draw.rect(fenetre, (255, 0, 0), missil.gethitbox(), 2)
 
-        if len(arbres) > 0:
-            i = 0
-            while i < len(arbres):
-                pygame.draw.rect(fenetre, (255, 0, 0), arbres[i], 2)
-                i += 1
+        #if len(arbres) > 0:
+            #i = 0
+            #while i < len(arbres):
+                #pygame.draw.rect(fenetre, (255, 0, 0), arbres[i], 2)
+                #i += 1
 
         if bu.getbucheportee() < 2:
             text = self.font.render("Buches : " + str(bu.getbucheportee()), 1, (255, 255, 255))

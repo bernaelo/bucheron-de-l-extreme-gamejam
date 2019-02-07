@@ -502,7 +502,7 @@ def gameloop():
             attB.set_volume(0.7)
             attB.play()
             bucheron.attack()
-        elif keys[pygame.K_r] and bucheron.getchargeUltim() > 7:
+        elif keys[pygame.K_f] and bucheron.getchargeUltim() > 7:
             special.set_volume(0.7)
             special.set_volume(2)
             special.play()
