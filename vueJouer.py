@@ -99,13 +99,14 @@ class Vue(object):
             self.levitCount = 0
 
         def runninja(ennemi, runCount, levitCount):
+
+            if ennemi.getenlevitation():
+                fenetre.blit(self.levitation[levitCount // 10], (ennemi.getx(), ennemi.gety() + 50))
+                pygame.transform.rotate(self.ninjaDepGauche[0], 20)
             if ennemi.getspawn() == "G":
                 fenetre.blit(self.ninjaDepGauche[runCount // 10], (ennemi.getx(), ennemi.gety()))
             else:
                 fenetre.blit(self.ninjaDepDroite[runCount // 10], (ennemi.getx(), ennemi.gety()))
-
-            if ennemi.getenlevitation():
-                fenetre.blit(self.levitation[levitCount // 10], (ennemi.getx(), ennemi.gety() + 50))
 
         for m in lesmechants:
             runninja(m, self.walkNinjaCount, self.levitCount)
@@ -197,10 +198,12 @@ class Vue(object):
                 #i += 1
 
         if bu.getbucheportee() < 2:
-            text = self.font.render("Buches : " + str(bu.getbucheportee()), 1, (255, 255, 255))
+            text = self.font.render(str(bu.getbucheportee()) + "/2", 1, (255, 255, 255))
         else:
-            text = self.font.render("Buches : " + str(bu.getbucheportee()), 1, (255, 0, 0))
-        fenetre.blit(text, (10, 670))
+            text = self.font.render(str(bu.getbucheportee()) + "/2", 1, (255, 0, 0))
+        inventaire = pygame.image.load('Inventaire.png')
+        fenetre.blit(inventaire, (15, 640))
+        fenetre.blit(text, (60, 647))
 
         #infoUltim = self.font.render("Capacité : " + str(bu.getchargeUltim()) + "/8", 1, (255, 255, 255))
         #fenetre.blit(infoUltim, (550, 640))
