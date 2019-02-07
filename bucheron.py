@@ -5,7 +5,7 @@ class Bucheron(object):
 
     def __init__(self):
         self.x = 200
-        self.y = 440
+        self.y = 500
         self.right = False
         self.left = False
         self.speed = 13
