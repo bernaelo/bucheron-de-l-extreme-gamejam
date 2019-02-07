@@ -21,6 +21,7 @@ immobileDroite = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.lo
 attaqueDroite = [pygame.image.load('att D1.png'), pygame.image.load('att D3.png')]
 terrain = t.Terrain()
 
+
 def finloop():
     while True:
         for event in pygame.event.get():
@@ -80,7 +81,8 @@ def controlesloop():
     dCount = 0
     fCount = 0
     spaceCount = 0
-    arrowkeys = [pygame.image.load('arrows1.png'), pygame.image.load('arrows2.png'), pygame.image.load('arrows1.png'), pygame.image.load('arrows3.png')]
+    arrowkeys = [pygame.image.load('arrows1.png'), pygame.image.load('arrows2.png'), pygame.image.load('arrows1.png'),
+                 pygame.image.load('arrows3.png')]
     dkey = [pygame.image.load('dkey1.png'), pygame.image.load('dkey2.png')]
     fkey = [pygame.image.load('fkey1.png'), pygame.image.load('fkey2.png')]
     spacekey = [pygame.image.load('space1.png'), pygame.image.load('space2.png')]
@@ -159,6 +161,7 @@ def controlesloop():
         pygame.display.update()
         clock.tick(15)
 
+
 def créditsloop():
     controles = True
     stopCount = 0
@@ -166,7 +169,7 @@ def créditsloop():
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
-                controles=False
+                controles = False
                 pygame.quit()
                 quit()
 
@@ -188,23 +191,22 @@ def créditsloop():
         TextRect.center = (200, 540)
         fenetre.blit(TextSurf, TextRect)
 
-
         TextSurf, TextRect = text_objects('Membre de Timber Corp :', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (600, 240)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('Yamine El-Mir', pygame.font.Font('freesansbold.ttf', 25))
+        TextSurf, TextRect = text_objects('Damien Brill', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (600, 300)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('Damien Brill', pygame.font.Font('freesansbold.ttf', 25))
+        TextSurf, TextRect = text_objects('Eloi Bernard', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (600, 360)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('Simon Loraux', pygame.font.Font('freesansbold.ttf', 25))
+        TextSurf, TextRect = text_objects('Mathieu Milliez', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (600, 420)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('Mathieu Milliez', pygame.font.Font('freesansbold.ttf', 25))
+        TextSurf, TextRect = text_objects('Simon Loraux', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (600, 480)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('Eloi Bernard', pygame.font.Font('freesansbold.ttf', 25))
+        TextSurf, TextRect = text_objects('Yamine El Mir', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (600, 540)
         fenetre.blit(TextSurf, TextRect)
 
@@ -214,14 +216,14 @@ def créditsloop():
         # bouton1
         if 850 + 100 > mouse[0] > 850 and 580 + 50 > mouse[1] > 580:
             pygame.draw.rect(fenetre, (100, 100, 100), (850, 580, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (725, 500))
+            fenetre.blit(immobileDroite[stopCount // 4], (775, 535))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (725, 500))
+                    fenetre.blit(attaqueDroite[attCount], (775, 535))
                     attCount += 1
                     pygame.display.flip()
                 controles = False
@@ -236,6 +238,7 @@ def créditsloop():
 
         pygame.display.update()
         clock.tick(15)
+
 
 def introloop():
     intro = True
@@ -381,10 +384,10 @@ def gameloop():
 
     bucheron.bougergauche(collide)
 
-    debutjeu=pygame.time.get_ticks() // 1000
+    debutjeu = pygame.time.get_ticks() // 1000
     son.play()
     son.set_volume(0.2)
-    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite,debutjeu)
+    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite, debutjeu)
     jumpCount = 10
 
     # mainloop
@@ -506,7 +509,6 @@ def gameloop():
                 if terrain.getTour().getnbbuche() > 0:
                     terrain.getTour().setnbbuche(terrain.getTour().getnbbuche() - 1)
 
-
             if pygame.Rect(ennemi.gethitbox()).colliderect(missilGravite.gethitbox()):
                 ennemi.setemplevitation(200)
                 ennemi.setenlevitation(True)
@@ -521,11 +523,10 @@ def gameloop():
                 ennemi.setvitesse(2)
                 ennemi.deplacer()
 
-
         majmechant(mechant)
         majmechant(mechant2)
 
-        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite,debutjeu)
+        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite, debutjeu)
 
         if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
             finloop()
