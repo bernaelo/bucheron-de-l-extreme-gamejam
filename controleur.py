@@ -281,34 +281,42 @@ def introloop():
                     nom3 = str(scores[i][0])
                     top3 = int(scores[i][1])
 
+            pygame.draw.rect(fenetre, (100, 100, 100), (550, 230, 250, 325))
+
+            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("Meilleurs scores: ", True, (255, 255, 255))
+            fenetre.blit(TextRect, (570, 255))
+
             TextRect = pygame.font.Font('freesansbold.ttf', 25).render("1: ", True, (255, 204, 0))
-            fenetre.blit(TextRect,(600,285))
+            fenetre.blit(TextRect,(570,315))
 
             TextSurf, TextRect = text_objects(nom1, pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (650, 300)
+            TextRect.center = (650, 330)
             fenetre.blit(TextSurf, TextRect)
 
             TextSurf, TextRect = text_objects(str(top1), pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (750, 300)
+            TextRect.center = (750, 330)
             fenetre.blit(TextSurf, TextRect)
 
-            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("2: ", True, (255, 204, 0))
-            fenetre.blit(TextRect, (600, 385))
+            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("2: ", True, (206, 206, 206))
+            fenetre.blit(TextRect, (570, 415))
 
             TextSurf, TextRect = text_objects(nom2, pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (650, 400)
+            TextRect.center = (650, 430)
             fenetre.blit(TextSurf, TextRect)
 
             TextSurf, TextRect = text_objects(str(top2), pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (750, 400)
+            TextRect.center = (750, 430)
             fenetre.blit(TextSurf, TextRect)
 
+            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("3: ", True, (97, 78, 26))
+            fenetre.blit(TextRect, (570, 515))
+
             TextSurf, TextRect = text_objects(nom3, pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (650, 500)
+            TextRect.center = (650, 530)
             fenetre.blit(TextSurf, TextRect)
 
             TextSurf, TextRect = text_objects(str(top3), pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (750, 500)
+            TextRect.center = (750, 530)
             fenetre.blit(TextSurf, TextRect)
 
             fichier.close()
