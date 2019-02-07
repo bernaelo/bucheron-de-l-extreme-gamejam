@@ -151,7 +151,7 @@ def créditsloop():
         TextSurf, TextRect = text_objects('Musique : OrangeHead', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (200, 340)
         fenetre.blit(TextSurf, TextRect)
-        TextSurf, TextRect = text_objects('Sons : findsond, Nintendo', pygame.font.Font('freesansbold.ttf', 25))
+        TextSurf, TextRect = text_objects('Sons : Timber Corp', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (200, 440)
         fenetre.blit(TextSurf, TextRect)
         TextSurf, TextRect = text_objects('Graphismes : Timber Corp', pygame.font.Font('freesansbold.ttf', 25))
@@ -425,6 +425,7 @@ def introloop():
 
 
 def gameloop():
+    terrain = t.Terrain()
     terrain.initcases()
     collide = terrain.getCollide()
     arbres = terrain.getArbres()
@@ -487,17 +488,18 @@ def gameloop():
             if keys[pygame.K_SPACE] or pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
                 if pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
                     bucheron.setJumpCount(12.5)
-                saut.set_volume(2)
+                saut.set_volume(0.3)
                 saut.play()
                 bucheron.setisJump(True)
         else:
             bucheron.sauter(collide)
 
         if keys[pygame.K_d]:
-            attB.set_volume(0.1)
+            attB.set_volume(0.7)
             attB.play()
             bucheron.attack()
         elif keys[pygame.K_r] and bucheron.getchargeUltim() > 7:
+            special.set_volume(0.7)
             special.set_volume(2)
             special.play()
             bucheron.attackSpe()
