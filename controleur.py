@@ -434,7 +434,9 @@ def gameloop():
     bucheron = b.Bucheron()
 
     son = pygame.mixer.Sound("Theme.ogg")
+    son.play(loops=1, maxtime=0, fade_ms=0)
     saut = pygame.mixer.Sound("saut.wav")
+    special = pygame.mixer.Sound("special.wav")
     attB = pygame.mixer.Sound("attaque_hache.wav")
     missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
     missilActive = False
@@ -477,7 +479,7 @@ def gameloop():
             if keys[pygame.K_SPACE] or pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
                 if pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
                     bucheron.setJumpCount(12.5)
-                saut.set_volume(0.2)
+                saut.set_volume(2)
                 saut.play()
                 bucheron.setisJump(True)
         else:
@@ -489,6 +491,8 @@ def gameloop():
             bucheron.attack()
         elif keys[pygame.K_r] and bucheron.getchargeUltim() > 7:
             print("FUCK FUCK FUCK FUCK!");
+            special.set_volume(2)
+            special.play()
             bucheron.attackSpe()
             bucheron.resetchargeUltim()
         elif keys[pygame.K_LEFT]:
@@ -602,10 +606,9 @@ def gameloop():
             majmechant(m)
 
         vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite,debutjeu)
-
         if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
             finloop()
-            son.stop()
+            pygame.mixer.music.stop()
 
 
 introloop()
