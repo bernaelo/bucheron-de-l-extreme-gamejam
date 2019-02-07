@@ -148,6 +148,7 @@ def controlesloop():
                     fenetre.blit(attaqueDroite[attCount], (730, 485))
                     attCount += 1
                     pygame.display.flip()
+                pygame.time.delay(200)
                 controles = False
                 introloop()
 
@@ -226,6 +227,7 @@ def créditsloop():
                     fenetre.blit(attaqueDroite[attCount], (775, 535))
                     attCount += 1
                     pygame.display.flip()
+                pygame.time.delay(200)
                 controles = False
                 introloop()
 
@@ -288,6 +290,7 @@ def introloop():
                     fenetre.blit(attaqueDroite[attCount], (30, 185))
                     attCount += 1
                     pygame.display.flip()
+                pygame.time.delay(200)
                 intro = False
                 gameloop()
 
@@ -311,6 +314,7 @@ def introloop():
                     fenetre.blit(attaqueDroite[attCount], (30, 285))
                     attCount += 1
                     pygame.display.flip()
+                pygame.time.delay(200)
                 intro = False
                 controlesloop()
 
@@ -335,6 +339,7 @@ def introloop():
                     fenetre.blit(attaqueDroite[attCount], (30, 385))
                     attCount += 1
                     pygame.display.flip()
+                pygame.time.delay(200)
                 intro = False
                 créditsloop()
         else:
@@ -357,6 +362,7 @@ def introloop():
                     fenetre.blit(attaqueDroite[attCount], (30, 485))
                     attCount += 1
                     pygame.display.flip()
+                pygame.time.delay(200)
                 intro = False
                 pygame.quit()
                 quit()
