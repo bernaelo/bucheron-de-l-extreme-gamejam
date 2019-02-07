@@ -4,13 +4,14 @@ from pygame.locals import *
 
 class Mechant(object):
 
-    def __init__(self):
-        pygame.display.set_caption("Bucheron Vie")
+    def __init__(self, lieuspawn):
         self.hp = 1
         self.degat = 0
+        self.vitesse = 5
         self.x = -50
         self.y = 550
-        self.mort = 0
+        self.mort = False
+        self.spawn = lieuspawn
         self.hitbox=(self.x,self.y,50,50)
 
     def getx(self):
@@ -19,114 +20,47 @@ class Mechant(object):
     def gety(self):
         return self.y
 
-    def attaqueBucheronDroite(self, fenetre):
+    def getspawn(self):
+        return self.spawn
 
-        if self.mort == 0:
-            ninja = pygame.image.load("Ninja PAUSE ATT0.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-            pygame.display.update()
+    def setvitesse(self, v):
+        self.vitesse = v
 
-            ninja = pygame.image.load("Ninja PAUSE ATT1.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-            pygame.display.update()
+    def deplacer(self):
+        if not self.mort:
+            if self.spawn == "G":
+                self.x += self.vitesse
+            else:
+                self.x -= self.vitesse
+        self.updhitbox()
 
-    def deplacerDroite(self, fenetre):
-        if self.mort == 0:
-            # sprite1
-            ninja = pygame.image.load("Ninja_Mouvement1.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-            pygame.display.update()
-            pygame.display.flip()
 
-            # sprite2
-            ninja = pygame.image.load("Ninja_Mouvement0.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-            pygame.display.update()
-            pygame.display.flip()
+    def respawn(self):
+        if self.spawn == "G":
+            self.mort = False
+            self.x = -50
+            self.y = 550
+        else:
+            self.mort = False
+            self.x = 1100
+            self.y = 550
+        self.updhitbox()
 
-            self.x += 1
-            self.updhitboxG()
+    def tuer(self):
+        self.mort = True
 
-    def attaqueTourDroite(self, fenetre):
-        if self.mort == 0:
-            # sprite 1
-            ninja = pygame.image.load("Ninja MOUV attaque0.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
+    def leviter(self):
+        self.y += 75
 
-            pygame.display.update()
+    def aterre(self):
+        self.y -= 75
 
-            # sprite 2
-            ninja = pygame.image.load("Ninja MOUV attaque1.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-
-            pygame.display.update()
-
-    def recréerDroite(self):
-        self.mort = 0
-        self.x = -50
-        self.y = 550
-
-    def suprimer(self):
-        self.mort = 1
-
-    def attaqueBucheronGauche(self, fenetre):
-
-        if self.mort == 0:
-            ninja = pygame.image.load("Ninja PAUSE ATT GAUCHE0.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-            pygame.display.update()
-
-            ninja = pygame.image.load("Ninja PAUSE ATT GAUCHE1.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-            pygame.display.update()
-
-    def deplacerGauche(self, fenetre):
-        if self.mort == 0:
-            # sprite1
-            ninja = pygame.image.load("Ninja MOUV GAUCHE1.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-            pygame.display.update()
-            pygame.display.flip()
-
-            # sprite2
-            ninja = pygame.image.load("Ninja MOUV GAUCHE0.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-            pygame.display.update()
-            pygame.display.flip()
-
-            self.x -= 1
-            self.updhitboxD()
-
-    def attaqueTourGauche(self, fenetre):
-        if self.mort == 0:
-            # sprite 1
-            ninja = pygame.image.load("Ninja MOUV ATT GAUCHE0.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-
-            pygame.display.update()
-
-            # sprite 2
-            ninja = pygame.image.load("Ninja MOUV ATT GAUCHE1.png").convert_alpha()
-            fenetre.blit(ninja, (self.x, self.y))
-
-            pygame.display.update()
-
-    def recréerGauche(self):
-        self.mort = 0
-        self.x = 1000
-        self.y = 550
-
-    def updhitboxD(self):
-        self.hitbox = (self.x+10,self.y,40,50)
-
-    def updhitboxG(self):
-        self.hitbox = (self.x,self.y,40,50)
 
     def gethitbox(self):
         return self.hitbox
 
-    def sethitboxD(self):
-        self.hitbox=(self.x+10,self.y,40,50)
-
-    def sethitboxG(self):
-        self.hitbox=(self.x,self.y,40,50)
+    def updhitbox(self):
+        if self.spawn == "G":
+            self.hitbox = (self.x, self.y, 40, 50)
+        else:
+            self.hitbox = (self.x + 10, self.y, 40, 50)
