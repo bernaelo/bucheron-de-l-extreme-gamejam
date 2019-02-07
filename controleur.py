@@ -388,7 +388,7 @@ def gameloop():
 
     bucheron = b.Bucheron()
 
-    son = pygame.mixer.Sound("Theme.wav")
+    son = pygame.mixer.Sound("Theme.ogg")
     saut = pygame.mixer.Sound("saut.wav")
     attB = pygame.mixer.Sound("attaque_hache.wav")
     missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
@@ -558,6 +558,7 @@ def gameloop():
 
         if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
             finloop()
+            son.stop()
 
 
 introloop()
