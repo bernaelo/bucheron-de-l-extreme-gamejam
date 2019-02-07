@@ -1,11 +1,11 @@
 import pickle as pk
 
 ##Permet de reset tout le fichier des scores (supprime les high scores donc WOLAH FAUT PAS Y TOUCHER)
-#scores = []
-#fichier = open("scores.txt","wb")
-#pickled = pk.Pickler(fichier)
-#pickled.dump(scores)
-#fichier.close()
+# scores = []
+# fichier = open("scores.txt","wb")
+# pickled = pk.Pickler(fichier)
+# pickled.dump(scores)
+# fichier.close()
 
 ## Récupération des scores
 with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
