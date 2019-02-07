@@ -328,10 +328,10 @@ def gameloop():
 
     bucheron.bougergauche(collide)
 
-
+    debutjeu=pygame.time.get_ticks() // 1000
     son.play()
     son.set_volume(0.2)
-    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
+    vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite,debutjeu)
     jumpCount = 10
 
     # mainloop
@@ -471,9 +471,9 @@ def gameloop():
         majmechant(mechant)
         majmechant(mechant2)
 
-        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite)
+        vue.Update(terrain, bucheron, fenetre, mechant, mechant2, arbres, missilGravite,debutjeu)
 
-        if pygame.time.get_ticks() // 1000 == 180:
+        if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
             finloop()
 
 

@@ -49,7 +49,7 @@ class Vue(object):
             self.demarrer = demarrer
 
 
-    def Update(self, terrain, bu, fenetre, mechant, mechant2, arbres, missil):
+    def Update(self, terrain, bu, fenetre, mechant, mechant2, arbres, missil,temps):
 
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
 
@@ -201,16 +201,17 @@ class Vue(object):
 
 
         # horloge
-        if pygame.time.get_ticks() // 1000 >170:
+        if (pygame.time.get_ticks() // 1000 - temps) >170:
             couleur=(255, 0, 0)
-        elif pygame.time.get_ticks() // 1000 >150:
+        elif (pygame.time.get_ticks() // 1000 - temps) >150:
             couleur = (204, 85, 0)
         else:
             couleur = (255, 255, 255)
-        if pygame.time.get_ticks() // 1000 %60<10:
-            temps = self.font.render("Temps : 0" + str(pygame.time.get_ticks() // 1000 //60) +":0"+str(pygame.time.get_ticks() // 1000 %60), 1, couleur)
+
+        if (pygame.time.get_ticks() // 1000 - temps)%60 < 10:
+            temps = self.font.render("Temps : 0" + str((pygame.time.get_ticks() // 1000 - temps) //60) +":0"+str((pygame.time.get_ticks() // 1000 - temps )%60), 1, couleur)
         else:
-            temps = self.font.render("Temps : 0" + str(pygame.time.get_ticks() // 1000 // 60) + ":" + str(pygame.time.get_ticks() // 1000 % 60), 1, couleur)
+            temps = self.font.render("Temps : 0" + str((pygame.time.get_ticks() // 1000 - temps )// 60) + ":" + str((pygame.time.get_ticks() // 1000 - temps )% 60), 1, couleur)
         fenetre.blit(temps, (800, 5))
 
         pygame.display.flip()
