@@ -28,10 +28,12 @@ class Vue(object):
         self.herbe = pygame.image.load('Terre + Herbe.png')
         self.arbre = pygame.image.load('arbre.png')
         self.arbrecoupe = pygame.image.load('arbre_coupé.png')
-        self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png')]
+        self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png'), pygame.image.load('Ressort2.png')]
+        self.levitation = [pygame.image.load('Antigravite0.png'), pygame.image.load('Antigravite1.png'), pygame.image.load('Antigravite2.png'), pygame.image.load('Antigravite3.png'), pygame.image.load('Antigravite4.png'), pygame.image.load('Antigravite5.png')]
         self.stopCount = 0
         self.walkCount = 0
         self.walkNinjaCount = 0
+        self.levitCount = 0
         self.ressortCount = 0
         self.nuageCount=0
         self.attCount=0
@@ -63,7 +65,7 @@ class Vue(object):
                 elif terrain.getCases()[i][j].getType() == tc.typecase.ARBRECOUPE:
                     fenetre.blit(self.arbrecoupe, (j * 30 - 10, i * 30 - 28))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
-                    fenetre.blit(self.ressort[self.ressortCount // 10], (j * 30, i * 30))
+                    fenetre.blit(self.ressort[self.ressortCount // 20], (j * 30, i * 30))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.TERRE:
                     fenetre.blit(self.terre, (j * 30, i * 30))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.HERBE:
@@ -80,24 +82,31 @@ class Vue(object):
             self.nuageCount = 0
 
         self.ressortCount += 1
-        if self.ressortCount > 15:
+        if self.ressortCount > 39:
             self.ressortCount = 0
 
         if self.walkCount >= 12:
             self.walkCount = 0
 
         self.walkNinjaCount += 1
-        if self.walkNinjaCount > 1:
+        if self.walkNinjaCount > 19:
             self.walkNinjaCount = 0
 
-        def runninja(ennemi, runCount):
+        self.levitCount += 1
+        if self.levitCount > 49:
+            self.levitCount = 0
+
+        def runninja(ennemi, runCount, levitCount):
             if ennemi.getspawn() == "G":
-                fenetre.blit(self.ninjaDepGauche[runCount], (ennemi.getx(), ennemi.gety()))
+                fenetre.blit(self.ninjaDepGauche[runCount // 10], (ennemi.getx(), ennemi.gety()))
             else:
-                fenetre.blit(self.ninjaDepDroite[runCount], (ennemi.getx(), ennemi.gety()))
+                fenetre.blit(self.ninjaDepDroite[runCount// 10], (ennemi.getx(), ennemi.gety()))
+
+            if ennemi.getenlevitation():
+                fenetre.blit(self.levitation[levitCount //10], (ennemi.getx(), ennemi.gety() + 50))
 
         for m in lesmechants:
-            runninja(m, self.walkNinjaCount)
+            runninja(m, self.walkNinjaCount, self.levitCount)
 
 
         if bu.isAttackingSpe():

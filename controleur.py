@@ -441,7 +441,7 @@ def gameloop():
     missilDirection = ""
     lesmechants.append(mech.Mechant("G", -200))
     lesmechants.append(mech.Mechant("D", 1100))
-    lvlsupp = 5
+    lvlsupp = 3
 
     for m in lesmechants:
         m.respawn()
@@ -487,8 +487,7 @@ def gameloop():
             attB.set_volume(0.1)
             attB.play()
             bucheron.attack()
-        elif keys[pygame.K_r] and bucheron.getchargeUltim() > 7:
-            print("FUCK FUCK FUCK FUCK!");
+        elif keys[pygame.K_r] and bucheron.getchargeUltim() > 2:
             bucheron.attackSpe()
             bucheron.resetchargeUltim()
         elif keys[pygame.K_LEFT]:
@@ -498,10 +497,9 @@ def gameloop():
         else:
             bucheron.pasbouger()
 
-        if terrain.getTour().getnbbuche() > lvlsupp-4:
-            lesmechants.append(mech.Mechant("D", 650))
+        if terrain.getTour().getnbbuche() > lvlsupp:
             lesmechants.append(mech.Mechant("G", -250))
-            lvlsupp += 5
+            lvlsupp += 3
 
         # Exécution de l'attaque Speciale Jutsu
         if bucheron.isAttackingSpe():
@@ -584,7 +582,6 @@ def gameloop():
                     terrain.getTour().setnbbuche(terrain.getTour().getnbbuche() - 1)
 
             if pygame.Rect(ennemi.gethitbox()).colliderect(missilGravite.gethitbox()):
-                ennemi.setemplevitation(200)
                 ennemi.setenlevitation(True)
 
             if ennemi.getenlevitation():
