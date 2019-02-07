@@ -155,6 +155,7 @@ class Vue(object):
             if self.stopCount > 19:
                 self.stopCount = 0
 
+
         pygame.draw.rect(fenetre, (255, 0, 0), bu.gethitbox(), 2)
         pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
         pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
@@ -163,6 +164,8 @@ class Vue(object):
 
         pygame.draw.rect(fenetre, (255, 0, 0), mechant.gethitbox(), 2)
         pygame.draw.rect(fenetre, (255, 0, 0), mechant2.gethitbox(), 2)
+
+        pygame.draw.rect(fenetre, (255, 0, 0), missil.gethitbox(), 2)
 
         if len(arbres) > 0:
             i = 0

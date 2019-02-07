@@ -440,7 +440,8 @@ def gameloop():
         #Exécution de l'attaque Speciale Jutsu
         if bucheron.isAttackingSpe():
             missilActive = True
-            missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
+            #missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
+            missilGravite.ajouterhitbox()
             if bucheron.getoldleft():
                 missilDirection = "G"
             else:
@@ -455,6 +456,8 @@ def gameloop():
                 missilGravite.shoot("G")
             else:
                 missilGravite.shoot("D")
+        else:
+            missilGravite.retirerhitbox()
 
         if bucheron.getCoupHache():
             i = -1

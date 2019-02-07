@@ -5,10 +5,16 @@ class projectile(object):
         self.x = x
         self.y = y
         self.vitesse = 40
-        self.hitbox = (self.x + 50, self.y + 50, 60, 70)
+        self.hitbox = (self.x, self.y , 0, 0)
 
     def gethitbox(self):
         return self.hitbox
+
+    def ajouterhitbox(self):
+        self.hitbox = (self.x + 50, self.y + 50, 20, 90)
+
+    def retirerhitbox(self):
+        self.hitbox = (self.x, self.y , 0, 0)
 
     def getx(self):
         return self.x
