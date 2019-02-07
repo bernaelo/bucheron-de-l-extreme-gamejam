@@ -4,7 +4,7 @@ import vueJouer as vj
 import bucheron as b
 import tour as to
 import typecase as tc
-import mechants as m
+import mechants as mech
 import RecupText as rete
 import projectile as proj
 import pickle as pk
@@ -390,8 +390,9 @@ def gameloop():
     missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
     missilActive = False
     missilDirection = ""
-    lesmechants.append(mech.Mechant("G"))
-    lesmechants.append(mech.Mechant("D"))
+    lesmechants.append(mech.Mechant("G", -200))
+    lesmechants.append(mech.Mechant("D", 1100))
+    lvlsupp = 5
 
     for m in lesmechants:
         m.respawn()
@@ -447,6 +448,11 @@ def gameloop():
             bucheron.bougerdroite(collide)
         else:
             bucheron.pasbouger()
+
+        if terrain.getTour().getnbbuche() > lvlsupp:
+            lesmechants.append(mech.Mechant("D", 1150))
+            lesmechants.append(mech.Mechant("G", -250))
+            lvlsupp += 5
 
         # Exécution de l'attaque Speciale Jutsu
         if bucheron.isAttackingSpe():

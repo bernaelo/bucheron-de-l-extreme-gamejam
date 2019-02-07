@@ -4,11 +4,12 @@ from pygame.locals import *
 
 class Mechant(object):
 
-    def __init__(self, lieuspawn):
+    def __init__(self, lieuspawn, startx):
         self.hp = 1
         self.degat = 0
         self.vitesse = 0
-        self.x = -50
+        self.startx = startx
+        self.x = 0
         self.y = 550
         self.mort = False
         self.enlevitation = False
@@ -50,14 +51,9 @@ class Mechant(object):
 
 
     def respawn(self):
-        if self.spawn == "G":
-            self.mort = False
-            self.x = -50
-            self.y = 550
-        else:
-            self.mort = False
-            self.x = 1100
-            self.y = 550
+        self.mort = False
+        self.x = self.startx
+        self.y = 550
         self.updhitbox()
 
     def tuer(self):
