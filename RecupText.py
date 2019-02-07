@@ -10,7 +10,7 @@ from pygame.locals import *
 
 def name(screen):
     pygame.init()
-    name = "Veuillez écrire votre Nom : "
+    name = "Veuillez écrire votre nom: "
     name2 = ""
     font = pygame.font.Font(None, 50)
     pasfin = True
@@ -32,7 +32,13 @@ def name(screen):
                     name = name[:-1]
                     name2 = name[:-1]
 
-        screen.fill((0, 0, 0))
+        screen.blit(pygame.image.load('background.png'), (0, 0))
+
+        block = font.render("Partie terminé merci d'avoir jouer. ", True, (255, 255, 255))
+        rect = block.get_rect()
+        rect.center = (500, 100)
+        screen.blit(block, rect)
+        pygame.display.flip()
 
         block = font.render(name, True, (255, 255, 255))
         rect = block.get_rect()
