@@ -181,16 +181,16 @@ def créditsloop():
         click = pygame.mouse.get_pressed()
 
         # bouton1
-        if 850 + 100 > mouse[0] > 850 and 580 + 50 > mouse[1] > 580:
-            pygame.draw.rect(fenetre, (100, 100, 100), (850, 580, 100, 50))
-            fenetre.blit(immobileDroite[stopCount // 4], (775, 535))
+        if 800 + 100 > mouse[0] > 800 and 530 + 50 > mouse[1] > 530:
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
+            fenetre.blit(immobileDroite[stopCount // 4], (725, 485))
             stopCount += 1
             if stopCount > 7:
                 stopCount = 0
             if click[0] == 1:
                 attCount = 0
                 while attCount < 1:
-                    fenetre.blit(attaqueDroite[attCount], (775, 535))
+                    fenetre.blit(attaqueDroite[attCount], (730, 485))
                     attCount += 1
                     pygame.display.flip()
                 pygame.time.delay(200)
@@ -198,10 +198,10 @@ def créditsloop():
                 introloop()
 
         else:
-            pygame.draw.rect(fenetre, (100, 100, 100), (850, 580, 100, 50))
+            pygame.draw.rect(fenetre, (100, 100, 100), (800, 530, 100, 50))
         smallText = pygame.font.SysFont("comicsansms", 20)
         textSurf, textRect = text_objects("Menu", smallText)
-        textRect.center = ((850 + (100 / 2)), (580 + (50 / 2)))
+        textRect.center = ((800 + (100 / 2)), (530 + (50 / 2)))
         fenetre.blit(textSurf, textRect)
 
         pygame.display.update()
@@ -434,7 +434,9 @@ def gameloop():
     bucheron = b.Bucheron()
 
     son = pygame.mixer.Sound("Theme.ogg")
+    son.play(loops=1, maxtime=0, fade_ms=0)
     saut = pygame.mixer.Sound("saut.wav")
+    special = pygame.mixer.Sound("special.wav")
     attB = pygame.mixer.Sound("attaque_hache.wav")
     missilGravite = proj.projectile(bucheron.getx(), bucheron.gety())
     missilActive = False
@@ -477,7 +479,7 @@ def gameloop():
             if keys[pygame.K_SPACE] or pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
                 if pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
                     bucheron.setJumpCount(12.5)
-                saut.set_volume(0.2)
+                saut.set_volume(2)
                 saut.play()
                 bucheron.setisJump(True)
         else:
@@ -487,7 +489,9 @@ def gameloop():
             attB.set_volume(0.1)
             attB.play()
             bucheron.attack()
-        elif keys[pygame.K_r] and bucheron.getchargeUltim() > 2:
+        elif keys[pygame.K_r] and bucheron.getchargeUltim() > 7:
+            special.set_volume(2)
+            special.play()
             bucheron.attackSpe()
             bucheron.resetchargeUltim()
         elif keys[pygame.K_LEFT]:
@@ -599,10 +603,9 @@ def gameloop():
             majmechant(m)
 
         vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite,debutjeu)
-
         if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
             finloop()
-            son.stop()
+            pygame.mixer.music.stop()
 
 
 introloop()
