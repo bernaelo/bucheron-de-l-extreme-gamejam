@@ -10,10 +10,11 @@ from pygame.locals import *
 
 def name(screen):
     pygame.init()
-    name = "Veuillez écrire votre nom: "
-    name2 = ""
+    name = ""
     font = pygame.font.Font(None, 50)
     pasfin = True
+    compteur = 0
+
     while pasfin:
         for evt in pygame.event.get():
             if evt.type == pygame.QUIT:
@@ -23,14 +24,17 @@ def name(screen):
             if evt.type == KEYDOWN:
                 if evt.key == K_RETURN:
                     pasfin = False
-                    return name2
+                    return name
 
                 elif evt.unicode.isalpha():
-                    name += evt.unicode
-                    name2 += evt.unicode
+                    if compteur < 10:
+                        name += evt.unicode
+                        compteur += 1
+
                 elif evt.key == K_BACKSPACE:
-                    name = name[:-1]
-                    name2 = name[:-1]
+                    if len(name) > 0:
+                        name = name[:-1]
+                        compteur -= 1
 
         screen.blit(pygame.image.load('background.png'), (0, 0))
 
@@ -40,10 +44,16 @@ def name(screen):
         screen.blit(block, rect)
         pygame.display.flip()
 
-        block = font.render(name, True, (255, 255, 255))
-        rect = block.get_rect()
-        rect.center = screen.get_rect().center
-        screen.blit(block, rect)
+        block2 = font.render("Veuillez écrire votre nom: ", True, (255, 255, 255))
+        rect2 = block2.get_rect()
+        rect2.center = (400, 350)
+        screen.blit(block2, rect2)
+        pygame.display.flip()
+
+        block3 = font.render(name, True, (255, 255, 255))
+        rect3 = block3.get_rect()
+        rect3.center = (700, 350)
+        screen.blit(block3, rect3)
         pygame.display.flip()
 
 
