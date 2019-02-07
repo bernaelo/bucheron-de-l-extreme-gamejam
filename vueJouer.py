@@ -43,6 +43,7 @@ class Vue(object):
         self.font = pygame.font.Font(None, 40)
         self.temps = pygame.time.Clock()
         self.demarrer = 0
+        self.old_charge = 0
 
         def getdemarrer(self):
             return self.demarrer
@@ -202,9 +203,30 @@ class Vue(object):
             text = self.font.render("Buches : " + str(bu.getbucheportee()), 1, (255, 0, 0))
         fenetre.blit(text, (10, 670))
 
-        infoUltim = self.font.render("Capacité : " + str(bu.getchargeUltim()) + "/8", 1, (255, 255, 255))
-        fenetre.blit(infoUltim, (550, 640))
+        #infoUltim = self.font.render("Capacité : " + str(bu.getchargeUltim()) + "/8", 1, (255, 255, 255))
+        #fenetre.blit(infoUltim, (550, 640))
 
+        #------ LA BORDEL DE JAUGE !!!! -------
+        x_jauge = 730
+        y_jauge = 640
+        larg_jauge = 200
+        bord_jauge = 4
+        cran_jauge = larg_jauge / 8
+        pygame.draw.rect(fenetre, (174, 166, 183), (x_jauge - (bord_jauge / 2), y_jauge, larg_jauge + bord_jauge, cran_jauge + (bord_jauge / 2)), 0)
+        if bu.getchargeUltim() == 8:
+            pygame.draw.rect(fenetre, (250, 250, 250), (x_jauge - (bord_jauge / 2), y_jauge, larg_jauge + bord_jauge, cran_jauge + (bord_jauge / 2)), bord_jauge)
+            pygame.draw.rect(fenetre, (250, 250, 250), (940, 628, 45, 45), 3)
+        else:
+            pygame.draw.rect(fenetre, (0, 0, 0), (x_jauge - (bord_jauge/2), y_jauge, larg_jauge + bord_jauge, cran_jauge +(bord_jauge/2)), bord_jauge)
+            pygame.draw.rect(fenetre, (0, 0, 0), (940, 628, 45, 45), 3)
+
+        if bu.getchargeUltim() > 0:
+            pygame.draw.rect(fenetre, (145, 80 - 10 * (bu.getchargeUltim() - 1), 191),((x_jauge + larg_jauge - (bu.getchargeUltim() * 25)), y_jauge + bord_jauge - 1, (cran_jauge + ((bu.getchargeUltim()-1) * 25)), cran_jauge - bord_jauge + 1), 0)
+            #image du spell
+        iconUlt = pygame.image.load('icon_ultim.png')
+        fenetre.blit(iconUlt, (940, 630))
+
+        #----- ET ELLE FONCTIONNE ! ----------------
 
         # horloge
         if (pygame.time.get_ticks() // 1000 - temps) >170:
