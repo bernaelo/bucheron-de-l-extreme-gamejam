@@ -1,6 +1,7 @@
 import pygame
 import typecase as tc
 
+
 class Vue(object):
 
     def __init__(self):
@@ -23,7 +24,7 @@ class Vue(object):
         self.arbre = pygame.image.load('Arbre4.png')
         self.arbrecoupe = pygame.image.load('Arbre_coupe4.png')
         self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png')]
-        self.stopCount =0
+        self.stopCount = 0
         self.walkCount = 0
         self.ressortCount = 0
         self.nuageCount=0
@@ -46,25 +47,25 @@ class Vue(object):
 
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
 
-
-        for i in range(0,len(terrain.getCases())-1):
-            for j in range(0,len(terrain.getCases()[i])-1):
+        for i in range(0, len(terrain.getCases()) - 1):
+            for j in range(0, len(terrain.getCases()[i]) - 1):
                 if terrain.getCases()[i][j].getType() == tc.typecase.TOUR:
-                    for k in range(0,terrain.getTour().getnbbuche()):
-                        fenetre.blit(pygame.image.load('Buche.png'), (j * 50 +20*(k%4), i * 50 -38*(k//4)))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRE:
-                    fenetre.blit(self.arbre,(j*50 -10,i*50 -28))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.ARBRECOUPE:
-                    fenetre.blit(self.arbrecoupe,(j*50 -10,i*50 -28))
+                    for k in range(0, terrain.getTour().getnbbuche()):
+                        fenetre.blit(pygame.image.load('Buche_36_70.png'),
+                                     (j * 50 + 36 * (k % 4), i * 50 - 20 - 70 * (k // 4)))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.ARBRE:
+                    fenetre.blit(self.arbre, (j * 50 - 10, i * 50 - 28))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.ARBRECOUPE:
+                    fenetre.blit(self.arbrecoupe, (j * 50 - 10, i * 50 - 28))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.RESSORT:
                     fenetre.blit(self.ressort[self.ressortCount // 10], (j * 50, i * 50))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.TERRE:
-                    fenetre.blit(self.terre,(j*50,i*50))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.HERBE:
-                    fenetre.blit(self.herbe,(j*50,i*50))
-                elif terrain.getCases()[i][j].getType()==tc.typecase.NUAGE:
-                    #fenetre.blit(nuage,(j*50,i*50))
-                    fenetre.blit(self.nuage[self.nuageCount // 10], (j*50, i*50))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.TERRE:
+                    fenetre.blit(self.terre, (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.HERBE:
+                    fenetre.blit(self.herbe, (j * 50, i * 50))
+                elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGE:
+                    # fenetre.blit(nuage,(j*50,i*50))
+                    fenetre.blit(self.nuage[self.nuageCount // 10], (j * 50, i * 50))
                 elif terrain.getCases()[i][j].getType() == tc.typecase.NUAGED:
                     # fenetre.blit(nuagefD, (j * 50, i * 50))
                     fenetre.blit(self.nuagefD[self.nuageCount // 10], (j * 50, i * 50))
@@ -72,18 +73,16 @@ class Vue(object):
                     # fenetre.blit(nuagefG,(j*50,i*50))
                     fenetre.blit(self.nuagefG[self.nuageCount // 10], (j * 50, i * 50))
 
-
         self.nuageCount += 1
         if self.nuageCount > 19:
             self.nuageCount = 0
-
 
         self.ressortCount += 1
         if self.ressortCount > 15:
             self.ressortCount = 0
 
         if self.walkCount >= 12:
-            self.walkCount=0
+            self.walkCount = 0
 
         if bu.isAttackingSpe():
             if bu.getoldleft():
@@ -118,19 +117,19 @@ class Vue(object):
             else:
                 fenetre.blit(self.attaqueDroite[self.attCount], (bu.getx(), bu.gety()))
 
-            self.attCount+=1
-            if self.attCount==3:
+            self.attCount += 1
+            if self.attCount == 3:
                 bu.setCoupHache(True)
             elif self.attCount == 4:
                 bu.setCoupHache(False)
-            if self.attCount>4:
-                self.attCount=0
+            if self.attCount > 4:
+                self.attCount = 0
                 bu.setAttack(False)
 
         elif bu.getleft():
             if bu.getisJump() and not bu.getTraitrise():
                 fenetre.blit(self.walkLeft[5], (bu.getx(), bu.gety()))
-                self.walkCount=0
+                self.walkCount = 0
             else:
                 fenetre.blit(self.walkLeft[self.walkCount // 2], (bu.getx(), bu.gety()))
                 self.walkCount += 1
@@ -139,26 +138,24 @@ class Vue(object):
         elif bu.getright():
             if bu.getisJump() and not bu.getTraitrise():
                 fenetre.blit(self.walkRight[5], (bu.getx(), bu.gety()))
-                self.walkCount=0
+                self.walkCount = 0
             else:
                 fenetre.blit(self.walkRight[self.walkCount // 2], (bu.getx(), bu.gety()))
-                self.walkCount+=1
+                self.walkCount += 1
                 if self.walkCount > 11:
                     self.walkCount = 0
         else:
             if bu.getoldleft():
-                fenetre.blit(self.immobileGauche[self.stopCount//10], (bu.getx(), bu.gety()))
+                fenetre.blit(self.immobileGauche[self.stopCount // 10], (bu.getx(), bu.gety()))
             else:
                 fenetre.blit(self.immobileDroite[self.stopCount // 10], (bu.getx(), bu.gety()))
             bu.setright(False)
             bu.setleft(False)
             self.stopCount += 1
-            if self.stopCount>19:
-                self.stopCount=0
+            if self.stopCount > 19:
+                self.stopCount = 0
 
-
-
-        pygame.draw.rect(fenetre,(255,0,0),bu.gethitbox(),2)
+        pygame.draw.rect(fenetre, (255, 0, 0), bu.gethitbox(), 2)
         pygame.draw.rect(fenetre, (0, 255, 0), bu.gethitboxAttG(), 2)
         pygame.draw.rect(fenetre, (0, 0, 0), bu.gethitboxAttD(), 2)
 
@@ -167,30 +164,28 @@ class Vue(object):
         pygame.draw.rect(fenetre, (255, 0, 0), mechant.gethitbox(), 2)
         pygame.draw.rect(fenetre, (255, 0, 0), mechant2.gethitbox(), 2)
 
-        if len(arbres)>0:
-            i=0
-            while i <len(arbres):
+        if len(arbres) > 0:
+            i = 0
+            while i < len(arbres):
                 pygame.draw.rect(fenetre, (255, 0, 0), arbres[i], 2)
-                i+=1
+                i += 1
 
-        if bu.getbucheportee()<2:
-            text = self.font.render("Buches : "+str(bu.getbucheportee()), 1, (255, 255, 255))
+        if bu.getbucheportee() < 2:
+            text = self.font.render("Buches : " + str(bu.getbucheportee()), 1, (255, 255, 255))
         else:
-            text = self.font.render("Buches : " + str(bu.getbucheportee() ) , 1, (255, 0, 0))
+            text = self.font.render("Buches : " + str(bu.getbucheportee()), 1, (255, 0, 0))
         fenetre.blit(text, (10, 670))
 
         text = self.font.render("Tour : " + str(terrain.getTour().getnbbuche()), 1, (255, 255, 255))
         fenetre.blit(text, (10, 640))
 
-        #horloge
-        temps = self.font.render("Temps : " + str(pygame.time.get_ticks()//1000), 1, (255, 255, 255))
-        fenetre.blit(temps,(800,5))
-
-
+        # horloge
+        temps = self.font.render("Temps : " + str(pygame.time.get_ticks() // 1000), 1, (255, 255, 255))
+        fenetre.blit(temps, (800, 5))
 
         if pygame.Rect(mechant.gethitbox()).colliderect(bu.gethitbox()):
             mechant.attaqueBucheronDroite(fenetre)
-            if bu.getbucheportee() >0:
+            if bu.getbucheportee() > 0:
                 bu.setbucheportee(bu.getbucheportee() - 1)
                 # enlever une buche au bucheron
 
@@ -198,7 +193,7 @@ class Vue(object):
             mechant.attaqueTourDroite(fenetre)
             mechant.suprimer()
             mechant.recréerDroite()
-            if terrain.getTour().getnbbuche() >0:
+            if terrain.getTour().getnbbuche() > 0:
                 terrain.getTour().setnbbuche(terrain.getTour().getnbbuche() - 1)
 
         else:
@@ -223,4 +218,3 @@ class Vue(object):
             mechant2.deplacerGauche(fenetre)
 
         pygame.display.flip()
-

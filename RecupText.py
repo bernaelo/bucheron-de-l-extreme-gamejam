@@ -8,27 +8,30 @@
 import pygame
 from pygame.locals import *
 
-
 def name(screen):
     pygame.init()
-    screen = pygame.display.set_mode((600, 300))
     name = "Veuillez écrire votre Nom : "
+    name2 = ""
     font = pygame.font.Font(None, 50)
-    while True:
+    pasfin = True
+    while pasfin:
         for evt in pygame.event.get():
             if evt.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-                
+
             if evt.type == KEYDOWN:
-                if evt.unicode.isalpha():
+                if evt.key == K_RETURN:
+                    pasfin = False
+                    return name2
+
+                elif evt.unicode.isalpha():
                     name += evt.unicode
+                    name2 += evt.unicode
                 elif evt.key == K_BACKSPACE:
                     name = name[:-1]
-                elif evt.key == K_RETURN:
-                    name = ""
-            elif evt.type == QUIT:
-                return
+                    name2 = name[:-1]
+
         screen.fill((0, 0, 0))
 
         block = font.render(name, True, (255, 255, 255))
