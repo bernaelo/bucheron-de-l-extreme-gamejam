@@ -10,10 +10,10 @@ class Bucheron(object):
         self.left = False
         self.speed = 13
         self.isJump = False
-        self.hitbox = (self.x + 60, self.y + 40, 40, 114)
+        self.hitbox = (self.x , self.y + 50, 40, 60)
         self.hitboxAttG = (self.x, self.y + 40, 60, 114)
         self.hitboxAttD = (self.x + 100, self.y + 40, 60, 114)
-        self.jumpCount = 9.5
+        self.jumpCount = 8.5
         self.chargeUltim = 0
         self.oldleft = False
         self.isAttack = False
@@ -106,7 +106,7 @@ class Bucheron(object):
                 self.jumpCount -= 1
 
                 if test:
-                    self.jumpCount = 9.5
+                    self.jumpCount = 8.5
                     self.isJump = False
 
             else:
@@ -166,9 +166,9 @@ class Bucheron(object):
         return self.hitbox
 
     def updhitbox(self):
-        self.hitbox = (self.x + 60, self.y + 40, 40, 114)
-        self.hitboxAttG = (self.x, self.y + 40, 60, 114)
-        self.hitboxAttD = (self.x + 100, self.y + 40, 60, 114)
+        self.hitbox = (self.x+30 , self.y + 38, 40, 60) #(self.x+30, self.y + 28, 40, 70)
+        self.hitboxAttG = (self.x-10, self.y + 28, 40, 70)
+        self.hitboxAttD = (self.x + 70, self.y + 28, 40, 70)
 
     def jumpspring(self, collide):
         self.jumpCount = 10

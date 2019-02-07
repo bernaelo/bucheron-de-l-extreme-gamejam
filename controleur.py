@@ -387,7 +387,7 @@ def gameloop():
         if not (bucheron.getisJump()):
             if keys[pygame.K_SPACE] or pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
                 if pygame.Rect(bucheron.gethitbox()).collidelist(ressorts) != -1:
-                    bucheron.setJumpCount(13.7)
+                    bucheron.setJumpCount(12.5)
                 saut.set_volume(0.2)
                 saut.play()
                 bucheron.setisJump(True)
