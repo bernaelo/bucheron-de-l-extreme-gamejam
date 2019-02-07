@@ -417,6 +417,7 @@ def introloop():
 
 
 def gameloop():
+    terrain = t.Terrain()
     terrain.initcases()
     collide = terrain.getCollide()
     arbres = terrain.getArbres()
