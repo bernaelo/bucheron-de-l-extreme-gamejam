@@ -20,7 +20,8 @@ clock = pygame.time.Clock()
 immobileDroite = [pygame.image.load('Bucheron-Stop-Right0.png'), pygame.image.load('Bucheron-Stop-Right1.png')]
 attaqueDroite = [pygame.image.load('att D1.png'), pygame.image.load('att D3.png')]
 terrain = t.Terrain()
-
+nom = ""
+new_score = 0
 
 def finloop():
     while True:
@@ -32,39 +33,6 @@ def finloop():
 
         nom = rete.name(fenetre)
         new_score = str(terrain.getTour().getnbbuche())
-
-        ##Permet de reset tout le fichier des scores (supprime les high scores donc WOLAH FAUT PAS Y TOUCHER)
-        # scores = []
-        # fichier = open("scores.txt","wb")
-        # pickled = pk.Pickler(fichier)
-        # pickled.dump(scores)
-        # fichier.close()
-
-        ## Récupération des scores
-        with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
-            unpickled = pk.Unpickler(fichier)
-            scores = unpickled.load()  # On récupère la variable
-            fichier.close()
-            print(scores)
-
-        ##Verification des scores existants ou inexistants selon les noms
-        try:
-            nom_list = [score[0] for score in scores]  # création de la liste des noms
-            index = nom_list.index(nom)  # recherche du joueur
-            # Si le joueur a un score:
-            print("Le joueur {} a déjà un score. il est à l'index n°{} de la liste".format(nom, index))
-            if new_score > scores[index][1]:  # et que son nouveau score est mieux
-                scores[index][1] = new_score
-        except ValueError:  # Si le joueur n'a pas de score précédent / index(nom) renvoie une ValueError si il trouve pas nom
-            print("Le joueur n'a pas de scores précédents")
-            scores.append([nom, new_score])  # Ajout du score
-        print(scores)
-
-        ## Sauvegarde des scores
-        with open("scores.txt", "wb") as fichier:
-            pickled = pk.Pickler(fichier)
-            pickled.dump(scores)
-            fichier.close()
 
         introloop()
 
@@ -256,20 +224,94 @@ def introloop():
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
         fenetre.blit(pygame.image.load('titrejeu.png'), (250, 0))
 
+        ##Permet de reset tout le fichier des scores (supprime les high scores donc WOLAH FAUT PAS Y TOUCHER)
+        # scores = []
+        # fichier = open("scores.txt","wb")
+        # pickled = pk.Pickler(fichier)
+        # pickled.dump(scores)
+        # fichier.close()
+
+        ## Récupération des scores
+        with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
+            unpickled = pk.Unpickler(fichier)
+            scores = unpickled.load()  # On récupère la variable
+            fichier.close()
+            # print(scores)
+
+        ##Verification des scores existants ou inexistants selon les noms
+        try:
+            nom_list = [score[0] for score in scores]  # création de la liste des noms
+            index = nom_list.index(nom)  # recherche du joueur
+            # Si le joueur a un score:
+            # print("Le joueur {} a déjà un score. il est à l'index n°{} de la liste".format(nom, index))
+            if new_score > scores[index][1]:  # et que son nouveau score est mieux
+                scores[index][1] = new_score
+        except ValueError:  # Si le joueur n'a pas de score précédent / index(nom) renvoie une ValueError si il trouve pas nom
+            # print("Le joueur n'a pas de scores précédents")
+            scores.append([nom, new_score])  # Ajout du score
+        # print(scores)
+
+        ## Sauvegarde des scores
+        with open("scores.txt", "wb") as fichier:
+            pickled = pk.Pickler(fichier)
+            pickled.dump(scores)
+            fichier.close()
+
         with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
             unpickled = pk.Unpickler(fichier)
             scores = unpickled.load()  # On récupère la variable
             i=0
             j=250
-            while i <= 1:
-                TextSurf, TextRect = text_objects(str(scores[i][0]), pygame.font.Font('freesansbold.ttf', 25))
-                TextRect.center = (650, j)
-                fenetre.blit(TextSurf, TextRect)
-                TextSurf, TextRect = text_objects(str(scores[i][1]), pygame.font.Font('freesansbold.ttf', 25))
-                TextRect.center = (750, j)
-                fenetre.blit(TextSurf, TextRect)
-                i += 1
-                j += 100
+            fin = True
+            top1 = 0
+            nom1 = ""
+            top2 = 0
+            nom2 = ""
+            top3 = 0
+            nom3 = ""
+
+            for i in range(len(scores)):
+
+                if top1 < int(scores[i][1]):
+                    nom1 = str(scores[i][0])
+                    top1 = int(scores[i][1])
+                elif top2 < int(scores[i][1]):
+                    nom2 = str(scores[i][0])
+                    top2 = int(scores[i][1])
+                elif top3 < int(scores[i][1]):
+                    nom3 = str(scores[i][0])
+                    top3 = int(scores[i][1])
+
+            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("1: ", True, (255, 204, 0))
+            fenetre.blit(TextRect,(600,285))
+
+            TextSurf, TextRect = text_objects(nom1, pygame.font.Font('freesansbold.ttf', 25))
+            TextRect.center = (650, 300)
+            fenetre.blit(TextSurf, TextRect)
+
+            TextSurf, TextRect = text_objects(str(top1), pygame.font.Font('freesansbold.ttf', 25))
+            TextRect.center = (750, 300)
+            fenetre.blit(TextSurf, TextRect)
+
+            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("2: ", True, (255, 204, 0))
+            fenetre.blit(TextRect, (600, 385))
+
+            TextSurf, TextRect = text_objects(nom2, pygame.font.Font('freesansbold.ttf', 25))
+            TextRect.center = (650, 400)
+            fenetre.blit(TextSurf, TextRect)
+
+            TextSurf, TextRect = text_objects(str(top2), pygame.font.Font('freesansbold.ttf', 25))
+            TextRect.center = (750, 400)
+            fenetre.blit(TextSurf, TextRect)
+
+            TextSurf, TextRect = text_objects(nom3, pygame.font.Font('freesansbold.ttf', 25))
+            TextRect.center = (650, 500)
+            fenetre.blit(TextSurf, TextRect)
+
+            TextSurf, TextRect = text_objects(str(top3), pygame.font.Font('freesansbold.ttf', 25))
+            TextRect.center = (750, 500)
+            fenetre.blit(TextSurf, TextRect)
+
             fichier.close()
 
         mouse = pygame.mouse.get_pos()
