@@ -23,6 +23,7 @@ terrain = t.Terrain()
 nom = ""
 new_score = 0
 
+
 def finloop():
     while True:
         for event in pygame.event.get():
@@ -49,7 +50,8 @@ def controlesloop():
     dCount = 0
     fCount = 0
     spaceCount = 0
-    arrowkeys = [pygame.image.load('arrows1.png'), pygame.image.load('arrows2.png'), pygame.image.load('arrows1.png'), pygame.image.load('arrows3.png')]
+    arrowkeys = [pygame.image.load('arrows1.png'), pygame.image.load('arrows2.png'), pygame.image.load('arrows1.png'),
+                 pygame.image.load('arrows3.png')]
     dkey = [pygame.image.load('dkey1.png'), pygame.image.load('dkey2.png')]
     fkey = [pygame.image.load('fkey1.png'), pygame.image.load('fkey2.png')]
     spacekey = [pygame.image.load('space1.png'), pygame.image.load('space2.png')]
@@ -129,6 +131,7 @@ def controlesloop():
         pygame.display.update()
         clock.tick(15)
 
+
 def créditsloop():
     controles = True
     stopCount = 0
@@ -207,6 +210,7 @@ def créditsloop():
         pygame.display.update()
         clock.tick(15)
 
+
 def introloop():
     intro = True
     stopCount = 0
@@ -259,8 +263,8 @@ def introloop():
         with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
             unpickled = pk.Unpickler(fichier)
             scores = unpickled.load()  # On récupère la variable
-            i=0
-            j=250
+            i = 0
+            j = 250
             fin = True
             top1 = 0
             nom1 = ""
@@ -287,7 +291,7 @@ def introloop():
             fenetre.blit(TextRect, (570, 255))
 
             TextRect = pygame.font.Font('freesansbold.ttf', 25).render("1: ", True, (255, 204, 0))
-            fenetre.blit(TextRect,(570,315))
+            fenetre.blit(TextRect, (570, 315))
 
             TextSurf, TextRect = text_objects(nom1, pygame.font.Font('freesansbold.ttf', 25))
             TextRect.center = (650, 330)
@@ -462,15 +466,15 @@ def gameloop():
     debutjeu = pygame.time.get_ticks() // 1000
     son.play()
     son.set_volume(0.2)
-    vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite,debutjeu)
+    vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite, debutjeu)
     jumpCount = 10
 
     # mainloop
     gameexit = False
 
-    timer=180
+    timer = 180
 
-    while ((not (gameexit)) and (timer >=0)):
+    while (not (gameexit)) and (timer >= 0):
         clock.tick(60)
 
         for event in pygame.event.get():  # On parcours la liste de tous les événements reçus
@@ -608,11 +612,10 @@ def gameloop():
                 ennemi.setvitesse(2)
                 ennemi.deplacer()
 
-
         for m in lesmechants:
             majmechant(m)
 
-        vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite,debutjeu)
+        vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite, debutjeu)
         if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
             finloop()
             pygame.mixer.music.stop()

@@ -38,7 +38,7 @@ def name(screen):
 
         screen.blit(pygame.image.load('background.png'), (0, 0))
 
-        block = font.render("Partie terminé merci d'avoir jouer. ", True, (255, 255, 255))
+        block = font.render("Partie terminée, merci d'avoir joué. ", True, (255, 255, 255))
         rect = block.get_rect()
         rect.center = (500, 100)
         screen.blit(block, rect)
