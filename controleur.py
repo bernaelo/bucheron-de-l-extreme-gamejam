@@ -193,7 +193,7 @@ def créditsloop():
         TextRect.center = (200, 540)
         fenetre.blit(TextSurf, TextRect)
 
-        TextSurf, TextRect = text_objects('Membre de Timber Corp :', pygame.font.Font('freesansbold.ttf', 25))
+        TextSurf, TextRect = text_objects('Membres de Timber Corp :', pygame.font.Font('freesansbold.ttf', 25))
         TextRect.center = (680, 240)
         fenetre.blit(TextSurf, TextRect)
         TextSurf, TextRect = text_objects('Damien Brill', pygame.font.Font('freesansbold.ttf', 25))
