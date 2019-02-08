@@ -27,7 +27,7 @@ def name(screen):
                     return name
 
                 elif evt.unicode.isalpha():
-                    if compteur < 10:
+                    if compteur < 8:
                         name += evt.unicode
                         compteur += 1
 
@@ -42,13 +42,11 @@ def name(screen):
         rect = block.get_rect()
         rect.center = (500, 100)
         screen.blit(block, rect)
-        pygame.display.flip()
 
         block2 = font.render("Veuillez écrire votre nom: ", True, (255, 255, 255))
         rect2 = block2.get_rect()
         rect2.center = (400, 350)
         screen.blit(block2, rect2)
-        pygame.display.flip()
 
         block3 = font.render(name, True, (255, 255, 255))
         rect3 = block3.get_rect()

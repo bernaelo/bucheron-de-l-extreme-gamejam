@@ -24,7 +24,7 @@ nom = ""
 new_score = 0
 
 
-def finloop():
+def finloop(new_score):
     while True:
         for event in pygame.event.get():
             # print(event)
@@ -33,7 +33,39 @@ def finloop():
                 quit()
 
         nom = rete.name(fenetre)
-        new_score = str(terrain.getTour().getnbbuche())
+
+        ##Permet de reset tout le fichier des scores (supprime les high scores donc WOLAH FAUT PAS Y TOUCHER)
+        # scores = []
+        # fichier = open("scores.txt","wb")
+        # pickled = pk.Pickler(fichier)
+        # pickled.dump(scores)
+        # fichier.close()
+
+        ## Récupération des scores
+        with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
+            unpickled = pk.Unpickler(fichier)
+            scores = unpickled.load()  # On récupère la variable
+            fichier.close()
+            # print(scores)
+
+        ##Verification des scores existants ou inexistants selon les noms
+        try:
+            nom_list = [score[0] for score in scores]  # création de la liste des noms
+            index = nom_list.index(nom)  # recherche du joueur
+            # Si le joueur a un score:
+            # print("Le joueur {} a déjà un score. il est à l'index n°{} de la liste".format(nom, index))
+            if new_score > scores[index][1]:  # et que son nouveau score est mieux
+                scores[index][1] = new_score
+        except ValueError:  # Si le joueur n'a pas de score précédent / index(nom) renvoie une ValueError si il trouve pas nom
+            # print("Le joueur n'a pas de scores précédents")
+            scores.append([nom, new_score])  # Ajout du score
+        # print(scores)
+
+        ## Sauvegarde des scores
+        with open("scores.txt", "wb") as fichier:
+            pickled = pk.Pickler(fichier)
+            pickled.dump(scores)
+            fichier.close()
 
         introloop()
 
@@ -227,12 +259,12 @@ def introloop():
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
         fenetre.blit(pygame.image.load('titrejeu.png'), (250, 0))
 
-        ##Permet de reset tout le fichier des scores (supprime les high scores donc WOLAH FAUT PAS Y TOUCHER)
-        # scores = []
-        # fichier = open("scores.txt","wb")
-        # pickled = pk.Pickler(fichier)
-        # pickled.dump(scores)
-        # fichier.close()
+        # #Permet de reset tout le fichier des scores (supprime les high scores donc WOLAH FAUT PAS Y TOUCHER)
+        #         # scores = []
+        #         # fichier = open("scores.txt","wb")
+        #         # pickled = pk.Pickler(fichier)
+        #         # pickled.dump(scores)
+        #         # fichier.close()
 
         ## Récupération des scores
         with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
@@ -260,70 +292,63 @@ def introloop():
             pickled.dump(scores)
             fichier.close()
 
-        with open("scores.txt", "rb") as fichier:  # Ouverture en binaire
-            unpickled = pk.Unpickler(fichier)
-            scores = unpickled.load()  # On récupère la variable
-            i = 0
-            j = 250
-            fin = True
-            top1 = 0
-            nom1 = ""
-            top2 = 0
-            nom2 = ""
-            top3 = 0
-            nom3 = ""
+        top1 = 0
+        nom1 = ""
+        top2 = 0
+        nom2 = ""
+        top3 = 0
+        nom3 = ""
 
-            for i in range(len(scores)):
+        for i in range(len(scores)):
+            if top1 < int(scores[i][1]):
+                nom1 = str(scores[i][0])
+                top1 = int(scores[i][1])
+            elif top2 < int(scores[i][1]):
+                nom2 = str(scores[i][0])
+                top2 = int(scores[i][1])
+            elif top3 < int(scores[i][1]):
+                nom3 = str(scores[i][0])
+                top3 = int(scores[i][1])
 
-                if top1 < int(scores[i][1]):
-                    nom1 = str(scores[i][0])
-                    top1 = int(scores[i][1])
-                elif top2 < int(scores[i][1]):
-                    nom2 = str(scores[i][0])
-                    top2 = int(scores[i][1])
-                elif top3 < int(scores[i][1]):
-                    nom3 = str(scores[i][0])
-                    top3 = int(scores[i][1])
+        pygame.draw.rect(fenetre, (100, 100, 100), (550, 230, 250, 325))
 
-            pygame.draw.rect(fenetre, (100, 100, 100), (550, 230, 250, 325))
+        TextRect = pygame.font.Font('freesansbold.ttf', 25).render("Meilleurs scores: ", True, (255, 255, 255))
+        fenetre.blit(TextRect, (570, 255))
 
-            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("Meilleurs scores: ", True, (255, 255, 255))
-            fenetre.blit(TextRect, (570, 255))
+        TextRect = pygame.font.Font('freesansbold.ttf', 25).render("1: ", True, (255, 204, 0))
+        fenetre.blit(TextRect, (570, 315))
 
-            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("1: ", True, (255, 204, 0))
-            fenetre.blit(TextRect, (570, 315))
+        TextSurf, TextRect = text_objects(nom1, pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (650, 330)
+        fenetre.blit(TextSurf, TextRect)
 
-            TextSurf, TextRect = text_objects(nom1, pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (650, 330)
-            fenetre.blit(TextSurf, TextRect)
+        TextSurf, TextRect = text_objects(str(top1), pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (750, 330)
+        fenetre.blit(TextSurf, TextRect)
 
-            TextSurf, TextRect = text_objects(str(top1), pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (750, 330)
-            fenetre.blit(TextSurf, TextRect)
+        TextRect = pygame.font.Font('freesansbold.ttf', 25).render("2: ", True, (206, 206, 206))
+        fenetre.blit(TextRect, (570, 415))
 
-            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("2: ", True, (206, 206, 206))
-            fenetre.blit(TextRect, (570, 415))
+        TextSurf, TextRect = text_objects(nom2, pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (650, 430)
+        fenetre.blit(TextSurf, TextRect)
 
-            TextSurf, TextRect = text_objects(nom2, pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (650, 430)
-            fenetre.blit(TextSurf, TextRect)
+        TextSurf, TextRect = text_objects(str(top2), pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (750, 430)
+        fenetre.blit(TextSurf, TextRect)
 
-            TextSurf, TextRect = text_objects(str(top2), pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (750, 430)
-            fenetre.blit(TextSurf, TextRect)
+        TextRect = pygame.font.Font('freesansbold.ttf', 25).render("3: ", True, (97, 78, 26))
+        fenetre.blit(TextRect, (570, 515))
 
-            TextRect = pygame.font.Font('freesansbold.ttf', 25).render("3: ", True, (97, 78, 26))
-            fenetre.blit(TextRect, (570, 515))
+        TextSurf, TextRect = text_objects(nom3, pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (650, 530)
+        fenetre.blit(TextSurf, TextRect)
 
-            TextSurf, TextRect = text_objects(nom3, pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (650, 530)
-            fenetre.blit(TextSurf, TextRect)
+        TextSurf, TextRect = text_objects(str(top3), pygame.font.Font('freesansbold.ttf', 25))
+        TextRect.center = (750, 530)
+        fenetre.blit(TextSurf, TextRect)
 
-            TextSurf, TextRect = text_objects(str(top3), pygame.font.Font('freesansbold.ttf', 25))
-            TextRect.center = (750, 530)
-            fenetre.blit(TextSurf, TextRect)
-
-            fichier.close()
+        fichier.close()
 
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
@@ -617,7 +642,8 @@ def gameloop():
 
         vue.Update(terrain, bucheron, fenetre, lesmechants, arbres, missilGravite, debutjeu)
         if (pygame.time.get_ticks() // 1000 - debutjeu) == 180:
-            finloop()
+            new_score = terrain.getTour().getnbbuche()
+            finloop(new_score)
             pygame.mixer.music.stop()
 
 
