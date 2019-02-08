@@ -27,7 +27,7 @@ class Vue(object):
         self.terre = pygame.image.load('Terre.png')
         self.herbe = pygame.image.load('Terre + Herbe.png')
         self.arbre = pygame.image.load('arbre.png')
-        self.arbrecoupe = pygame.image.load('arbre_coupé.png')
+        self.arbrecoupe = pygame.image.load('arbre_coupe.png')
         self.ressort = [pygame.image.load('Ressort0.png'), pygame.image.load('Ressort1.png'), pygame.image.load('Ressort2.png')]
         self.levitation = [pygame.image.load('Antigravite0.png'), pygame.image.load('Antigravite1.png'), pygame.image.load('Antigravite2.png'), pygame.image.load('Antigravite3.png'), pygame.image.load('Antigravite4.png'), pygame.image.load('Antigravite5.png')]
         self.stopCount = 0
@@ -60,7 +60,7 @@ class Vue(object):
             for j in range(0, len(terrain.getCases()[i]) - 1):
                 if terrain.getCases()[i][j].getType() == tc.typecase.TOUR:
                     for k in range(0, terrain.getTour().getnbbuche()):
-                        fenetre.blit(pygame.image.load('Bûche.png'),(j * 30 + 26 * (k % 5), i * 30 - 20 - 50 * (k // 5)))
+                        fenetre.blit(pygame.image.load('Buche.png'),(j * 30 + 26 * (k % 5), i * 30 - 20 - 50 * (k // 5)))
 
         for i in range(0, len(terrain.getCases()) - 1):
             for j in range(0, len(terrain.getCases()[i]) - 1):
