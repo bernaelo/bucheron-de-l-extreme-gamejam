@@ -54,6 +54,8 @@ class Vue(object):
 
         fenetre.blit(pygame.image.load('background.png'), (0, 0))
 
+        fenetre.blit(pygame.image.load('Panneau.png'), (485, 540))
+
         for i in range(0, len(terrain.getCases()) - 1):
             for j in range(0, len(terrain.getCases()[i]) - 1):
                 if terrain.getCases()[i][j].getType() == tc.typecase.TOUR:
